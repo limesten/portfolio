@@ -6,20 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="./css/output.css" rel="stylesheet" />
     </head>
-    <body class="bg-cat-base text-cat-fg h-screen p-4">
+    <body class="bg-cat-base-light dark:bg-cat-base-dark text-cat-fg-light dark:text-cat-fg-dark h-screen p-4">
         <!-- Hamburger menu button - visible only on mobile -->
         <div class="md:hidden fixed top-4 right-4 z-50">
-            <button id="menuBtn" class="text-cat-fg">
+            <button id="menuBtn" class="text-cat-fg-light dark:text-cat-fg-dark">
                 <div class="w-6 h-5 flex flex-col justify-between">
-                    <span class="w-full h-0.5 bg-cat-fg transform transition-all duration-300"></span>
-                    <span class="w-full h-0.5 bg-cat-fg transform transition-all duration-300"></span>
-                    <span class="w-full h-0.5 bg-cat-fg transform transition-all duration-300"></span>
+                    <span class="w-full h-0.5 bg-cat-fg-light dark:bg-cat-fg-dark transform transition-all duration-300"></span>
+                    <span class="w-full h-0.5 bg-cat-fg-light dark:bg-cat-fg-dark transform transition-all duration-300"></span>
+                    <span class="w-full h-0.5 bg-cat-fg-light dark:bg-cat-fg-dark transform transition-all duration-300"></span>
                 </div>
             </button>
         </div>
 
         <!-- Menu overlay - hidden by default -->
-        <div id="menuOverlay" class="fixed inset-0 bg-cat-base bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div id="menuOverlay" class="fixed inset-0 bg-cat-base-light dark:bg-cat-base-dark bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 md:hidden">
             <div class="p-16 flex flex-col gap-6 text-lg">
                 <a href="#home" class="hover:text-cat-accent">Home</a>
                 <a href="#experience" class="hover:text-cat-accent">Experience</a>
@@ -32,29 +32,29 @@
             <!-- Left column - hidden on mobile -->
             <div class="hidden md:flex w-1/4 h-full flex-col gap-4">
 
-                <div class="h-1/4 border border-cat-fg rounded-md overflow-visible relative">
-                    <div class="absolute -top-2.5 left-2 px-1 bg-cat-base text-lg leading-none">Home</div>
+                <div class="h-1/4 border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                    <div class="absolute -top-3.5 left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-xl leading-none">Home</div>
                     <div class="p-2 mt-2">
 
                     </div>
                 </div>
 
-                <div class="h-1/4 border border-cat-fg rounded-md overflow-visible relative">
-                    <div class="absolute -top-2.5 left-2 px-1 bg-cat-base text-lg leading-none">Experience</div>
+                <div class="h-1/4 border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                    <div class="absolute -top-3.5 left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-xl leading-none">Experience</div>
                     <div class="p-2 mt-2">
 
                     </div>
                 </div>
 
-                <div class="h-1/4 border border-cat-fg rounded-md overflow-visible relative">
-                    <div class="absolute -top-2.5 left-2 px-1 bg-cat-base text-lg leading-none">Projects</div>
+                <div class="h-1/4 border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                    <div class="absolute -top-3.5 left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-xl leading-none">Projects</div>
                     <div class="p-2 mt-2">
 
                     </div>
                 </div>
 
-                <div class="h-1/4 border border-cat-fg rounded-md overflow-visible relative">
-                    <div class="absolute -top-2.5 left-2 px-1 bg-cat-base text-lg leading-none">Skills - Tools</div>
+                <div class="h-1/4 border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                    <div class="absolute -top-3.5 left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-xl leading-none">Skills - Tools</div>
                     <div class="p-2 mt-2">
 
                     </div>
@@ -62,36 +62,29 @@
             </div>
 
             <!-- Right column - full width on mobile -->
-            <div class="w-full md:w-3/4 h-full border border-cat-fg rounded-md overflow-visible relative">
-                <div class="absolute -top-3.5 left-2 px-1 bg-cat-base text-xl leading-none">Preview</div>
-                <div class="p-2 mt-2">
+            <div class="w-full md:w-3/4 h-full border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                <div class="absolute -top-3.5 left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-xl leading-none">Preview</div>
+                
+                <!-- Theme toggle button - new position -->
+                <div class="absolute top-2 right-2">
+                    <button id="themeToggle" class="text-cat-fg-light dark:text-cat-fg-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Sun icon -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Moon icon -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                </div>
 
+                <div class="p-2 mt-2">
+                    <!-- Content goes here -->
                 </div>
             </div>
         </div>
 
-        <script>
-            const menuBtn = document.getElementById('menuBtn');
-            const menuOverlay = document.getElementById('menuOverlay');
-            let isMenuOpen = false;
-
-            menuBtn.addEventListener('click', () => {
-                isMenuOpen = !isMenuOpen;
-                
-                // Animate hamburger to X
-                const spans = menuBtn.querySelectorAll('span');
-                if (isMenuOpen) {
-                    spans[0].classList.add('rotate-45', 'translate-y-2');
-                    spans[1].classList.add('opacity-0');
-                    spans[2].classList.add('-rotate-45', '-translate-y-2');
-                    menuOverlay.classList.remove('translate-x-full');
-                } else {
-                    spans[0].classList.remove('rotate-45', 'translate-y-2');
-                    spans[1].classList.remove('opacity-0');
-                    spans[2].classList.remove('-rotate-45', '-translate-y-2');
-                    menuOverlay.classList.add('translate-x-full');
-                }
-            });
-        </script>
+        <script src="./js/main.js"></script>
     </body>
 </html>
