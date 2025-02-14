@@ -45,4 +45,50 @@ themeToggle.addEventListener('click', () => {
     } else {
         localStorage.theme = 'light';
     }
+});
+
+// List item selection functionality
+const experienceSection = document.querySelector('.Experience');
+const experienceItems = document.querySelectorAll('[data-index]');
+
+experienceItems.forEach(item => {
+    item.addEventListener('click', () => {
+        // Remove selected class from all items
+        experienceItems.forEach(i => i.classList.remove('selected'));
+        // Add selected class to clicked item
+        item.classList.add('selected');
+        // Update counter
+        const counter = item.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
+        if (counter) {
+            counter.textContent = item.dataset.index;
+        }
+    });
+});
+
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    const selectedItem = document.querySelector('.selected');
+    if (!selectedItem) return;
+
+    const currentIndex = parseInt(selectedItem.dataset.index);
+    let nextIndex;
+
+    switch(e.key) {
+        case 'ArrowUp':
+        case 'k':
+            nextIndex = Math.max(1, currentIndex - 1);
+            break;
+        case 'ArrowDown':
+        case 'j':
+            nextIndex = Math.min(experienceItems.length, currentIndex + 1);
+            break;
+        default:
+            return;
+    }
+
+    const nextItem = document.querySelector(`[data-index="${nextIndex}"]`);
+    if (nextItem) {
+        nextItem.click();
+        nextItem.scrollIntoView({ block: 'nearest' });
+    }
 }); 

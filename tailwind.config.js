@@ -22,5 +22,28 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        function({ addUtilities }) {
+            addUtilities({
+                '.scrollbar-custom': {
+                    '&::-webkit-scrollbar': {
+                        width: '8px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        background: 'transparent',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        background: 'rgb(76 79 105 / 0.2)',
+                        borderRadius: '4px',
+                    },
+                    '.dark &::-webkit-scrollbar-thumb': {
+                        background: 'rgb(205 214 244 / 0.2)',
+                    },
+                },
+                '.selected': {
+                    '@apply bg-cat-fg-light/20 dark:bg-cat-fg-dark/20': {},
+                },
+            });
+        },
+    ],
 };
