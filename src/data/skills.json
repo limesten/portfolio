@@ -1,0 +1,88 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "React",
+      "icon": "react.svg",
+      "level": "Expert",
+      "description": "Extensive experience building complex web applications with React and its ecosystem.",
+      "highlights": [
+        "Redux for state management",
+        "React Router for navigation",
+        "Custom hooks and components",
+        "Performance optimization"
+      ],
+      "years": 4
+    },
+    {
+      "id": 2,
+      "name": "TypeScript",
+      "icon": "ts.svg",
+      "level": "Expert",
+      "description": "Strong advocate for TypeScript in all JavaScript projects for better maintainability and type safety.",
+      "highlights": [
+        "Advanced type system features",
+        "Generic types",
+        "Custom type definitions",
+        "Integration with build tools"
+      ],
+      "years": 3
+    },
+    {
+      "id": 3,
+      "name": "Node.js",
+      "icon": "node.svg",
+      "level": "Advanced",
+      "description": "Proficient in building scalable backend services and APIs with Node.js.",
+      "highlights": [
+        "Express.js framework",
+        "RESTful API design",
+        "Database integration",
+        "Authentication & Authorization"
+      ],
+      "years": 4
+    },
+    {
+      "id": 4,
+      "name": "AWS",
+      "icon": "aws.svg",
+      "level": "Intermediate",
+      "description": "Experience with various AWS services for building and deploying cloud applications.",
+      "highlights": [
+        "EC2 and ECS",
+        "S3 and CloudFront",
+        "Lambda functions",
+        "API Gateway"
+      ],
+      "years": 2
+    },
+    {
+      "id": 5,
+      "name": "PostgreSQL",
+      "icon": "psql.svg",
+      "level": "Advanced",
+      "description": "Extensive experience with PostgreSQL for complex data modeling and optimization.",
+      "highlights": [
+        "Performance tuning",
+        "Complex queries",
+        "Indexing strategies",
+        "Data modeling"
+      ],
+      "years": 3
+    },
+    {
+      "id": 6,
+      "name": "Git",
+      "icon": "git.svg",
+      "level": "Expert",
+      "description": "Advanced knowledge of Git version control and collaboration workflows.",
+      "highlights": [
+        "Branch management",
+        "Merge strategies",
+        "Git hooks",
+        "CI/CD integration"
+      ],
+      "years": 5
+    }
+  ]
+} 

@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Senior Developer",
+      "company": "TechCorp",
+      "period": "2021 - Present",
+      "description": "Led development of cloud-native applications using modern technologies. Mentored junior developers and established best practices.",
+      "highlights": [
+        "Architected and implemented microservices using Node.js and TypeScript",
+        "Reduced deployment time by 60% through CI/CD pipeline optimization",
+        "Led a team of 5 developers on a major platform migration project"
+      ],
+      "technologies": ["TypeScript", "Node.js", "AWS", "Docker", "React"]
+    },
+    {
+      "id": 2,
+      "title": "Full Stack Developer",
+      "company": "WebSolutions",
+      "period": "2019 - 2021",
+      "description": "Developed and maintained full-stack web applications for various clients in the e-commerce sector.",
+      "highlights": [
+        "Built responsive web applications using React and Node.js",
+        "Implemented secure payment processing systems",
+        "Optimized database queries resulting in 40% faster load times"
+      ],
+      "technologies": ["React", "Node.js", "PostgreSQL", "Redis", "AWS"]
+    },
+    {
+      "id": 3,
+      "title": "Frontend Developer",
+      "company": "DesignStudio",
+      "period": "2018 - 2019",
+      "description": "Created modern, responsive user interfaces for client websites and web applications.",
+      "highlights": [
+        "Developed pixel-perfect implementations of designer mockups",
+        "Improved site performance scores by 25%",
+        "Implemented automated testing reducing bug reports by 30%"
+      ],
+      "technologies": ["JavaScript", "React", "SASS", "Jest", "Webpack"]
+    }
+  ]
+} 

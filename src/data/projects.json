@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Portfolio Website",
+      "description": "A modern, responsive portfolio website built with a terminal-like interface.",
+      "highlights": [
+        "Implemented dark/light mode with Catppuccin theme",
+        "Built with HTML, Tailwind CSS, and vanilla JavaScript",
+        "Mobile-responsive design with hamburger menu"
+      ],
+      "technologies": ["HTML", "JavaScript", "Tailwind CSS"],
+      "github": "https://github.com/username/portfolio",
+      "live": "https://portfolio.example.com"
+    },
+    {
+      "id": 2,
+      "title": "E-commerce Platform",
+      "description": "A full-featured e-commerce platform with real-time inventory management.",
+      "highlights": [
+        "Implemented secure payment processing with Stripe",
+        "Real-time inventory updates using WebSocket",
+        "Admin dashboard for order management"
+      ],
+      "technologies": ["React", "Node.js", "PostgreSQL", "WebSocket"],
+      "github": "https://github.com/username/ecommerce",
+      "live": "https://shop.example.com"
+    },
+    {
+      "id": 3,
+      "title": "Task Management App",
+      "description": "A collaborative task management application with real-time updates.",
+      "highlights": [
+        "Real-time collaboration features",
+        "Drag-and-drop task organization",
+        "Email notification system"
+      ],
+      "technologies": ["React", "Firebase", "Material-UI"],
+      "github": "https://github.com/username/taskmanager",
+      "live": "https://tasks.example.com"
+    },
+    {
+      "id": 4,
+      "title": "Weather Dashboard",
+      "description": "A weather dashboard that displays current and forecasted weather data.",
+      "highlights": [
+        "Integration with OpenWeather API",
+        "Location-based weather updates",
+        "Interactive weather maps"
+      ],
+      "technologies": ["JavaScript", "OpenWeather API", "Chart.js"],
+      "github": "https://github.com/username/weather",
+      "live": "https://weather.example.com"
+    }
+  ]
+} 
