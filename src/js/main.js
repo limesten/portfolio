@@ -54,11 +54,21 @@ const projectItems = document.querySelectorAll('.Projects [data-index]');
 
 // Function to handle item selection
 function handleItemSelection(items, item) {
-    // Remove selected class from all items
-    items.forEach(i => i.classList.remove('selected'));
+    // Remove selected class from all items in current section and reset their counters
+    items.forEach(i => {
+        if (i.classList.contains('selected')) {
+            i.classList.remove('selected');
+            // Reset counter when removing selection
+            const sectionCounter = i.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
+            if (sectionCounter) {
+                sectionCounter.textContent = '1';
+            }
+        }
+    });
+    
     // Add selected class to clicked item
     item.classList.add('selected');
-    // Update counter
+    // Update counter for current section
     const counter = item.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
     if (counter) {
         counter.textContent = item.dataset.index;
