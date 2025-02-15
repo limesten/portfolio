@@ -51,10 +51,58 @@ async function loadSectionData() {
 // Load data when the page loads
 loadSectionData();
 
+// Function to display home content
+function displayHomeContent() {
+    const mainSection = document.querySelector('.Preview .p-2');
+    mainSection.innerHTML = `
+        <div class="font-mono">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+            </div>
+            <div class="mb-4">
+                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
+            </div>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
+            </div>
+            <div>
+                I specialize in building modern web applications with a focus on clean code and user experience.
+                Currently working on exciting projects involving React, Node.js, and cloud technologies.
+            </div>
+        </div>
+    `;
+}
+
+// Show home content by default when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    displayHomeContent();
+    // Add selected state to home section container
+    const homeContainer = document.querySelector('.Home').closest('.border');
+    if (homeContainer) {
+        homeContainer.style.borderColor = 'var(--cat-orange)';
+        // Set initial orange color for Home title
+        const homeTitle = homeContainer.querySelector('.absolute');
+        if (homeTitle) {
+            homeTitle.style.color = 'var(--cat-orange)';
+        }
+    }
+});
+
 // Main section update
 function updateMainContent(section, itemId) {
     const mainSection = document.querySelector('.Preview .p-2');
-    if (!mainSection || !sectionData[section]) return;
+    if (!mainSection) return;
+    
+    if (section === 'home') {
+        displayHomeContent();
+        return;
+    }
+
+    if (!sectionData[section]) return;
 
     const item = sectionData[section].items.find(i => i.id === itemId);
     if (!item) return;
@@ -145,38 +193,69 @@ function updateMainContent(section, itemId) {
 
 // List item selection functionality
 function handleItemSelection(items, item, section) {
-    // Remove selected class from ALL items in ALL sections
+    // Remove selected class and border color from ALL sections and items
+    document.querySelectorAll('.border').forEach(i => {
+        i.style.borderColor = '';
+        // Reset all section titles to default color
+        const title = i.querySelector('.absolute');
+        if (title) {
+            title.style.color = '';
+        }
+    });
     document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
         if (i.classList.contains('selected')) {
             i.classList.remove('selected');
         }
     });
     
-    // Add selected class to clicked item
-    item.classList.add('selected');
-    
-    // Update counter for current section
-    const currentSection = item.closest('.font-mono');
-    const counter = currentSection.querySelector('.list-index .text-cat-peach-light');
-    if (counter) {
-        counter.textContent = item.dataset.index;
-    }
-    
-    // Update preview section
-    updateMainContent(section, parseInt(item.dataset.index));
-    
-    // Reset counters in other sections to 1
-    document.querySelectorAll('.font-mono').forEach(section => {
-        if (section !== currentSection) {
-            const sectionCounter = section.querySelector('.list-index .text-cat-peach-light');
-            if (sectionCounter) {
-                sectionCounter.textContent = '1';
+    if (section === 'home') {
+        // Add border color to home section container
+        const homeContainer = item.closest('.border');
+        if (homeContainer) {
+            homeContainer.style.borderColor = 'var(--cat-orange)';
+            // Change the Home title color to orange
+            const homeTitle = homeContainer.querySelector('.absolute');
+            if (homeTitle) {
+                homeTitle.style.color = 'var(--cat-orange)';
             }
         }
-    });
+        // Update main section for home
+        updateMainContent('home');
+    } else {
+        // Add selected class to clicked item
+        item.classList.add('selected');
+        
+        // Update counter for current section
+        const currentSection = item.closest('.font-mono');
+        const counter = currentSection.querySelector('.list-index .text-cat-peach-light');
+        if (counter) {
+            counter.textContent = item.dataset.index;
+        }
+        
+        // Update main section
+        updateMainContent(section, parseInt(item.dataset.index));
+        
+        // Reset counters in other sections to 1
+        document.querySelectorAll('.font-mono').forEach(section => {
+            if (section !== currentSection) {
+                const sectionCounter = section.querySelector('.list-index .text-cat-peach-light');
+                if (sectionCounter) {
+                    sectionCounter.textContent = '1';
+                }
+            }
+        });
+    }
 }
 
 // Add click event listeners
+document.querySelector('.Home').addEventListener('click', () => {
+    handleItemSelection(
+        null,
+        document.querySelector('.Home'),
+        'home'
+    );
+});
+
 document.querySelectorAll('.Experience [data-index]').forEach(item => {
     item.addEventListener('click', () => {
         handleItemSelection(
@@ -260,30 +339,31 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         btn.classList.add('active');
         btn.querySelector('span:last-child').classList.add('underline');
 
+        // Remove border color, selected state, and title colors from all sections and items
+        document.querySelectorAll('.border').forEach(i => {
+            i.style.borderColor = '';
+            const sectionTitle = i.querySelector('.absolute');
+            if (sectionTitle) {
+                sectionTitle.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
+            }
+        });
+        document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
+            if (i.classList.contains('selected')) {
+                i.classList.remove('selected');
+            }
+        });
+
         if (section === 'home') {
-            // For home, directly update the main section without showing drawer
-            const mainSection = document.querySelector('.Preview .p-2');
-            mainSection.innerHTML = `
-                <div class="font-mono">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                        <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
-                    </div>
-                    <div class="mb-4">
-                        Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
-                    </div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                        <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
-                    </div>
-                    <div>
-                        I specialize in building modern web applications with a focus on clean code and user experience.
-                        Currently working on exciting projects involving React, Node.js, and cloud technologies.
-                    </div>
-                </div>
-            `;
+            displayHomeContent();
+            // Add border color and title color to home section container
+            const homeContainer = document.querySelector('.Home').closest('.border');
+            if (homeContainer) {
+                homeContainer.style.borderColor = 'var(--cat-orange)';
+                const homeTitle = homeContainer.querySelector('.absolute');
+                if (homeTitle) {
+                    homeTitle.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                }
+            }
             // Close drawer if it's open
             mobileDrawer.classList.add('translate-y-full');
         } else {
