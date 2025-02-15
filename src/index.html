@@ -27,7 +27,7 @@
             }
         </script>
     </head>
-    <body class="bg-cat-base-light dark:bg-cat-base-dark text-cat-fg-light dark:text-cat-fg-dark h-screen p-4 pb-24 md:pb-4">
+    <body class="bg-cat-base-light dark:bg-cat-base-dark text-cat-fg-light dark:text-cat-fg-dark h-screen p-4 pb-32 md:p-4">
         <div class="flex w-full h-full gap-4">
             <!-- Left column - hidden on mobile -->
             <div class="hidden md:flex w-1/4 h-full flex-col gap-4">
@@ -176,43 +176,52 @@
         </div>
 
         <!-- Mobile Bottom Navigation -->
-        <div class="fixed bottom-0 left-0 right-0 bg-cat-base-light dark:bg-cat-base-dark border-t border-cat-fg-light dark:border-cat-fg-dark md:hidden">
-            <div class="flex justify-around p-4">
-                <button class="mobile-nav-btn" data-section="home">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">home</span>
-                </button>
-                <button class="mobile-nav-btn" data-section="experience">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">exp</span>
-                </button>
-                <button class="mobile-nav-btn" data-section="projects">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">proj</span>
-                </button>
-                <button class="mobile-nav-btn" data-section="skills">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">skills</span>
-                </button>
+        <div class="fixed bottom-0 left-0 right-0 p-4 md:hidden">
+            <div class="bg-cat-base-light dark:bg-cat-base-dark border border-cat-fg-light dark:border-cat-fg-dark rounded-md">
+                <div class="flex justify-around items-center p-4 font-mono">
+                    <div class="flex items-center gap-4">
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">❯</span>
+                        <div class="flex gap-4">
+                            <button class="mobile-nav-btn hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 rounded px-2 py-1 transition-colors" data-section="home">
+                                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                                <span class="text-cat-green-light dark:text-cat-green-dark">home</span>
+                            </button>
+                            <button class="mobile-nav-btn hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 rounded px-2 py-1 transition-colors" data-section="experience">
+                                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                                <span class="text-cat-green-light dark:text-cat-green-dark">exp</span>
+                            </button>
+                            <button class="mobile-nav-btn hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 rounded px-2 py-1 transition-colors" data-section="projects">
+                                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                                <span class="text-cat-green-light dark:text-cat-green-dark">proj</span>
+                            </button>
+                            <button class="mobile-nav-btn hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 rounded px-2 py-1 transition-colors" data-section="skills">
+                                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                                <span class="text-cat-green-light dark:text-cat-green-dark">skills</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Mobile Bottom Drawer -->
-        <div id="mobileDrawer" class="fixed bottom-0 left-0 right-0 bg-cat-base-light dark:bg-cat-base-dark border-t border-cat-fg-light dark:border-cat-fg-dark transform translate-y-full transition-transform duration-300 md:hidden">
-            <div class="p-4">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="text-xl">
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                        <span id="drawerTitle" class="text-cat-green-light dark:text-cat-green-dark">section</span>
+        <div id="mobileDrawer" class="fixed bottom-0 left-0 right-0 p-4 transform translate-y-full transition-transform duration-300 md:hidden">
+            <div class="bg-cat-base-light dark:bg-cat-base-dark border border-cat-fg-light dark:border-cat-fg-dark rounded-md">
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-xl">
+                            <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                            <span id="drawerTitle" class="text-cat-green-light dark:text-cat-green-dark">section</span>
+                        </div>
+                        <button id="drawerClose" class="text-cat-fg-light dark:text-cat-fg-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
-                    <button id="drawerClose" class="text-cat-fg-light dark:text-cat-fg-dark">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <div id="drawerContent" class="max-h-[50vh] overflow-y-auto scrollbar-custom">
-                    <!-- Content will be dynamically inserted here -->
+                    <div id="drawerContent" class="max-h-[50vh] overflow-y-auto scrollbar-custom">
+                        <!-- Content will be dynamically inserted here -->
+                    </div>
                 </div>
             </div>
         </div>

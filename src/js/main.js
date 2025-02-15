@@ -362,9 +362,11 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         // Add active state to button
         document.querySelectorAll('.mobile-nav-btn').forEach(b => {
             b.classList.remove('active');
+            b.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
             b.querySelector('span:last-child').classList.remove('underline');
         });
         btn.classList.add('active');
+        btn.classList.add('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
         btn.querySelector('span:last-child').classList.add('underline');
 
         if (section === 'home') {
@@ -413,6 +415,7 @@ drawerClose.addEventListener('click', () => {
     // Remove active states
     document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         btn.classList.remove('active');
+        btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
         btn.querySelector('span:last-child').classList.remove('underline');
     });
 });
@@ -459,6 +462,7 @@ function updateDrawerContent(section) {
             // Remove active states from mobile nav buttons
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 btn.classList.remove('active');
+                btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
                 btn.querySelector('span:last-child').classList.remove('underline');
             });
         });
