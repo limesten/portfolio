@@ -54,25 +54,34 @@ const projectItems = document.querySelectorAll('.Projects [data-index]');
 
 // Function to handle item selection
 function handleItemSelection(items, item) {
-    // Remove selected class from all items in current section and reset their counters
+    const currentSection = item.closest('.font-mono');
+    
+    // Remove selected class from all items in current section
     items.forEach(i => {
         if (i.classList.contains('selected')) {
             i.classList.remove('selected');
-            // Reset counter when removing selection
-            const sectionCounter = i.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
-            if (sectionCounter) {
-                sectionCounter.textContent = '1';
-            }
         }
     });
     
     // Add selected class to clicked item
     item.classList.add('selected');
+    
     // Update counter for current section
-    const counter = item.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
+    const counter = currentSection.querySelector('.list-index .text-cat-peach-light');
     if (counter) {
         counter.textContent = item.dataset.index;
     }
+    
+    // Check all sections and reset counters where there are no selected items
+    document.querySelectorAll('.font-mono').forEach(section => {
+        if (section !== currentSection) {
+            const hasSelectedItem = section.querySelector('.selected');
+            const sectionCounter = section.querySelector('.list-index .text-cat-peach-light');
+            if (!hasSelectedItem && sectionCounter) {
+                sectionCounter.textContent = '1';
+            }
+        }
+    });
 }
 
 experienceItems.forEach(item => {
