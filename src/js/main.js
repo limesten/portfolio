@@ -201,13 +201,14 @@ function handleItemSelection(items, item, section) {
         if (title) {
             title.style.color = '';
         }
-        // Reset all counter colors
+        // Reset all counter colors to default foreground color
         const counter = i.querySelector('.list-index');
         if (counter) {
-            counter.querySelectorAll('span').forEach(span => {
-                span.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
-                span.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
-            });
+            counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+            const currentCounter = counter.querySelector('span:first-child');
+            if (currentCounter) {
+                currentCounter.textContent = '1';
+            }
         }
     });
     document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
@@ -244,19 +245,15 @@ function handleItemSelection(items, item, section) {
             if (sectionTitle) {
                 sectionTitle.style.color = 'var(--cat-orange)';
             }
-            // Change counter color to orange
+            // Change counter color to peach ONLY for selected section
             const counter = sectionContainer.querySelector('.list-index');
             if (counter) {
-                counter.querySelectorAll('span').forEach(span => {
-                    span.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                    span.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
-                });
+                counter.querySelector('p').classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                const currentCounter = counter.querySelector('span:first-child');
+                if (currentCounter) {
+                    currentCounter.textContent = item.dataset.index;
+                }
             }
-        }
-        
-        const counter = currentSection.querySelector('.list-index .text-cat-orange-light, .list-index .text-cat-peach-light');
-        if (counter) {
-            counter.textContent = item.dataset.index;
         }
         
         // Update main section
@@ -265,9 +262,13 @@ function handleItemSelection(items, item, section) {
         // Reset counters in other sections to 1
         document.querySelectorAll('.font-mono').forEach(section => {
             if (section !== currentSection) {
-                const sectionCounter = section.querySelector('.list-index .text-cat-orange-light, .list-index .text-cat-peach-light');
-                if (sectionCounter) {
-                    sectionCounter.textContent = '1';
+                const counter = section.querySelector('.list-index');
+                if (counter) {
+                    counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                    const currentCounter = counter.querySelector('span:first-child');
+                    if (currentCounter) {
+                        currentCounter.textContent = '1';
+                    }
                 }
             }
         });
@@ -376,10 +377,7 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             // Reset all counter colors
             const counter = i.querySelector('.list-index');
             if (counter) {
-                counter.querySelectorAll('span').forEach(span => {
-                    span.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
-                    span.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                });
+                counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
             }
         });
         document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
@@ -405,7 +403,7 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             // For other sections, show drawer and update content
             drawerTitle.textContent = section;
             updateDrawerContent(section);
-            // Add orange highlighting to the selected section
+            // Add peach highlighting to the selected section
             const sectionContainer = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`).closest('.border');
             if (sectionContainer) {
                 sectionContainer.style.borderColor = 'var(--cat-orange)';
@@ -413,13 +411,14 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 if (sectionTitle) {
                     sectionTitle.style.color = 'var(--cat-orange)';
                 }
-                // Change counter color to orange
+                // Change counter color to peach ONLY for selected section
                 const counter = sectionContainer.querySelector('.list-index');
                 if (counter) {
-                    counter.querySelectorAll('span').forEach(span => {
-                        span.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                        span.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
-                    });
+                    counter.querySelector('p').classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                    const currentCounter = counter.querySelector('span:first-child');
+                    if (currentCounter) {
+                        currentCounter.textContent = item.dataset.index;
+                    }
                 }
             }
             mobileDrawer.classList.remove('translate-y-full');
