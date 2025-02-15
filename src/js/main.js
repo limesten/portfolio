@@ -50,24 +50,40 @@ themeToggle.addEventListener('click', () => {
 // List item selection functionality
 const experienceSection = document.querySelector('.Experience');
 const experienceItems = document.querySelectorAll('[data-index]');
+const projectItems = document.querySelectorAll('.Projects [data-index]');
+
+// Function to handle item selection
+function handleItemSelection(items, item) {
+    // Remove selected class from all items
+    items.forEach(i => i.classList.remove('selected'));
+    // Add selected class to clicked item
+    item.classList.add('selected');
+    // Update counter
+    const counter = item.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
+    if (counter) {
+        counter.textContent = item.dataset.index;
+    }
+}
 
 experienceItems.forEach(item => {
     item.addEventListener('click', () => {
-        // Remove selected class from all items
-        experienceItems.forEach(i => i.classList.remove('selected'));
-        // Add selected class to clicked item
-        item.classList.add('selected');
-        // Update counter
-        const counter = item.closest('.font-mono').querySelector('.text-right .text-cat-peach-light');
-        if (counter) {
-            counter.textContent = item.dataset.index;
-        }
+        handleItemSelection(experienceItems, item);
+    });
+});
+
+projectItems.forEach(item => {
+    item.addEventListener('click', () => {
+        handleItemSelection(projectItems, item);
     });
 });
 
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
-    const selectedItem = document.querySelector('.selected');
+    const activeSection = document.activeElement.closest('.Experience, .Projects');
+    if (!activeSection) return;
+
+    const items = activeSection.querySelectorAll('[data-index]');
+    const selectedItem = activeSection.querySelector('.selected');
     if (!selectedItem) return;
 
     const currentIndex = parseInt(selectedItem.dataset.index);
@@ -80,13 +96,13 @@ document.addEventListener('keydown', (e) => {
             break;
         case 'ArrowDown':
         case 'j':
-            nextIndex = Math.min(experienceItems.length, currentIndex + 1);
+            nextIndex = Math.min(items.length, currentIndex + 1);
             break;
         default:
             return;
     }
 
-    const nextItem = document.querySelector(`[data-index="${nextIndex}"]`);
+    const nextItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
     if (nextItem) {
         nextItem.click();
         nextItem.scrollIntoView({ block: 'nearest' });
