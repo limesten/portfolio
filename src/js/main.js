@@ -367,25 +367,6 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         btn.classList.add('active');
         btn.querySelector('span:last-child').classList.add('underline');
 
-        // Remove border color, selected state, and title colors from all sections and items
-        document.querySelectorAll('.border').forEach(i => {
-            i.style.borderColor = '';
-            const sectionTitle = i.querySelector('.absolute');
-            if (sectionTitle) {
-                sectionTitle.style.color = '';
-            }
-            // Reset all counter colors
-            const counter = i.querySelector('.list-index');
-            if (counter) {
-                counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
-            }
-        });
-        document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
-            if (i.classList.contains('selected')) {
-                i.classList.remove('selected');
-            }
-        });
-
         if (section === 'home') {
             displayHomeContent();
             // Add border color and title color to home section container
@@ -402,8 +383,11 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         } else {
             // For other sections, show drawer and update content
             drawerTitle.textContent = section;
+            // Remove the translate-y-full class to show the drawer
+            mobileDrawer.classList.remove('translate-y-full');
+            // Update drawer content
             updateDrawerContent(section);
-            // Add peach highlighting to the selected section
+            // Add orange highlighting to the selected section
             const sectionContainer = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`).closest('.border');
             if (sectionContainer) {
                 sectionContainer.style.borderColor = 'var(--cat-orange)';
@@ -411,18 +395,15 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 if (sectionTitle) {
                     sectionTitle.style.color = 'var(--cat-orange)';
                 }
-                // Change counter color to peach ONLY for selected section
-                const counter = sectionContainer.querySelector('.list-index');
-                if (counter) {
-                    counter.querySelector('p').classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                    const currentCounter = counter.querySelector('span:first-child');
-                    if (currentCounter) {
-                        currentCounter.textContent = item.dataset.index;
-                    }
-                }
             }
-            mobileDrawer.classList.remove('translate-y-full');
         }
+
+        // Remove selected state from all items
+        document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
+            if (i.classList.contains('selected')) {
+                i.classList.remove('selected');
+            }
+        });
     });
 });
 
@@ -443,9 +424,9 @@ function updateDrawerContent(section) {
     const items = sectionData[section].items;
     let content = '<div class="space-y-2 font-mono">';
     
-    items.forEach(item => {
+    items.forEach((item, index) => {
         content += `
-            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-id="${item.id}">
+            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-index="${index + 1}">
                 ${section === 'skills' ? `<img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />` : ''}
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
                 ${section === 'experience' ? `
@@ -462,9 +443,10 @@ function updateDrawerContent(section) {
     // Add click handlers for items
     drawerContent.querySelectorAll('.mobile-item').forEach(item => {
         item.addEventListener('click', () => {
+            const itemIndex = item.dataset.index;
             // Update selected state in the main section
             const sectionElement = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`);
-            const targetItem = sectionElement.querySelector(`[data-index="${item.dataset.id}"]`);
+            const targetItem = sectionElement.querySelector(`[data-index="${itemIndex}"]`);
             if (targetItem) {
                 handleItemSelection(
                     document.querySelectorAll(`.${section.charAt(0).toUpperCase() + section.slice(1)} [data-index]`),
@@ -474,6 +456,11 @@ function updateDrawerContent(section) {
             }
             // Close drawer after selection
             mobileDrawer.classList.add('translate-y-full');
+            // Remove active states from mobile nav buttons
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.querySelector('span:last-child').classList.remove('underline');
+            });
         });
     });
 } 
