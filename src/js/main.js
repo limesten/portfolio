@@ -252,15 +252,6 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         const section = btn.dataset.section;
         activeSection = section;
         
-        // Update drawer title
-        drawerTitle.textContent = section;
-        
-        // Update drawer content based on section
-        updateDrawerContent(section);
-        
-        // Show drawer
-        mobileDrawer.classList.remove('translate-y-full');
-        
         // Add active state to button
         document.querySelectorAll('.mobile-nav-btn').forEach(b => {
             b.classList.remove('active');
@@ -268,6 +259,39 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         });
         btn.classList.add('active');
         btn.querySelector('span:last-child').classList.add('underline');
+
+        if (section === 'home') {
+            // For home, directly update the preview without showing drawer
+            const previewSection = document.querySelector('.Preview .p-2');
+            previewSection.innerHTML = `
+                <div class="font-mono">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                        <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+                    </div>
+                    <div class="mb-4">
+                        Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                        <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
+                    </div>
+                    <div>
+                        I specialize in building modern web applications with a focus on clean code and user experience.
+                        Currently working on exciting projects involving React, Node.js, and cloud technologies.
+                    </div>
+                </div>
+            `;
+            // Close drawer if it's open
+            mobileDrawer.classList.add('translate-y-full');
+        } else {
+            // For other sections, show drawer and update content
+            drawerTitle.textContent = section;
+            updateDrawerContent(section);
+            mobileDrawer.classList.remove('translate-y-full');
+        }
     });
 });
 
@@ -283,31 +307,6 @@ drawerClose.addEventListener('click', () => {
 
 // Update drawer content
 function updateDrawerContent(section) {
-    if (section === 'home') {
-        drawerContent.innerHTML = `
-            <div class="space-y-4 font-mono">
-                <div class="flex items-center gap-2">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
-                </div>
-                <div>
-                    Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
-                </div>
-                <div>
-                    I specialize in building modern web applications with a focus on clean code and user experience.
-                    Currently working on exciting projects involving React, Node.js, and cloud technologies.
-                </div>
-            </div>
-        `;
-        return;
-    }
-
     if (!sectionData[section]) return;
 
     const items = sectionData[section].items;
