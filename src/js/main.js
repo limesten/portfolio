@@ -201,6 +201,14 @@ function handleItemSelection(items, item, section) {
         if (title) {
             title.style.color = '';
         }
+        // Reset all counter colors
+        const counter = i.querySelector('.list-index');
+        if (counter) {
+            counter.querySelectorAll('span').forEach(span => {
+                span.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                span.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+            });
+        }
     });
     document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
         if (i.classList.contains('selected')) {
@@ -227,7 +235,26 @@ function handleItemSelection(items, item, section) {
         
         // Update counter for current section
         const currentSection = item.closest('.font-mono');
-        const counter = currentSection.querySelector('.list-index .text-cat-peach-light');
+        const sectionContainer = currentSection.closest('.border');
+        if (sectionContainer) {
+            // Add orange border to section container
+            sectionContainer.style.borderColor = 'var(--cat-orange)';
+            // Change section title to orange
+            const sectionTitle = sectionContainer.querySelector('.absolute');
+            if (sectionTitle) {
+                sectionTitle.style.color = 'var(--cat-orange)';
+            }
+            // Change counter color to orange
+            const counter = sectionContainer.querySelector('.list-index');
+            if (counter) {
+                counter.querySelectorAll('span').forEach(span => {
+                    span.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                    span.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                });
+            }
+        }
+        
+        const counter = currentSection.querySelector('.list-index .text-cat-orange-light, .list-index .text-cat-peach-light');
         if (counter) {
             counter.textContent = item.dataset.index;
         }
@@ -238,7 +265,7 @@ function handleItemSelection(items, item, section) {
         // Reset counters in other sections to 1
         document.querySelectorAll('.font-mono').forEach(section => {
             if (section !== currentSection) {
-                const sectionCounter = section.querySelector('.list-index .text-cat-peach-light');
+                const sectionCounter = section.querySelector('.list-index .text-cat-orange-light, .list-index .text-cat-peach-light');
                 if (sectionCounter) {
                     sectionCounter.textContent = '1';
                 }
@@ -344,7 +371,15 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             i.style.borderColor = '';
             const sectionTitle = i.querySelector('.absolute');
             if (sectionTitle) {
-                sectionTitle.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                sectionTitle.style.color = '';
+            }
+            // Reset all counter colors
+            const counter = i.querySelector('.list-index');
+            if (counter) {
+                counter.querySelectorAll('span').forEach(span => {
+                    span.classList.remove('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                    span.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                });
             }
         });
         document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
@@ -361,7 +396,7 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 homeContainer.style.borderColor = 'var(--cat-orange)';
                 const homeTitle = homeContainer.querySelector('.absolute');
                 if (homeTitle) {
-                    homeTitle.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                    homeTitle.style.color = 'var(--cat-orange)';
                 }
             }
             // Close drawer if it's open
@@ -370,6 +405,23 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             // For other sections, show drawer and update content
             drawerTitle.textContent = section;
             updateDrawerContent(section);
+            // Add orange highlighting to the selected section
+            const sectionContainer = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`).closest('.border');
+            if (sectionContainer) {
+                sectionContainer.style.borderColor = 'var(--cat-orange)';
+                const sectionTitle = sectionContainer.querySelector('.absolute');
+                if (sectionTitle) {
+                    sectionTitle.style.color = 'var(--cat-orange)';
+                }
+                // Change counter color to orange
+                const counter = sectionContainer.querySelector('.list-index');
+                if (counter) {
+                    counter.querySelectorAll('span').forEach(span => {
+                        span.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                        span.classList.add('text-cat-orange-light', 'dark:text-cat-orange-dark');
+                    });
+                }
+            }
             mobileDrawer.classList.remove('translate-y-full');
         }
     });
@@ -411,7 +463,16 @@ function updateDrawerContent(section) {
     // Add click handlers for items
     drawerContent.querySelectorAll('.mobile-item').forEach(item => {
         item.addEventListener('click', () => {
-            updateMainContent(section, parseInt(item.dataset.id));
+            // Update selected state in the main section
+            const sectionElement = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`);
+            const targetItem = sectionElement.querySelector(`[data-index="${item.dataset.id}"]`);
+            if (targetItem) {
+                handleItemSelection(
+                    document.querySelectorAll(`.${section.charAt(0).toUpperCase() + section.slice(1)} [data-index]`),
+                    targetItem,
+                    section
+                );
+            }
             // Close drawer after selection
             mobileDrawer.classList.add('translate-y-full');
         });
