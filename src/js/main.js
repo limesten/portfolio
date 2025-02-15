@@ -1,26 +1,3 @@
-// Menu functionality
-const menuBtn = document.getElementById('menuBtn');
-const menuOverlay = document.getElementById('menuOverlay');
-let isMenuOpen = false;
-
-menuBtn.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-    
-    // Animate hamburger to X
-    const spans = menuBtn.querySelectorAll('span');
-    if (isMenuOpen) {
-        spans[0].classList.add('rotate-45', 'translate-y-2');
-        spans[1].classList.add('opacity-0');
-        spans[2].classList.add('-rotate-45', '-translate-y-2');
-        menuOverlay.classList.remove('translate-x-full');
-    } else {
-        spans[0].classList.remove('rotate-45', 'translate-y-2');
-        spans[1].classList.remove('opacity-0');
-        spans[2].classList.remove('-rotate-45', '-translate-y-2');
-        menuOverlay.classList.add('translate-x-full');
-    }
-});
-
 // Theme functionality
 const themeToggle = document.getElementById('themeToggle');
 
@@ -260,4 +237,104 @@ document.addEventListener('keydown', (e) => {
         nextItem.click();
         nextItem.scrollIntoView({ block: 'nearest' });
     }
-}); 
+});
+
+// Mobile navigation functionality
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerClose = document.getElementById('drawerClose');
+const drawerTitle = document.getElementById('drawerTitle');
+const drawerContent = document.getElementById('drawerContent');
+let activeSection = null;
+
+// Handle mobile navigation button clicks
+document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const section = btn.dataset.section;
+        activeSection = section;
+        
+        // Update drawer title
+        drawerTitle.textContent = section;
+        
+        // Update drawer content based on section
+        updateDrawerContent(section);
+        
+        // Show drawer
+        mobileDrawer.classList.remove('translate-y-full');
+        
+        // Add active state to button
+        document.querySelectorAll('.mobile-nav-btn').forEach(b => {
+            b.classList.remove('active');
+            b.querySelector('span:last-child').classList.remove('underline');
+        });
+        btn.classList.add('active');
+        btn.querySelector('span:last-child').classList.add('underline');
+    });
+});
+
+// Close drawer
+drawerClose.addEventListener('click', () => {
+    mobileDrawer.classList.add('translate-y-full');
+    // Remove active states
+    document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.querySelector('span:last-child').classList.remove('underline');
+    });
+});
+
+// Update drawer content
+function updateDrawerContent(section) {
+    if (section === 'home') {
+        drawerContent.innerHTML = `
+            <div class="space-y-4 font-mono">
+                <div class="flex items-center gap-2">
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                    <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+                </div>
+                <div>
+                    Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+                    <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
+                </div>
+                <div>
+                    I specialize in building modern web applications with a focus on clean code and user experience.
+                    Currently working on exciting projects involving React, Node.js, and cloud technologies.
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    if (!sectionData[section]) return;
+
+    const items = sectionData[section].items;
+    let content = '<div class="space-y-2 font-mono">';
+    
+    items.forEach(item => {
+        content += `
+            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-id="${item.id}">
+                ${section === 'skills' ? `<img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />` : ''}
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
+                ${section === 'experience' ? `
+                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                    <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
+                ` : ''}
+            </button>
+        `;
+    });
+    
+    content += '</div>';
+    drawerContent.innerHTML = content;
+
+    // Add click handlers for items
+    drawerContent.querySelectorAll('.mobile-item').forEach(item => {
+        item.addEventListener('click', () => {
+            updatePreview(section, parseInt(item.dataset.id));
+            // Close drawer after selection
+            mobileDrawer.classList.add('translate-y-full');
+        });
+    });
+} 
