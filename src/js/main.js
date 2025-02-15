@@ -51,10 +51,10 @@ async function loadSectionData() {
 // Load data when the page loads
 loadSectionData();
 
-// Preview section update
-function updatePreview(section, itemId) {
-    const previewSection = document.querySelector('.Preview .p-2');
-    if (!previewSection || !sectionData[section]) return;
+// Main section update
+function updateMainContent(section, itemId) {
+    const mainSection = document.querySelector('.Preview .p-2');
+    if (!mainSection || !sectionData[section]) return;
 
     const item = sectionData[section].items.find(i => i.id === itemId);
     if (!item) return;
@@ -140,7 +140,7 @@ function updatePreview(section, itemId) {
             break;
     }
 
-    previewSection.innerHTML = content;
+    mainSection.innerHTML = content;
 }
 
 // List item selection functionality
@@ -163,7 +163,7 @@ function handleItemSelection(items, item, section) {
     }
     
     // Update preview section
-    updatePreview(section, parseInt(item.dataset.index));
+    updateMainContent(section, parseInt(item.dataset.index));
     
     // Reset counters in other sections to 1
     document.querySelectorAll('.font-mono').forEach(section => {
@@ -261,9 +261,9 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         btn.querySelector('span:last-child').classList.add('underline');
 
         if (section === 'home') {
-            // For home, directly update the preview without showing drawer
-            const previewSection = document.querySelector('.Preview .p-2');
-            previewSection.innerHTML = `
+            // For home, directly update the main section without showing drawer
+            const mainSection = document.querySelector('.Preview .p-2');
+            mainSection.innerHTML = `
                 <div class="font-mono">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
@@ -331,7 +331,7 @@ function updateDrawerContent(section) {
     // Add click handlers for items
     drawerContent.querySelectorAll('.mobile-item').forEach(item => {
         item.addEventListener('click', () => {
-            updatePreview(section, parseInt(item.dataset.id));
+            updateMainContent(section, parseInt(item.dataset.id));
             // Close drawer after selection
             mobileDrawer.classList.add('translate-y-full');
         });
