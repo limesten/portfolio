@@ -8,22 +8,32 @@
         <style>
             :root {
                 --cat-orange: rgb(239, 159, 118);
+                --cat-peach-light: rgb(254, 100, 11);
+                --cat-peach-dark: rgb(250, 179, 135);
             }
+            
+            html.light {
+                --cat-peach-active: var(--cat-peach-light);
+            }
+
+            html.dark {
+                --cat-peach-active: var(--cat-peach-dark);
+            }
+
             @media (prefers-color-scheme: dark) {
-                :root {
-                    --cat-orange: rgb(250, 179, 135);
+                html:not(.light):not(.dark) {
+                    --cat-peach-active: var(--cat-peach-dark);
                 }
-            }
-            .dark {
-                --cat-orange: rgb(250, 179, 135);
             }
         </style>
         <script>
             // Check for dark mode preference immediately to prevent flash
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark')
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
             } else {
-                document.documentElement.classList.remove('dark')
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
             }
         </script>
     </head>

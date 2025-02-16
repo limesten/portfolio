@@ -8,19 +8,23 @@ if (!('theme' in localStorage)) {
 
 if (localStorage.theme === 'dark') {
     document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
 } else {
+    document.documentElement.classList.add('light');
     document.documentElement.classList.remove('dark');
 }
 
 themeToggle.addEventListener('click', () => {
     // Toggle theme
-    document.documentElement.classList.toggle('dark');
-    
-    // Save preference
-    if (document.documentElement.classList.contains('dark')) {
-        localStorage.theme = 'dark';
-    } else {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
         localStorage.theme = 'light';
+    } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
     }
 });
 
@@ -83,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add selected state to home section container
     const homeContainer = document.querySelector('.Home').closest('.border');
     if (homeContainer) {
-        homeContainer.style.borderColor = 'var(--cat-orange)';
-        // Set initial orange color for Home title
+        homeContainer.style.borderColor = 'var(--cat-peach-active)';
+        // Set initial peach color for Home title
         const homeTitle = homeContainer.querySelector('.absolute');
         if (homeTitle) {
-            homeTitle.style.color = 'var(--cat-orange)';
+            homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
         }
     }
 });
@@ -199,7 +203,7 @@ function handleItemSelection(items, item, section) {
         // Reset all section titles to default color
         const title = i.querySelector('.absolute');
         if (title) {
-            title.style.color = '';
+            title.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
         }
         // Reset all counter colors to default foreground color
         const counter = i.querySelector('.list-index');
@@ -221,11 +225,11 @@ function handleItemSelection(items, item, section) {
         // Add border color to home section container
         const homeContainer = item.closest('.border');
         if (homeContainer) {
-            homeContainer.style.borderColor = 'var(--cat-orange)';
-            // Change the Home title color to orange
+            homeContainer.style.borderColor = 'var(--cat-peach-active)';
+            // Change the Home title color to peach
             const homeTitle = homeContainer.querySelector('.absolute');
             if (homeTitle) {
-                homeTitle.style.color = 'var(--cat-orange)';
+                homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
             }
         }
         // Update main section for home
@@ -238,12 +242,12 @@ function handleItemSelection(items, item, section) {
         const currentSection = item.closest('.font-mono');
         const sectionContainer = currentSection.closest('.border');
         if (sectionContainer) {
-            // Add orange border to section container
-            sectionContainer.style.borderColor = 'var(--cat-orange)';
-            // Change section title to orange
+            // Add peach border to section container
+            sectionContainer.style.borderColor = 'var(--cat-peach-active)';
+            // Change section title to peach
             const sectionTitle = sectionContainer.querySelector('.absolute');
             if (sectionTitle) {
-                sectionTitle.style.color = 'var(--cat-orange)';
+                sectionTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
             }
             // Change counter color to peach ONLY for selected section
             const counter = sectionContainer.querySelector('.list-index');
@@ -258,20 +262,6 @@ function handleItemSelection(items, item, section) {
         
         // Update main section
         updateMainContent(section, parseInt(item.dataset.index));
-        
-        // Reset counters in other sections to 1
-        document.querySelectorAll('.font-mono').forEach(section => {
-            if (section !== currentSection) {
-                const counter = section.querySelector('.list-index');
-                if (counter) {
-                    counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                    const currentCounter = counter.querySelector('span:first-child');
-                    if (currentCounter) {
-                        currentCounter.textContent = '1';
-                    }
-                }
-            }
-        });
     }
 }
 
@@ -374,10 +364,10 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             // Add border color and title color to home section container
             const homeContainer = document.querySelector('.Home').closest('.border');
             if (homeContainer) {
-                homeContainer.style.borderColor = 'var(--cat-orange)';
+                homeContainer.style.borderColor = 'var(--cat-peach-active)';
                 const homeTitle = homeContainer.querySelector('.absolute');
                 if (homeTitle) {
-                    homeTitle.style.color = 'var(--cat-orange)';
+                    homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
                 }
             }
             // Close drawer if it's open
@@ -389,13 +379,13 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             mobileDrawer.classList.remove('translate-y-full');
             // Update drawer content
             updateDrawerContent(section);
-            // Add orange highlighting to the selected section
+            // Add peach highlighting to the selected section
             const sectionContainer = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`).closest('.border');
             if (sectionContainer) {
-                sectionContainer.style.borderColor = 'var(--cat-orange)';
+                sectionContainer.style.borderColor = 'var(--cat-peach-active)';
                 const sectionTitle = sectionContainer.querySelector('.absolute');
                 if (sectionTitle) {
-                    sectionTitle.style.color = 'var(--cat-orange)';
+                    sectionTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
                 }
             }
         }
