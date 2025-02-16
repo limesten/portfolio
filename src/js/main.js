@@ -61,7 +61,7 @@ function displayHomeContent() {
     mainSection.innerHTML = `
         <!-- ASCII art section -->
         <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-2 md:py-4">
-            <pre id="ascii-logo" class="inline-block text-cat-peach-light dark:text-cat-peach-dark"></pre>
+            <pre id="ascii-logo" class="inline-block text-cat-fg-light dark:text-cat-fg-dark"></pre>
         </div>
         <!-- Content section -->
         <div class="font-mono mt-2 md:mt-4">
@@ -84,6 +84,59 @@ function displayHomeContent() {
             </div>
         </div>
     `;
+
+    // Load ASCII art
+    fetch('./images/ascii.txt')
+        .then(response => response.text())
+        .then(text => {
+            const asciiLogo = document.getElementById('ascii-logo');
+            if (asciiLogo) {
+                asciiLogo.textContent = text;
+                // Show the ASCII art container and ensure it has the correct scaling classes
+                const asciiContainer = document.querySelector('.ascii-art.Home');
+                if (asciiContainer) {
+                    asciiContainer.classList.remove('hidden');
+                    // Add the scaling classes
+                    asciiContainer.style.fontFamily = "'Fira Mono', monospace";
+                    asciiContainer.style.lineHeight = "1.2";
+                    asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
+                    asciiContainer.style.transformOrigin = "center";
+                    asciiContainer.style.width = "100%";
+                    asciiContainer.style.display = "flex";
+                    asciiContainer.style.justifyContent = "center";
+                    asciiContainer.style.alignItems = "center";
+                    asciiContainer.style.overflow = "hidden";
+
+                    // Add responsive padding based on screen size
+                    if (window.innerWidth <= 640) {
+                        asciiContainer.style.fontSize = "min(1.2vw, 0.4rem)";
+                        asciiContainer.style.padding = "0 0.75rem";
+                    } else if (window.innerWidth <= 768) {
+                        asciiContainer.style.fontSize = "min(1.1vw, 0.45rem)";
+                        asciiContainer.style.padding = "0 1.5rem";
+                    } else if (window.innerWidth <= 1024) {
+                        asciiContainer.style.fontSize = "min(1.2vw, 0.5rem)";
+                        asciiContainer.style.padding = "0 1.5rem";
+                    } else if (window.innerWidth <= 1749) {
+                        asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
+                        asciiContainer.style.padding = "0 0.5rem";
+                    } else {
+                        asciiContainer.style.fontSize = "min(1.6vw, 1rem)";
+                        asciiContainer.style.padding = "0 1rem";
+                    }
+
+                    // Also style the ascii-logo element
+                    asciiLogo.style.display = "block";
+                    asciiLogo.style.whiteSpace = "pre";
+                    asciiLogo.style.maxWidth = "100%";
+                    asciiLogo.style.transformOrigin = "center";
+                    asciiLogo.style.fontSize = "inherit";
+                    asciiLogo.style.textAlign = "center";
+                    asciiLogo.style.padding = "0 2px";
+                }
+            }
+        })
+        .catch(error => console.error('Error loading ASCII art:', error));
 }
 
 // Show home content by default when page loads
@@ -99,22 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
             homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
         }
     }
-
-    // Load ASCII art
-    fetch('./images/ascii.txt')
-        .then(response => response.text())
-        .then(text => {
-            const asciiLogo = document.getElementById('ascii-logo');
-            if (asciiLogo) {
-                asciiLogo.textContent = text;
-                // Show the ASCII art container
-                const asciiContainer = document.querySelector('.ascii-art.Home');
-                if (asciiContainer) {
-                    asciiContainer.classList.remove('hidden');
-                }
-            }
-        })
-        .catch(error => console.error('Error loading ASCII art:', error));
 });
 
 // Main section update
@@ -502,4 +539,27 @@ document.querySelectorAll('.section-button').forEach(button => {
 });
 
 // Show Home section by default
-showSection('Home'); 
+showSection('Home');
+
+// Add window resize listener to update ASCII art scaling
+window.addEventListener('resize', () => {
+    const asciiContainer = document.querySelector('.ascii-art.Home');
+    if (asciiContainer) {
+        if (window.innerWidth <= 640) {
+            asciiContainer.style.fontSize = "min(1.2vw, 0.4rem)";
+            asciiContainer.style.padding = "0 0.75rem";
+        } else if (window.innerWidth <= 768) {
+            asciiContainer.style.fontSize = "min(1.1vw, 0.45rem)";
+            asciiContainer.style.padding = "0 1.5rem";
+        } else if (window.innerWidth <= 1024) {
+            asciiContainer.style.fontSize = "min(1.2vw, 0.5rem)";
+            asciiContainer.style.padding = "0 1.5rem";
+        } else if (window.innerWidth <= 1749) {
+            asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
+            asciiContainer.style.padding = "0 0.5rem";
+        } else {
+            asciiContainer.style.fontSize = "min(1.6vw, 1rem)";
+            asciiContainer.style.padding = "0 1rem";
+        }
+    }
+}); 
