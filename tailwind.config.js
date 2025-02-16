@@ -4,6 +4,10 @@ module.exports = {
     content: ['./src/**/*.{html,js}'],
     theme: {
         extend: {
+            height: {
+                '15p': '15%',
+                '28p': '28.33%',
+            },
             colors: {
                 // Mocha theme (dark)
                 'cat-base-dark': 'rgb(30, 30, 46)',

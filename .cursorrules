@@ -1,0 +1,30 @@
+# PROJECT OVERVIEW
+
+We are building a software developer portfolio website for myself.
+The website is a single page website with a sidebar.
+The sidebar has links to the different sections of the website.
+The sections are:
+- Home
+- Experience
+- Projects
+- Contact
+
+The design for the website is to have a TUI style.
+The website is also mobile responsive, and has a light and dark mode.
+There is website used as reference for the design. The html and css for the reference website is in the `reference` folder.
+
+# TECH STACK
+
+- HTML
+- CSS
+- Tailwind CSS
+- Live Server
+- VSCode
+- catppuccin color palette (latte for light mode and mocha for dark mode)
+
+# GITHUB PUSH PROCESS
+
+- git add .
+- git commit -m "what changed"
+- git push
+
