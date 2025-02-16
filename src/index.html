@@ -180,7 +180,23 @@
                 </div>
 
                 <div class="p-2 mt-2">
-                    <!-- Content will be dynamically inserted here -->
+                    <!-- Main content area -->
+                    <div class="flex-1 md:w-3/4 flex flex-col gap-4">
+                        <!-- Main content -->
+                        <div class="flex-1 border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative hover:border-cat-fg-light dark:hover:border-cat-fg-dark transition-colors">
+                            <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none transition-colors">Main</div>
+                            <div class="p-2 mt-2 font-mono h-full flex flex-col">
+                                <!-- Scrollable content container -->
+                                <div class="flex-1 overflow-y-auto scrollbar-custom">
+                                    <!-- ASCII art section - only visible when Home is selected -->
+                                    <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-4 hidden">
+                                        <pre id="ascii-logo" class="inline-block text-cat-peach-light dark:text-cat-peach-dark"></pre>
+                                    </div>
+                                    <!-- Other content sections go here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

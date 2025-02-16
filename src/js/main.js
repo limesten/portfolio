@@ -59,7 +59,12 @@ loadSectionData();
 function displayHomeContent() {
     const mainSection = document.querySelector('.Preview .p-2');
     mainSection.innerHTML = `
-        <div class="font-mono">
+        <!-- ASCII art section -->
+        <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-2 md:py-4">
+            <pre id="ascii-logo" class="inline-block text-cat-peach-light dark:text-cat-peach-dark"></pre>
+        </div>
+        <!-- Content section -->
+        <div class="font-mono mt-2 md:mt-4">
             <div class="flex items-center gap-2 mb-4">
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
                 <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
@@ -94,6 +99,22 @@ document.addEventListener('DOMContentLoaded', () => {
             homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
         }
     }
+
+    // Load ASCII art
+    fetch('./images/ascii.txt')
+        .then(response => response.text())
+        .then(text => {
+            const asciiLogo = document.getElementById('ascii-logo');
+            if (asciiLogo) {
+                asciiLogo.textContent = text;
+                // Show the ASCII art container
+                const asciiContainer = document.querySelector('.ascii-art.Home');
+                if (asciiContainer) {
+                    asciiContainer.classList.remove('hidden');
+                }
+            }
+        })
+        .catch(error => console.error('Error loading ASCII art:', error));
 });
 
 // Main section update
@@ -457,4 +478,28 @@ function updateDrawerContent(section) {
             });
         });
     });
-} 
+}
+
+// Show/hide content based on section selection
+function showSection(sectionName) {
+    // Hide all sections first
+    document.querySelectorAll('[class*=" Home"], [class^="Home"]').forEach(el => {
+        el.classList.add('hidden');
+    });
+    
+    // Show selected section
+    document.querySelectorAll('.' + sectionName).forEach(el => {
+        el.classList.remove('hidden');
+    });
+}
+
+// Add click event listeners to section buttons
+document.querySelectorAll('.section-button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const sectionName = e.target.closest('button').dataset.section;
+        showSection(sectionName);
+    });
+});
+
+// Show Home section by default
+showSection('Home'); 
