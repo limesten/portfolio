@@ -57,14 +57,14 @@ loadSectionData();
 
 // Function to display home content
 function displayHomeContent() {
-    const mainSection = document.querySelector('.Preview .p-2');
+    const mainSection = document.querySelector('[data-content-container="main"]');
     mainSection.innerHTML = `
         <!-- ASCII art section -->
         <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-2 md:py-4">
             <pre id="ascii-logo" class="inline-block text-cat-fg-light dark:text-cat-fg-dark"></pre>
         </div>
         <!-- Content section -->
-        <div class="font-mono mt-2 md:mt-4">
+        <div class="mt-2 md:mt-4">
             <div class="flex items-center gap-2 mb-4">
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
                 <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Main section update
 function updateMainContent(section, itemId) {
-    const mainSection = document.querySelector('.Preview .p-2');
+    const mainSection = document.querySelector('[data-content-container="main"]');
     if (!mainSection) return;
     
     if (section === 'home') {
@@ -174,7 +174,7 @@ function updateMainContent(section, itemId) {
     switch(section) {
         case 'experience':
             content = `
-                <div class="font-mono">
+                <div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
                         <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
@@ -202,7 +202,7 @@ function updateMainContent(section, itemId) {
 
         case 'projects':
             content = `
-                <div class="font-mono">
+                <div>
                     <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
                     <p class="mb-4">${item.description}</p>
                     <div class="mb-4">
@@ -229,7 +229,7 @@ function updateMainContent(section, itemId) {
 
         case 'skills':
             content = `
-                <div class="font-mono">
+                <div>
                     <div class="flex items-center gap-2 mb-4">
                         <img src="./images/${item.icon}" alt="${item.name}" class="w-6 h-6" />
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
