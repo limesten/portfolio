@@ -43,152 +43,167 @@
         </script>
     </head>
     <body class="bg-cat-base-light dark:bg-cat-base-dark text-cat-fg-light dark:text-cat-fg-dark h-screen p-3 pb-16 md:p-4">
-        <div class="flex w-full h-full gap-4">
-            <!-- Left column - hidden on mobile -->
-            <div class="hidden md:flex w-1/4 h-full flex-col gap-4">
+        <div class="flex flex-col h-full">
+            <div class="flex-1 flex flex-col h-[calc(100vh-40px)] md:pb-8">
+                <div class="flex w-full h-full gap-4">
+                    <!-- Left column - hidden on mobile -->
+                    <div class="hidden md:flex w-1/4 h-full flex-col gap-4">
 
-                <div class="h-1/4 md:h-15p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative hover:border-cat-fg-light dark:hover:border-cat-fg-dark transition-colors cursor-pointer group">
-                    <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none transition-colors">Home</div>
-                    <div class="p-2 mt-2 font-mono h-full flex flex-col Home">
-                        <!-- Scrollable content container -->
-                        <div class="flex-1 overflow-y-auto scrollbar-custom">
-                            <div class="flex items-center gap-2">
-                                <span class="text-cat-fg-light dark:text-cat-fg-dark">$</span>
-                                <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+                        <div class="h-1/4 md:h-15p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative hover:border-cat-fg-light dark:hover:border-cat-fg-dark transition-colors cursor-pointer group">
+                            <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none transition-colors">Home</div>
+                            <div class="p-2 mt-2 font-mono h-full flex flex-col Home">
+                                <!-- Scrollable content container -->
+                                <div class="flex-1 overflow-y-auto scrollbar-custom">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-cat-fg-light dark:text-cat-fg-dark">$</span>
+                                        <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-2">
-                                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>
+                        </div>
+
+                        <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                            <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Experience</div>
+                            <div class="p-2 mt-2 font-mono h-full flex flex-col Experience">
+                                <!-- Scrollable list container -->
+                                <div class="flex-1 overflow-y-auto scrollbar-custom">
+                                    <div class="space-y-1">
+                                        <!-- Each item is a button for selection -->
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group selected:bg-cat-fg-light/20 dark:selected:bg-cat-fg-dark/20" data-index="1">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Senior Developer</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">TechCorp</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Full Stack Developer</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">WebSolutions</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Frontend Developer</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                                            <span class="text-cat-green-light dark:text-cat-green-dark">DesignStudio</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Counter -->
+                                <div class="list-index decorating-text px-1">
+                                    <p class="px-1"><span>1</span> of <span>3</span></p>
+                                    <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                            <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Projects</div>
+                            <div class="p-2 mt-2 font-mono h-full flex flex-col Projects">
+                                <!-- Scrollable list container -->
+                                <div class="flex-1 overflow-y-auto scrollbar-custom">
+                                    <div class="space-y-1">
+                                        <!-- Each item is a button for selection -->
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="1">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Portfolio Website</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">E-commerce Platform</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Task Management App</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="4">
+                                            <span class="text-cat-fg-light dark:text-cat-fg-dark">Weather Dashboard</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Counter -->
+                                <div class="list-index decorating-text px-1">
+                                    <p class="px-1"><span>1</span> of <span>4</span></p>
+                                    <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
+                            <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Skills - Tools</div>
+                            <div class="p-2 mt-2 font-mono h-full flex flex-col Skills">
+                                <!-- Scrollable list container -->
+                                <div class="flex-1 overflow-y-auto scrollbar-custom">
+                                    <div class="space-y-1">
+                                        <!-- Each item is a button for selection -->
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="1">
+                                            <img src="./images/react.svg" alt="React" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">React</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
+                                            <img src="./images/ts.svg" alt="TypeScript" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">TypeScript</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
+                                            <img src="./images/node.svg" alt="Node.js" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">Node.js</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="4">
+                                            <img src="./images/aws.svg" alt="AWS" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">AWS</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="5">
+                                            <img src="./images/psql.svg" alt="PostgreSQL" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">PostgreSQL</span>
+                                        </button>
+                                        <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="6">
+                                            <img src="./images/git.svg" alt="Git" class="w-5 h-5" />
+                                            <span class="text-cat-peach-light dark:text-cat-peach-dark">Git</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Counter -->
+                                <div class="list-index decorating-text px-1">
+                                    <p class="px-1"><span>1</span> of <span>6</span></p>
+                                    <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
-                    <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Experience</div>
-                    <div class="p-2 mt-2 font-mono h-full flex flex-col Experience">
-                        <!-- Scrollable list container -->
-                        <div class="flex-1 overflow-y-auto scrollbar-custom">
-                            <div class="space-y-1">
-                                <!-- Each item is a button for selection -->
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group selected:bg-cat-fg-light/20 dark:selected:bg-cat-fg-dark/20" data-index="1">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Senior Developer</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">TechCorp</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Full Stack Developer</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">WebSolutions</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Frontend Developer</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                                    <span class="text-cat-green-light dark:text-cat-green-dark">DesignStudio</span>
-                                </button>
-                            </div>
+                    <!-- Right column - full width on mobile -->
+                    <div class="w-full md:w-3/4 h-full border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative Preview">
+                        <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Main</div>
+                        
+                        <!-- Theme toggle button - new position -->
+                        <div class="absolute top-2 right-2">
+                            <button id="themeToggle" class="text-cat-fg-light dark:text-cat-fg-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- Sun icon -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <!-- Moon icon -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                </svg>
+                            </button>
                         </div>
-                        <!-- Counter -->
-                        <div class="list-index decorating-text px-1">
-                            <p class="px-1"><span>1</span> of <span>3</span></p>
-                            <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
-                    <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Projects</div>
-                    <div class="p-2 mt-2 font-mono h-full flex flex-col Projects">
-                        <!-- Scrollable list container -->
-                        <div class="flex-1 overflow-y-auto scrollbar-custom">
-                            <div class="space-y-1">
-                                <!-- Each item is a button for selection -->
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="1">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Portfolio Website</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">E-commerce Platform</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Task Management App</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="4">
-                                    <span class="text-cat-fg-light dark:text-cat-fg-dark">Weather Dashboard</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Counter -->
-                        <div class="list-index decorating-text px-1">
-                            <p class="px-1"><span>1</span> of <span>4</span></p>
-                            <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="h-1/4 md:h-28p border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative">
-                    <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Skills - Tools</div>
-                    <div class="p-2 mt-2 font-mono h-full flex flex-col Skills">
-                        <!-- Scrollable list container -->
-                        <div class="flex-1 overflow-y-auto scrollbar-custom">
-                            <div class="space-y-1">
-                                <!-- Each item is a button for selection -->
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="1">
-                                    <img src="./images/react.svg" alt="React" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">React</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="2">
-                                    <img src="./images/ts.svg" alt="TypeScript" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">TypeScript</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="3">
-                                    <img src="./images/node.svg" alt="Node.js" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">Node.js</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="4">
-                                    <img src="./images/aws.svg" alt="AWS" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">AWS</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="5">
-                                    <img src="./images/psql.svg" alt="PostgreSQL" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">PostgreSQL</span>
-                                </button>
-                                <button class="w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group" data-index="6">
-                                    <img src="./images/git.svg" alt="Git" class="w-5 h-5" />
-                                    <span class="text-cat-peach-light dark:text-cat-peach-dark">Git</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Counter -->
-                        <div class="list-index decorating-text px-1">
-                            <p class="px-1"><span>1</span> of <span>6</span></p>
-                            <div class="bg-cat-base-light dark:bg-cat-base-dark"></div>
+                        <!-- Main content container -->
+                        <div data-content-container="main" class="p-6 font-mono h-full overflow-y-auto scrollbar-custom">
+                            <!-- Content will be dynamically inserted here -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right column - full width on mobile -->
-            <div class="w-full md:w-3/4 h-full border border-cat-fg-light dark:border-cat-fg-dark rounded-md overflow-visible relative Preview">
-                <div class="absolute -top-[0.69rem] left-2 px-1 bg-cat-base-light dark:bg-cat-base-dark text-lg leading-none">Main</div>
-                
-                <!-- Theme toggle button - new position -->
-                <div class="absolute top-2 right-2">
-                    <button id="themeToggle" class="text-cat-fg-light dark:text-cat-fg-dark">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <!-- Sun icon -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <!-- Moon icon -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
-                    </button>
+            <footer class="absolute bottom-0 left-0 right-0 md:flex justify-between items-center p-4 text-sm">
+                <div>
+                    <p>Use <span class="text-cat-peach-light dark:text-cat-peach-dark">h/j/k/l</span> or <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> to navigate</p>
                 </div>
-
-                <!-- Main content container -->
-                <div data-content-container="main" class="p-6 font-mono h-full overflow-y-auto scrollbar-custom">
-                    <!-- Content will be dynamically inserted here -->
+                <div class="flex gap-4">
+                    <a href="https://github.com" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
+                    <a href="https://twitter.com" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">Twitter</a>
+                    <a href="https://linkedin.com" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">LinkedIn</a>
                 </div>
-            </div>
+            </footer>
         </div>
 
         <!-- Mobile Bottom Navigation -->
