@@ -143,15 +143,26 @@ function displayHomeContent() {
 document.addEventListener('DOMContentLoaded', () => {
     displayHomeContent();
     // Add selected state to home section container
-    const homeContainer = document.querySelector('.Home').closest('.border');
+    const homeContainer = document.querySelector('.Home');
     if (homeContainer) {
-        homeContainer.style.borderColor = 'var(--cat-peach-active)';
-        // Set initial peach color for Home title
-        const homeTitle = homeContainer.querySelector('.absolute');
-        if (homeTitle) {
-            homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+        homeContainer.setAttribute('tabindex', '0'); // Make home section focusable
+        const homeBorder = homeContainer.closest('.border');
+        if (homeBorder) {
+            homeBorder.style.borderColor = 'var(--cat-peach-active)';
+            // Set initial peach color for Home title
+            const homeTitle = homeBorder.querySelector('.absolute');
+            if (homeTitle) {
+                homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+            }
         }
+        // Focus the home section by default
+        homeContainer.focus();
     }
+    
+    // Make all section items focusable
+    document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(item => {
+        item.setAttribute('tabindex', '0');
+    });
 });
 
 // Main section update
@@ -364,6 +375,23 @@ document.querySelectorAll('[class*="Skills"] [data-index]').forEach(item => {
 
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
+    // First check if we're in the Home section
+    const homeSection = document.activeElement.closest('.Home');
+    if (homeSection) {
+        // Only handle right/l navigation from Home
+        if (e.key === 'ArrowRight' || e.key === 'l') {
+            const experienceSection = document.querySelector('.Experience');
+            const firstItem = experienceSection.querySelector('[data-index="1"]');
+            if (firstItem) {
+                firstItem.click();
+                firstItem.focus();
+                firstItem.scrollIntoView({ block: 'nearest' });
+            }
+        }
+        return;
+    }
+
+    // Handle other sections
     const activeSection = document.activeElement.closest('.Experience, .Projects, [class*="Skills"]');
     if (!activeSection) return;
 
@@ -374,23 +402,98 @@ document.addEventListener('keydown', (e) => {
     const currentIndex = parseInt(selectedItem.dataset.index);
     let nextIndex;
 
+    // Define the section order including Home
+    const sections = ['Home', 'Experience', 'Projects', 'Skills'];
+    const currentSectionIndex = sections.findIndex(section => activeSection.classList.contains(section));
+
     switch(e.key) {
         case 'ArrowUp':
         case 'k':
             nextIndex = Math.max(1, currentIndex - 1);
+            const nextUpItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
+            if (nextUpItem) {
+                nextUpItem.click();
+                nextUpItem.focus();
+                nextUpItem.scrollIntoView({ block: 'nearest' });
+            }
             break;
         case 'ArrowDown':
         case 'j':
             nextIndex = Math.min(items.length, currentIndex + 1);
+            const nextDownItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
+            if (nextDownItem) {
+                nextDownItem.click();
+                nextDownItem.focus();
+                nextDownItem.scrollIntoView({ block: 'nearest' });
+            }
+            break;
+        case 'ArrowLeft':
+        case 'h':
+            if (currentSectionIndex > 1) { // > 1 because index 1 is Experience
+                const prevSection = document.querySelector(`.${sections[currentSectionIndex - 1]}`);
+                const firstItem = prevSection.querySelector('[data-index="1"]');
+                if (firstItem) {
+                    firstItem.click();
+                    firstItem.focus();
+                    firstItem.scrollIntoView({ block: 'nearest' });
+                }
+            } else if (currentSectionIndex === 1) { // We're in Experience section
+                const homeContainer = document.querySelector('.Home');
+                if (homeContainer) {
+                    // Remove selected state from Experience items
+                    document.querySelectorAll('.Experience [data-index]').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    
+                    // Reset Experience counter color and value
+                    const experienceCounter = document.querySelector('.Experience .list-index p');
+                    if (experienceCounter) {
+                        experienceCounter.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                        const currentCounter = experienceCounter.querySelector('span:first-child');
+                        if (currentCounter) {
+                            currentCounter.textContent = '1';
+                        }
+                    }
+                    
+                    homeContainer.setAttribute('tabindex', '0');
+                    homeContainer.focus();
+                    // Simulate click on home section
+                    displayHomeContent();
+                    // Update home section styling
+                    const homeBorder = homeContainer.closest('.border');
+                    if (homeBorder) {
+                        // Reset all section borders and titles
+                        document.querySelectorAll('.border').forEach(b => {
+                            b.style.borderColor = '';
+                            const title = b.querySelector('.absolute');
+                            if (title) {
+                                title.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                            }
+                        });
+                        // Set home section styling
+                        homeBorder.style.borderColor = 'var(--cat-peach-active)';
+                        const homeTitle = homeBorder.querySelector('.absolute');
+                        if (homeTitle) {
+                            homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                        }
+                    }
+                }
+            }
+            break;
+        case 'ArrowRight':
+        case 'l':
+            if (currentSectionIndex < sections.length - 1) {
+                const nextSection = document.querySelector(`.${sections[currentSectionIndex + 1]}`);
+                const firstItem = nextSection.querySelector('[data-index="1"]');
+                if (firstItem) {
+                    firstItem.click();
+                    firstItem.focus();
+                    firstItem.scrollIntoView({ block: 'nearest' });
+                }
+            }
             break;
         default:
             return;
-    }
-
-    const nextItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
-    if (nextItem) {
-        nextItem.click();
-        nextItem.scrollIntoView({ block: 'nearest' });
     }
 });
 
