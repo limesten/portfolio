@@ -216,6 +216,42 @@ function updateMainContent(section, itemId) {
                 <div>
                     <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
                     <p class="mb-4">${item.description}</p>
+                    ${item.image ? `
+                    <div class="mb-6 flex justify-center">
+                        <img 
+                            src="./images/${item.image.src}" 
+                            alt="${item.image.alt}" 
+                            class="max-w-full h-auto rounded-md shadow-md hover:shadow-lg transition-shadow 
+                                  w-full sm:w-11/12 md:w-10/12 lg:w-9/12 
+                                  px-2 sm:px-0"
+                            loading="lazy"
+                            width="800"
+                            height="auto"
+                        />
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Demo Button -->
+                    ${item.live ? `
+                    <div class="flex justify-center mb-6">
+                        <a href="${item.live}" target="_blank" class="
+                            px-6 py-3 
+                            border-2 border-white
+                            text-cat-peach-light dark:text-cat-peach-dark 
+                            font-mono font-bold text-lg
+                            hover:bg-cat-peach-light/10 dark:hover:bg-cat-peach-dark/10
+                            transition-all duration-200
+                            flex items-center gap-2
+                            focus:outline-none focus:ring-2 focus:ring-cat-peach-light dark:focus:ring-cat-peach-dark
+                            rounded
+                        ">
+                            <span class="text-cat-fg-light dark:text-cat-fg-dark">$</span>
+                            <span class="text-cat-green-light dark:text-cat-green-dark">view</span>
+                            <span>DEMO</span>
+                        </a>
+                    </div>
+                    ` : ''}
+                    
                     <div class="mb-4">
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
                         <ul class="list-disc list-inside space-y-1">
@@ -232,7 +268,6 @@ function updateMainContent(section, itemId) {
                     </div>
                     <div class="flex gap-4">
                         <a href="${item.github}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
-                        <a href="${item.live}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">Live Demo</a>
                     </div>
                 </div>
             `;
