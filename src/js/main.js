@@ -47,8 +47,167 @@ async function loadSectionData() {
         sectionData.experience = experienceData;
         sectionData.projects = projectsData;
         sectionData.skills = skillsData;
+        
+        // Now populate the sidebar sections with the loaded data
+        populateSidebarSections();
     } catch (error) {
         console.error('Error loading section data:', error);
+    }
+}
+
+// Function to populate sidebar sections with data from JSON
+function populateSidebarSections() {
+    // Populate Experience section
+    if (sectionData.experience && sectionData.experience.items) {
+        const experienceContainer = document.querySelector('.Experience .scrollbar-custom .space-y-1');
+        if (experienceContainer) {
+            // Clear existing content
+            experienceContainer.innerHTML = '';
+            
+            // Add items from JSON
+            sectionData.experience.items.forEach((item, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                // Set the first item as selected by default
+                if (index === 0) {
+                    button.classList.add('selected');
+                }
+                button.setAttribute('data-index', item.id);
+                button.setAttribute('tabindex', '0'); // Make focusable
+                
+                button.innerHTML = `
+                    <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
+                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                    <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
+                `;
+                
+                button.addEventListener('click', () => {
+                    handleItemSelection(
+                        document.querySelectorAll('.Experience [data-index]'),
+                        button,
+                        'experience'
+                    );
+                });
+                
+                experienceContainer.appendChild(button);
+            });
+            
+            // Update counter
+            const counter = document.querySelector('.Experience .list-index p span:last-child');
+            if (counter) {
+                counter.textContent = sectionData.experience.items.length;
+            }
+        }
+    }
+    
+    // Populate Projects section
+    if (sectionData.projects && sectionData.projects.items) {
+        const projectsContainer = document.querySelector('.Projects .scrollbar-custom .space-y-1');
+        if (projectsContainer) {
+            // Clear existing content
+            projectsContainer.innerHTML = '';
+            
+            // Add items from JSON
+            sectionData.projects.items.forEach((item, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                // Set the first item as selected by default
+                if (index === 0) {
+                    button.classList.add('selected');
+                }
+                button.setAttribute('data-index', item.id);
+                button.setAttribute('tabindex', '0'); // Make focusable
+                
+                button.innerHTML = `
+                    <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
+                `;
+                
+                button.addEventListener('click', () => {
+                    handleItemSelection(
+                        document.querySelectorAll('.Projects [data-index]'),
+                        button,
+                        'projects'
+                    );
+                });
+                
+                projectsContainer.appendChild(button);
+            });
+            
+            // Update counter
+            const counter = document.querySelector('.Projects .list-index p span:last-child');
+            if (counter) {
+                counter.textContent = sectionData.projects.items.length;
+            }
+        }
+    }
+    
+    // Populate Skills section
+    if (sectionData.skills && sectionData.skills.items) {
+        const skillsContainer = document.querySelector('.Skills .scrollbar-custom .space-y-1');
+        if (skillsContainer) {
+            // Clear existing content
+            skillsContainer.innerHTML = '';
+            
+            // Add items from JSON
+            sectionData.skills.items.forEach((item, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                // Set the first item as selected by default
+                if (index === 0) {
+                    button.classList.add('selected');
+                }
+                button.setAttribute('data-index', item.id);
+                button.setAttribute('tabindex', '0'); // Make focusable
+                
+                button.innerHTML = `
+                    <img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
+                `;
+                
+                button.addEventListener('click', () => {
+                    handleItemSelection(
+                        document.querySelectorAll('[class*="Skills"] [data-index]'),
+                        button,
+                        'skills'
+                    );
+                });
+                
+                skillsContainer.appendChild(button);
+            });
+            
+            // Update counter
+            const counter = document.querySelector('.Skills .list-index p span:last-child');
+            if (counter) {
+                counter.textContent = sectionData.skills.items.length;
+            }
+        }
+    }
+    
+    // By default, start with Home selected, but make sure
+    // the first item in each section is loaded into the data model
+    // This ensures that when a user clicks a section header, content appears
+    if (sectionData.experience && sectionData.experience.items.length > 0) {
+        // Update the counter for the Experience section
+        const experienceCounter = document.querySelector('.Experience .list-index p span:first-child');
+        if (experienceCounter) {
+            experienceCounter.textContent = '1';
+        }
+    }
+    
+    if (sectionData.projects && sectionData.projects.items.length > 0) {
+        // Update the counter for the Projects section
+        const projectsCounter = document.querySelector('.Projects .list-index p span:first-child');
+        if (projectsCounter) {
+            projectsCounter.textContent = '1';
+        }
+    }
+    
+    if (sectionData.skills && sectionData.skills.items.length > 0) {
+        // Update the counter for the Skills section
+        const skillsCounter = document.querySelector('.Skills .list-index p span:first-child');
+        if (skillsCounter) {
+            skillsCounter.textContent = '1';
+        }
     }
 }
 
@@ -70,8 +229,8 @@ function displayHomeContent() {
                 <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
             </div>
             <div class="mb-4">
-                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">John Developer</span>, a passionate
-                <span class="text-cat-peach-light dark:text-cat-peach-dark">Full Stack Developer</span> from Sweden.
+                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">Emil Malmsten</span>, a passionate
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">Software Developer</span> from Sweden.
             </div>
             <div class="flex items-center gap-2 mb-4">
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
@@ -80,7 +239,7 @@ function displayHomeContent() {
             </div>
             <div>
                 I specialize in building modern web applications with a focus on clean code and user experience.
-                Currently working on exciting projects involving React, Node.js, and cloud technologies.
+                Currently working on exciting projects involving modern web technologies.
             </div>
         </div>
     `;
@@ -159,7 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
         homeContainer.focus();
     }
     
-    // Make all section items focusable
+    // The event listeners for the dynamically created elements are now added in populateSidebarSections()
+    // We'll still make focusable any elements that might exist at this point
     document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(item => {
         item.setAttribute('tabindex', '0');
     });
@@ -215,7 +375,7 @@ function updateMainContent(section, itemId) {
             content = `
                 <div>
                     <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
-                    <p class="mb-4">${item.description}</p>
+                    <p class="mb-8">${item.description}</p>
                     ${item.image ? `
                     <div class="mb-6 flex justify-center">
                         <img 
@@ -376,36 +536,6 @@ document.querySelector('.Home').addEventListener('click', () => {
         document.querySelector('.Home'),
         'home'
     );
-});
-
-document.querySelectorAll('.Experience [data-index]').forEach(item => {
-    item.addEventListener('click', () => {
-        handleItemSelection(
-            document.querySelectorAll('.Experience [data-index]'),
-            item,
-            'experience'
-        );
-    });
-});
-
-document.querySelectorAll('.Projects [data-index]').forEach(item => {
-    item.addEventListener('click', () => {
-        handleItemSelection(
-            document.querySelectorAll('.Projects [data-index]'),
-            item,
-            'projects'
-        );
-    });
-});
-
-document.querySelectorAll('[class*="Skills"] [data-index]').forEach(item => {
-    item.addEventListener('click', () => {
-        handleItemSelection(
-            document.querySelectorAll('[class*="Skills"] [data-index]'),
-            item,
-            'skills'
-        );
-    });
 });
 
 // Add keyboard navigation
@@ -615,7 +745,7 @@ function updateDrawerContent(section) {
     
     items.forEach((item, index) => {
         content += `
-            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-index="${index + 1}">
+            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-index="${item.id}">
                 ${section === 'skills' ? `<img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />` : ''}
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
                 ${section === 'experience' ? `
