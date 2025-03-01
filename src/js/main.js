@@ -236,7 +236,7 @@ function updateMainContent(section, itemId) {
                     <div class="flex justify-center mb-6">
                         <a href="${item.live}" target="_blank" class="
                             px-6 py-3 
-                            border-2 border-white
+                            border-2 border-cat-peach-light dark:border-cat-peach-dark 
                             text-cat-peach-light dark:text-cat-peach-dark 
                             font-mono font-bold text-lg
                             hover:bg-cat-peach-light/10 dark:hover:bg-cat-peach-dark/10
