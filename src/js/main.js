@@ -15,10 +15,10 @@ function getThemeIcon(iconObj) {
 // Function to update all skill icons based on current theme
 function updateSkillIcons() {
     if (!sectionData.skills) return;
-    
-    document.querySelectorAll('[class*="Skills"] img').forEach(img => {
+
+    document.querySelectorAll('[class*="Skills"] img').forEach((img) => {
         const skillId = img.closest('button').dataset.index;
-        const skill = sectionData.skills.items.find(item => item.id === parseInt(skillId));
+        const skill = sectionData.skills.items.find((item) => item.id === parseInt(skillId));
         if (skill) {
             img.src = `./images/${getThemeIcon(skill.icon)}`;
         }
@@ -50,7 +50,7 @@ themeToggle.addEventListener('click', () => {
         document.documentElement.classList.add('dark');
         localStorage.theme = 'dark';
     }
-    
+
     // Update skill icons when theme changes
     updateSkillIcons();
 });
@@ -59,22 +59,22 @@ themeToggle.addEventListener('click', () => {
 let sectionData = {
     experience: null,
     projects: null,
-    skills: null
+    skills: null,
 };
 
 // Load JSON data
 async function loadSectionData() {
     try {
         const [experienceData, projectsData, skillsData] = await Promise.all([
-            fetch('./data/experience.json').then(res => res.json()),
-            fetch('./data/projects.json').then(res => res.json()),
-            fetch('./data/skills.json').then(res => res.json())
+            fetch('./data/experience.json').then((res) => res.json()),
+            fetch('./data/projects.json').then((res) => res.json()),
+            fetch('./data/skills.json').then((res) => res.json()),
         ]);
 
         sectionData.experience = experienceData;
         sectionData.projects = projectsData;
         sectionData.skills = skillsData;
-        
+
         // Now populate the sidebar sections with the loaded data
         populateSidebarSections();
     } catch (error) {
@@ -90,31 +90,28 @@ function populateSidebarSections() {
         if (experienceContainer) {
             // Clear existing content
             experienceContainer.innerHTML = '';
-            
+
             // Add items from JSON
             sectionData.experience.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                button.className =
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
-                
+
                 button.innerHTML = `
                     <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
                     <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
                     <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
                 `;
-                
+
                 button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll('.Experience [data-index]'),
-                        button,
-                        'experience'
-                    );
+                    handleItemSelection(document.querySelectorAll('.Experience [data-index]'), button, 'experience');
                 });
-                
+
                 experienceContainer.appendChild(button);
             });
-            
+
             // Update counter
             const counter = document.querySelector('.Experience .list-index p span:last-child');
             if (counter) {
@@ -122,36 +119,33 @@ function populateSidebarSections() {
             }
         }
     }
-    
+
     // Populate Projects section
     if (sectionData.projects && sectionData.projects.items) {
         const projectsContainer = document.querySelector('.Projects .scrollbar-custom .space-y-1');
         if (projectsContainer) {
             // Clear existing content
             projectsContainer.innerHTML = '';
-            
+
             // Add items from JSON
             sectionData.projects.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                button.className =
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
-                
+
                 button.innerHTML = `
                     <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
                 `;
-                
+
                 button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll('.Projects [data-index]'),
-                        button,
-                        'projects'
-                    );
+                    handleItemSelection(document.querySelectorAll('.Projects [data-index]'), button, 'projects');
                 });
-                
+
                 projectsContainer.appendChild(button);
             });
-            
+
             // Update counter
             const counter = document.querySelector('.Projects .list-index p span:last-child');
             if (counter) {
@@ -159,37 +153,34 @@ function populateSidebarSections() {
             }
         }
     }
-    
+
     // Populate Skills section
     if (sectionData.skills && sectionData.skills.items) {
         const skillsContainer = document.querySelector('.Skills .scrollbar-custom .space-y-1');
         if (skillsContainer) {
             // Clear existing content
             skillsContainer.innerHTML = '';
-            
+
             // Add items from JSON
             sectionData.skills.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                button.className =
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
-                
+
                 button.innerHTML = `
                     <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />
                     <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
                 `;
-                
+
                 button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll('[class*="Skills"] [data-index]'),
-                        button,
-                        'skills'
-                    );
+                    handleItemSelection(document.querySelectorAll('[class*="Skills"] [data-index]'), button, 'skills');
                 });
-                
+
                 skillsContainer.appendChild(button);
             });
-            
+
             // Update counter
             const counter = document.querySelector('.Skills .list-index p span:last-child');
             if (counter) {
@@ -197,7 +188,7 @@ function populateSidebarSections() {
             }
         }
     }
-    
+
     // By default, start with Home selected, but make sure
     // the first item in each section is loaded into the data model
     // This ensures that when a user clicks a section header, content appears
@@ -208,7 +199,7 @@ function populateSidebarSections() {
             experienceCounter.textContent = '1';
         }
     }
-    
+
     if (sectionData.projects && sectionData.projects.items.length > 0) {
         // Update the counter for the Projects section
         const projectsCounter = document.querySelector('.Projects .list-index p span:first-child');
@@ -216,7 +207,7 @@ function populateSidebarSections() {
             projectsCounter.textContent = '1';
         }
     }
-    
+
     if (sectionData.skills && sectionData.skills.items.length > 0) {
         // Update the counter for the Skills section
         const skillsCounter = document.querySelector('.Skills .list-index p span:first-child');
@@ -253,25 +244,27 @@ function displayHomeContent() {
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
             </div>
             <div>
-                I got started learning how to code in 2017 by myself using various online tutorials. As many people do, I started with the classic web stack of HTML, CSS and JavaScript.
+                I got started learning how to <span class="text-cat-green-light dark:text-cat-green-dark">code</span> in 2017 by myself using various online tutorials. As many people do, I started with the classic <span class="text-cat-peach-light dark:text-cat-peach-dark">web stack</span> of HTML, CSS and JavaScript.
+                <br>
+                <br>
                 The reason that I wanted to learn how to code was basically that I thought it was something that could suit me well as someone who has always been into computers.
-                But I had never experienced the programming side of it.
+                But I had never experienced the <span class="text-cat-green-light dark:text-cat-green-dark">programming</span> side of it.
                 <br> 
                 <br>     
-                Click on a section on the left to learn more about my work and past experiences.
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">Click</span> on a section on the left to learn more about my <span class="text-cat-green-light dark:text-cat-green-dark">work</span> and past <span class="text-cat-peach-light dark:text-cat-peach-dark">experiences</span>.
                 <br>
-                You can also navigate through the sections using the arrow keys or Vim motions.
+                You can also navigate through the sections using the <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-green-light dark:text-cat-green-dark">Vim motions</span>.
                 <br>
                 <br>
-                In case you can't read the ASCII art above, dont't worry. Neither can I. It does however look cool.
+                In case you can't read the ASCII art above, <span class="text-cat-peach-light dark:text-cat-peach-dark">dont't worry</span>. Neither can I. It does however look cool.
             </div>
         </div>
     `;
 
     // Load ASCII art
     fetch('./images/ascii.txt')
-        .then(response => response.text())
-        .then(text => {
+        .then((response) => response.text())
+        .then((text) => {
             const asciiLogo = document.getElementById('ascii-logo');
             if (asciiLogo) {
                 asciiLogo.textContent = text;
@@ -281,45 +274,45 @@ function displayHomeContent() {
                     asciiContainer.classList.remove('hidden');
                     // Add the scaling classes
                     asciiContainer.style.fontFamily = "'Fira Mono', monospace";
-                    asciiContainer.style.lineHeight = "1.2";
-                    asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
-                    asciiContainer.style.transformOrigin = "center";
-                    asciiContainer.style.width = "100%";
-                    asciiContainer.style.display = "flex";
-                    asciiContainer.style.justifyContent = "center";
-                    asciiContainer.style.alignItems = "center";
-                    asciiContainer.style.overflow = "hidden";
+                    asciiContainer.style.lineHeight = '1.2';
+                    asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
+                    asciiContainer.style.transformOrigin = 'center';
+                    asciiContainer.style.width = '100%';
+                    asciiContainer.style.display = 'flex';
+                    asciiContainer.style.justifyContent = 'center';
+                    asciiContainer.style.alignItems = 'center';
+                    asciiContainer.style.overflow = 'hidden';
 
                     // Add responsive padding based on screen size
                     if (window.innerWidth <= 640) {
-                        asciiContainer.style.fontSize = "min(1.2vw, 0.4rem)";
-                        asciiContainer.style.padding = "0 0.75rem";
+                        asciiContainer.style.fontSize = 'min(1.2vw, 0.4rem)';
+                        asciiContainer.style.padding = '0 0.75rem';
                     } else if (window.innerWidth <= 768) {
-                        asciiContainer.style.fontSize = "min(1.1vw, 0.45rem)";
-                        asciiContainer.style.padding = "0 1.5rem";
+                        asciiContainer.style.fontSize = 'min(1.1vw, 0.45rem)';
+                        asciiContainer.style.padding = '0 1.5rem';
                     } else if (window.innerWidth <= 1024) {
-                        asciiContainer.style.fontSize = "min(1.2vw, 0.5rem)";
-                        asciiContainer.style.padding = "0 1.5rem";
+                        asciiContainer.style.fontSize = 'min(1.2vw, 0.5rem)';
+                        asciiContainer.style.padding = '0 1.5rem';
                     } else if (window.innerWidth <= 1749) {
-                        asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
-                        asciiContainer.style.padding = "0 0.5rem";
+                        asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
+                        asciiContainer.style.padding = '0 0.5rem';
                     } else {
-                        asciiContainer.style.fontSize = "min(1.6vw, 1rem)";
-                        asciiContainer.style.padding = "0 1rem";
+                        asciiContainer.style.fontSize = 'min(1.6vw, 1rem)';
+                        asciiContainer.style.padding = '0 1rem';
                     }
 
                     // Also style the ascii-logo element
-                    asciiLogo.style.display = "block";
-                    asciiLogo.style.whiteSpace = "pre";
-                    asciiLogo.style.maxWidth = "100%";
-                    asciiLogo.style.transformOrigin = "center";
-                    asciiLogo.style.fontSize = "inherit";
-                    asciiLogo.style.textAlign = "center";
-                    asciiLogo.style.padding = "0 2px";
+                    asciiLogo.style.display = 'block';
+                    asciiLogo.style.whiteSpace = 'pre';
+                    asciiLogo.style.maxWidth = '100%';
+                    asciiLogo.style.transformOrigin = 'center';
+                    asciiLogo.style.fontSize = 'inherit';
+                    asciiLogo.style.textAlign = 'center';
+                    asciiLogo.style.padding = '0 2px';
                 }
             }
         })
-        .catch(error => console.error('Error loading ASCII art:', error));
+        .catch((error) => console.error('Error loading ASCII art:', error));
 }
 
 // Show home content by default when page loads
@@ -341,19 +334,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Focus the home section by default
         homeContainer.focus();
     }
-    
+
     // The event listeners for the dynamically created elements are now added in populateSidebarSections()
     // We'll still make focusable any elements that might exist at this point
-    document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(item => {
-        item.setAttribute('tabindex', '0');
-    });
+    document
+        .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+        .forEach((item) => {
+            item.setAttribute('tabindex', '0');
+        });
 });
 
 // Main section update
 function updateMainContent(section, itemId) {
     const mainSection = document.querySelector('[data-content-container="main"]');
     if (!mainSection) return;
-    
+
     if (section === 'home') {
         displayHomeContent();
         return;
@@ -361,12 +356,12 @@ function updateMainContent(section, itemId) {
 
     if (!sectionData[section]) return;
 
-    const item = sectionData[section].items.find(i => i.id === itemId);
+    const item = sectionData[section].items.find((i) => i.id === itemId);
     if (!item) return;
 
     let content = '';
 
-    switch(section) {
+    switch (section) {
         case 'experience':
             content = `
                 <div>
@@ -380,15 +375,18 @@ function updateMainContent(section, itemId) {
                     <div class="mb-4">
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
                         <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
                         </ul>
                     </div>
                     <div>
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Technologies:</div>
                         <div class="flex flex-wrap gap-2">
-                            ${item.technologies.map(tech => 
-                                `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
-                            ).join('')}
+                            ${item.technologies
+                                .map(
+                                    (tech) =>
+                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
+                                )
+                                .join('')}
                         </div>
                     </div>
                 </div>
@@ -400,7 +398,9 @@ function updateMainContent(section, itemId) {
                 <div>
                     <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
                     <p class="mb-8">${item.description}</p>
-                    ${item.image ? `
+                    ${
+                        item.image
+                            ? `
                     <div class="mb-6 flex justify-center">
                         <img 
                             src="./images/${item.image.src}" 
@@ -413,10 +413,14 @@ function updateMainContent(section, itemId) {
                             height="auto"
                         />
                     </div>
-                    ` : ''}
+                    `
+                            : ''
+                    }
                     
                     <!-- Demo Button -->
-                    ${item.live ? `
+                    ${
+                        item.live
+                            ? `
                     <div class="flex justify-center mb-6">
                         <a href="${item.live}" target="_blank" class="
                             px-6 py-3 
@@ -434,24 +438,31 @@ function updateMainContent(section, itemId) {
                             <span>DEMO</span>
                         </a>
                     </div>
-                    ` : ''}
+                    `
+                            : ''
+                    }
                     
                     <div class="mb-4">
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
                         <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
                         </ul>
                     </div>
                     <div class="mb-4">
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Technologies:</div>
                         <div class="flex flex-wrap gap-2">
-                            ${item.technologies.map(tech => 
-                                `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
-                            ).join('')}
+                            ${item.technologies
+                                .map(
+                                    (tech) =>
+                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
+                                )
+                                .join('')}
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <a href="${item.github}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
+                        <a href="${
+                            item.github
+                        }" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
                     </div>
                 </div>
             `;
@@ -468,7 +479,7 @@ function updateMainContent(section, itemId) {
                     <div class="mb-4">
                         <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Key Skills:</div>
                         <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
                         </ul>
                     </div>
                 </div>
@@ -482,7 +493,7 @@ function updateMainContent(section, itemId) {
 // List item selection functionality
 function handleItemSelection(items, item, section) {
     // Remove selected class and border color from ALL sections and items
-    document.querySelectorAll('.border').forEach(i => {
+    document.querySelectorAll('.border').forEach((i) => {
         i.style.borderColor = '';
         // Reset all section titles to default color
         const title = i.querySelector('.absolute');
@@ -499,12 +510,14 @@ function handleItemSelection(items, item, section) {
             }
         }
     });
-    document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
-        if (i.classList.contains('selected')) {
-            i.classList.remove('selected');
-        }
-    });
-    
+    document
+        .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+        .forEach((i) => {
+            if (i.classList.contains('selected')) {
+                i.classList.remove('selected');
+            }
+        });
+
     if (section === 'home') {
         // Add border color to home section container
         const homeContainer = item.closest('.border');
@@ -521,7 +534,7 @@ function handleItemSelection(items, item, section) {
     } else {
         // Add selected class to clicked item
         item.classList.add('selected');
-        
+
         // Update counter for current section
         const currentSection = item.closest('.font-mono');
         const sectionContainer = currentSection.closest('.border');
@@ -543,7 +556,7 @@ function handleItemSelection(items, item, section) {
                 }
             }
         }
-        
+
         // Update main section
         updateMainContent(section, parseInt(item.dataset.index));
     }
@@ -551,11 +564,7 @@ function handleItemSelection(items, item, section) {
 
 // Add click event listeners
 document.querySelector('.Home').addEventListener('click', () => {
-    handleItemSelection(
-        null,
-        document.querySelector('.Home'),
-        'home'
-    );
+    handleItemSelection(null, document.querySelector('.Home'), 'home');
 });
 
 // Improved helper function to check if an element is visible in its scrollable container
@@ -563,12 +572,9 @@ document.querySelector('.Home').addEventListener('click', () => {
 function isElementInView(element, container, buffer = 0) {
     const elementRect = element.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
-    
+
     // Check if the element is fully visible in the container (with buffer)
-    return (
-        elementRect.top >= (containerRect.top - buffer) &&
-        elementRect.bottom <= (containerRect.bottom + buffer)
-    );
+    return elementRect.top >= containerRect.top - buffer && elementRect.bottom <= containerRect.bottom + buffer;
 }
 
 // Add keyboard navigation
@@ -577,7 +583,7 @@ document.addEventListener('keydown', (e) => {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
     }
-    
+
     // First check if we're in the Home section
     const homeSection = document.activeElement.closest('.Home');
     if (homeSection) {
@@ -606,18 +612,18 @@ document.addEventListener('keydown', (e) => {
 
     // Get the scrollable container for visibility checks
     const scrollableContainer = activeSection.querySelector('.scrollbar-custom');
-    
+
     // Define buffer for earlier scrolling (20px)
     const scrollBuffer = 20;
 
     // Define the section order including Home
     const sections = ['Home', 'Experience', 'Projects', 'Skills'];
-    const currentSectionIndex = sections.findIndex(section => activeSection.classList.contains(section));
+    const currentSectionIndex = sections.findIndex((section) => activeSection.classList.contains(section));
 
     // Handle key navigation in a more consistent way
     let nextItem = null;
-    
-    switch(e.key) {
+
+    switch (e.key) {
         case 'ArrowUp':
         case 'k':
             nextIndex = Math.max(1, currentIndex - 1);
@@ -630,21 +636,23 @@ document.addEventListener('keydown', (e) => {
             break;
         case 'ArrowLeft':
         case 'h':
-            if (currentSectionIndex > 1) { // > 1 because index 1 is Experience
+            if (currentSectionIndex > 1) {
+                // > 1 because index 1 is Experience
                 const prevSection = document.querySelector(`.${sections[currentSectionIndex - 1]}`);
                 const firstItem = prevSection.querySelector('[data-index="1"]');
                 if (firstItem) {
                     firstItem.click();
                     firstItem.focus();
                 }
-            } else if (currentSectionIndex === 1) { // We're in Experience section
+            } else if (currentSectionIndex === 1) {
+                // We're in Experience section
                 const homeContainer = document.querySelector('.Home');
                 if (homeContainer) {
                     // Remove selected state from Experience items
-                    document.querySelectorAll('.Experience [data-index]').forEach(item => {
+                    document.querySelectorAll('.Experience [data-index]').forEach((item) => {
                         item.classList.remove('selected');
                     });
-                    
+
                     // Reset Experience counter color and value
                     const experienceCounter = document.querySelector('.Experience .list-index p');
                     if (experienceCounter) {
@@ -654,7 +662,7 @@ document.addEventListener('keydown', (e) => {
                             currentCounter.textContent = '1';
                         }
                     }
-                    
+
                     homeContainer.setAttribute('tabindex', '0');
                     homeContainer.focus();
                     // Simulate click on home section
@@ -663,7 +671,7 @@ document.addEventListener('keydown', (e) => {
                     const homeBorder = homeContainer.closest('.border');
                     if (homeBorder) {
                         // Reset all section borders and titles
-                        document.querySelectorAll('.border').forEach(b => {
+                        document.querySelectorAll('.border').forEach((b) => {
                             b.style.borderColor = '';
                             const title = b.querySelector('.absolute');
                             if (title) {
@@ -694,33 +702,34 @@ document.addEventListener('keydown', (e) => {
         default:
             return;
     }
-    
+
     // Handle scrolling for up/down navigation
     if (nextItem && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'j' || e.key === 'k')) {
         // First update selection and focus
         nextItem.click();
         nextItem.focus();
-        
+
         // Then check if scrolling is needed using the enhanced visibility check with buffer
         if (scrollableContainer && !isElementInView(nextItem, scrollableContainer, scrollBuffer)) {
             // Calculate better scroll position to show context above/below the selected item
             // Get all item heights to calculate precise position
             const itemHeight = nextItem.offsetHeight;
             const containerHeight = scrollableContainer.clientHeight;
-            
+
             // For "up" navigation, align to top with room for context above
             if (e.key === 'ArrowUp' || e.key === 'k') {
                 // More sophisticated approach to ensure good positioning for upward movement
                 scrollableContainer.scrollTop = nextItem.offsetTop - Math.floor(containerHeight / 4);
-            } 
+            }
             // For "down" navigation, ensure item is fully visible with context below
             else {
                 // More sophisticated approach to ensure good positioning for downward movement
                 const itemBottom = nextItem.offsetTop + itemHeight;
                 const scrollBottom = scrollableContainer.scrollTop + containerHeight;
-                
+
                 if (itemBottom > scrollBottom) {
-                    scrollableContainer.scrollTop = nextItem.offsetTop - containerHeight + itemHeight + Math.floor(containerHeight / 4);
+                    scrollableContainer.scrollTop =
+                        nextItem.offsetTop - containerHeight + itemHeight + Math.floor(containerHeight / 4);
                 }
             }
         }
@@ -735,13 +744,13 @@ const drawerContent = document.getElementById('drawerContent');
 let activeSection = null;
 
 // Handle mobile navigation button clicks
-document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
         const section = btn.dataset.section;
         activeSection = section;
-        
+
         // Add active state to button
-        document.querySelectorAll('.mobile-nav-btn').forEach(b => {
+        document.querySelectorAll('.mobile-nav-btn').forEach((b) => {
             b.classList.remove('active');
             b.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
             b.querySelector('span:last-child').classList.remove('underline');
@@ -771,7 +780,9 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
             // Update drawer content
             updateDrawerContent(section);
             // Add peach highlighting to the selected section
-            const sectionContainer = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`).closest('.border');
+            const sectionContainer = document
+                .querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`)
+                .closest('.border');
             if (sectionContainer) {
                 sectionContainer.style.borderColor = 'var(--cat-peach-active)';
                 const sectionTitle = sectionContainer.querySelector('.absolute');
@@ -782,11 +793,13 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         }
 
         // Remove selected state from all items
-        document.querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]').forEach(i => {
-            if (i.classList.contains('selected')) {
-                i.classList.remove('selected');
-            }
-        });
+        document
+            .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+            .forEach((i) => {
+                if (i.classList.contains('selected')) {
+                    i.classList.remove('selected');
+                }
+            });
     });
 });
 
@@ -794,7 +807,7 @@ document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
 drawerClose.addEventListener('click', () => {
     mobileDrawer.classList.add('translate-y-full');
     // Remove active states
-    document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+    document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
         btn.classList.remove('active');
         btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
         btn.querySelector('span:last-child').classList.remove('underline');
@@ -807,25 +820,35 @@ function updateDrawerContent(section) {
 
     const items = sectionData[section].items;
     let content = '<div class="space-y-2 font-mono">';
-    
+
     items.forEach((item, index) => {
         content += `
-            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item mr-2" data-index="${item.id}">
-                ${section === 'skills' ? `<img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />` : ''}
+            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item mr-2" data-index="${
+                item.id
+            }">
+                ${
+                    section === 'skills'
+                        ? `<img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />`
+                        : ''
+                }
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
-                ${section === 'experience' ? `
+                ${
+                    section === 'experience'
+                        ? `
                     <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
                     <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
-                ` : ''}
+                `
+                        : ''
+                }
             </button>
         `;
     });
-    
+
     content += '</div>';
     drawerContent.innerHTML = content;
 
     // Add click handlers for items
-    drawerContent.querySelectorAll('.mobile-item').forEach(item => {
+    drawerContent.querySelectorAll('.mobile-item').forEach((item) => {
         item.addEventListener('click', () => {
             const itemIndex = item.dataset.index;
             // Update selected state in the main section
@@ -841,7 +864,7 @@ function updateDrawerContent(section) {
             // Close drawer after selection
             mobileDrawer.classList.add('translate-y-full');
             // Remove active states from mobile nav buttons
-            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+            document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
                 btn.classList.remove('active');
                 btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
                 btn.querySelector('span:last-child').classList.remove('underline');
@@ -853,18 +876,18 @@ function updateDrawerContent(section) {
 // Show/hide content based on section selection
 function showSection(sectionName) {
     // Hide all sections first
-    document.querySelectorAll('[class*=" Home"], [class^="Home"]').forEach(el => {
+    document.querySelectorAll('[class*=" Home"], [class^="Home"]').forEach((el) => {
         el.classList.add('hidden');
     });
-    
+
     // Show selected section
-    document.querySelectorAll('.' + sectionName).forEach(el => {
+    document.querySelectorAll('.' + sectionName).forEach((el) => {
         el.classList.remove('hidden');
     });
 }
 
 // Add click event listeners to section buttons
-document.querySelectorAll('.section-button').forEach(button => {
+document.querySelectorAll('.section-button').forEach((button) => {
     button.addEventListener('click', (e) => {
         const sectionName = e.target.closest('button').dataset.section;
         showSection(sectionName);
@@ -879,20 +902,20 @@ window.addEventListener('resize', () => {
     const asciiContainer = document.querySelector('.ascii-art.Home');
     if (asciiContainer) {
         if (window.innerWidth <= 640) {
-            asciiContainer.style.fontSize = "min(1.2vw, 0.4rem)";
-            asciiContainer.style.padding = "0 0.75rem";
+            asciiContainer.style.fontSize = 'min(1.2vw, 0.4rem)';
+            asciiContainer.style.padding = '0 0.75rem';
         } else if (window.innerWidth <= 768) {
-            asciiContainer.style.fontSize = "min(1.1vw, 0.45rem)";
-            asciiContainer.style.padding = "0 1.5rem";
+            asciiContainer.style.fontSize = 'min(1.1vw, 0.45rem)';
+            asciiContainer.style.padding = '0 1.5rem';
         } else if (window.innerWidth <= 1024) {
-            asciiContainer.style.fontSize = "min(1.2vw, 0.5rem)";
-            asciiContainer.style.padding = "0 1.5rem";
+            asciiContainer.style.fontSize = 'min(1.2vw, 0.5rem)';
+            asciiContainer.style.padding = '0 1.5rem';
         } else if (window.innerWidth <= 1749) {
-            asciiContainer.style.fontSize = "min(1.4vw, 0.7rem)";
-            asciiContainer.style.padding = "0 0.5rem";
+            asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
+            asciiContainer.style.padding = '0 0.5rem';
         } else {
-            asciiContainer.style.fontSize = "min(1.6vw, 1rem)";
-            asciiContainer.style.padding = "0 1rem";
+            asciiContainer.style.fontSize = 'min(1.6vw, 1rem)';
+            asciiContainer.style.padding = '0 1rem';
         }
     }
-}); 
+});

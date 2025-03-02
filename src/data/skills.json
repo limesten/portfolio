@@ -7,7 +7,7 @@
                 "light": "react_light.svg",
                 "dark": "react_dark.svg"
             },
-            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>It's definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor",
+            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>React is definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor existing code.",
             "highlights": [
                 "Server components with Next JS",
                 "React Router for navigation",
@@ -21,7 +21,7 @@
                 "light": "ts_light.svg",
                 "dark": "ts_dark.svg"
             },
-            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that full stack end-to-end type safety.",
+            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that fullstack end-to-end type safety.",
             "highlights": [
                 "Advanced type system features",
                 "Generic types",
@@ -46,8 +46,8 @@
                 "light": "go_light.svg",
                 "dark": "go_dark.svg"
             },
-            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's really simple but yet powerful. And I love that basically everything you need is included in the standard library. I do think it can get a bit overly verbose sometimes tho. The concurrency model is awesome.",
-            "highlights": ["RESTful API design", "HTML templates"]
+            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's really simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model.",
+            "highlights": ["RESTful API design", "HTML templates", "Go channels"]
         },
         {
             "id": 5,
@@ -77,7 +77,7 @@
                 "dark": "git_dark.svg"
             },
             "description": "Git is such a core skill as a software developer, and I'm happy I started using it from the very beginning of my programming journey.",
-            "highlights": ["Git"]
+            "highlights": ["Branches", "Merging", "Rebase"]
         },
         {
             "id": 8,
@@ -86,7 +86,7 @@
                 "light": "ai_light.svg",
                 "dark": "ai_dark.svg"
             },
-            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by the Claude 3.5 Sonnet model. I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
+            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
             "highlights": ["Cursor", "AI prompting techniques", "Claude 3.5 Sonnet", "ChatGPT"]
         },
         {

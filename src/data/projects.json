@@ -20,7 +20,7 @@
         {
             "id": 2,
             "title": "Portfolio website",
-            "description": "The website you are viewing right now! I think terminal based GUIs look so cool so I wanted to go for something like that. This website is actually built completely by prompting AI. I wanted to test out how good modern AI is for coding and this was a perfect opportunity for it as I don't exactly love dabbling with HTML and CSS.",
+            "description": "This is the website you are browsing right now! I think terminal based GUIs look so cool so I wanted to go for something like that. This website is actually built completely by prompting AI. I wanted to test out how good modern AI is for coding and this was a perfect opportunity for it as I don't exactly love dabbling with HTML and CSS.",
             "image": null,
             "highlights": [
                 "Built with AI prompting",
@@ -34,7 +34,7 @@
         {
             "id": 3,
             "title": "Top XYZ",
-            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It was account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
+            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It has account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
             "image": {
                 "src": "topxyz.png",
                 "alt": "Top XYZ screenshot"
@@ -68,9 +68,13 @@
         {
             "id": 5,
             "title": "Lofi Chat",
-            "description": "A TCP/IP terminal based chat application",
+            "description": "A TCP/IP terminal based chat application. This was a good opportunity to get more hands on experience with TCP/IP as well as object oriented programming with C# and multi-threaded applications.",
             "image": null,
-            "highlights": ["Multi user", "Auto IP ban against spamming", "No 3rd party tools used"],
+            "highlights": [
+                "Multi user",
+                "Point system against violations for auto banning IP addresses",
+                "No 3rd party dependencies used"
+            ],
             "technologies": ["C#"],
             "github": "https://github.com/limesten/lofichat",
             "live": ""
