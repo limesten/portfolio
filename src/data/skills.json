@@ -48,7 +48,7 @@
         {
             "id": 5,
             "name": "Microsoft SQL Server",
-            "icon": "",
+            "icon": "db.svg",
             "level": "Advanced",
             "description": "I used to be a Postgres and SQlite dude, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
             "highlights": ["Stored procedures", "SQL server management studio", "Functions", "Triggers", "Views"],
@@ -75,18 +75,36 @@
         {
             "id": 8,
             "name": "AI assisted programming",
-            "icon": "",
+            "icon": "ai.svg",
             "level": "Expert",
             "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by the Claude 3.5 Sonnet model. I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
             "highlights": ["Cursor", "AI prompting techniques", "Claude 3.5 Sonnet", "ChatGPT"],
             "years": 5
         },
         {
-            "id": 8,
+            "id": 9,
             "name": "Linux",
             "icon": "linux.svg",
             "level": "Expert",
             "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu.",
+            "highlights": ["Ubuntu", "Terminal based workflow"],
+            "years": 5
+        },
+        {
+            "id": 10,
+            "name": "HTML",
+            "icon": "html.svg",
+            "level": "Expert",
+            "description": "HTML is the corner stone of the world wide web. It is used to organize and categorize the content of a website.<br><br>I have been using HTML since 2017 and I feel very comfortable using it.",
+            "highlights": ["Ubuntu", "Terminal based workflow"],
+            "years": 5
+        },
+        {
+            "id": 11,
+            "name": "CSS",
+            "icon": "css.svg",
+            "level": "Expert",
+            "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker.",
             "highlights": ["Ubuntu", "Terminal based workflow"],
             "years": 5
         }

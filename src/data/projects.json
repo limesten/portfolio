@@ -22,7 +22,11 @@
             "title": "Portfolio website",
             "description": "The website you are viewing right now! I think terminal based GUIs look so cool so I wanted to go for something like that. This website is actually built completely by prompting AI. I wanted to test out how good modern AI is for coding and this was a perfect opportunity for it as I don't exactly love dabbling with HTML and CSS.",
             "image": null,
-            "highlights": ["Built by AI", "Terminal style UI", "Mobile responsive with dark and light mode"],
+            "highlights": [
+                "Built with AI prompting",
+                "Terminal style UI",
+                "Mobile responsive with dark and light mode"
+            ],
             "technologies": ["Cursor", "Claude Sonnet 3.5"],
             "github": "https://github.com/limesten/two_player_snake",
             "live": ""
@@ -30,8 +34,11 @@
         {
             "id": 3,
             "title": "Top XYZ",
-            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.",
-            "image": null,
+            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It was account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
+            "image": {
+                "src": "topxyz.png",
+                "alt": "Top XYZ screenshot"
+            },
             "highlights": [
                 "JWT authentication",
                 "React frontend with a Go backend and a Postgres database",
@@ -39,14 +46,14 @@
             ],
             "technologies": ["React", "Golang", "PostgreSQL", "JWT"],
             "github": "https://github.com/limesten/topxyz",
-            "live": ""
+            "live": "https://topxyz.emilmalmsten.xyz/"
         },
         {
             "id": 4,
             "title": "Tomorrowland NFT Wizard",
-            "description": "This project definitely needs some explaining. First off, Tomorrowland is the worlds largest electronic dance music festival and is hosted each year in Belgium. Due to it's popularity, it's extremely hard to get tickets. Tomorrowland released NFTs which you can collect, and if you have collected all 3 you will have special access to festival tickets each year. Due to them being hosted on the Solana blockchain, and the prices are in SOL, it's quite hard to keep track of the value of them. Therefore, I designed this website to help with that. You can follow the value over time and select different currencies.",
+            "description": "This project definitely needs some explaining. First off, Tomorrowland is the worlds largest electronic dance music festival and is hosted each year in Belgium. Due to it's popularity, it's extremely hard to get tickets.<br><br>Tomorrowland released NFTs which you can collect, and if you have collected all 3 you will have special access to festival tickets each year. Due to them being hosted on the Solana blockchain, and the prices are in SOL, it's quite hard to keep track of the value of them. Therefore, I designed this website to help with that. You can follow the value over time and select different currencies.",
             "image": {
-                "src": "tmlwiz1.png",
+                "src": "tmlwiz.png",
                 "alt": "Tmlwiz screenshot"
             },
             "highlights": [
