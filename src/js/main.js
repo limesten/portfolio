@@ -1,6 +1,30 @@
 // Theme functionality
 const themeToggle = document.getElementById('themeToggle');
 
+// Function to get the current theme
+function getCurrentTheme() {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+
+// Function to get the correct icon based on current theme
+function getThemeIcon(iconObj) {
+    const theme = getCurrentTheme();
+    return iconObj[theme];
+}
+
+// Function to update all skill icons based on current theme
+function updateSkillIcons() {
+    if (!sectionData.skills) return;
+    
+    document.querySelectorAll('[class*="Skills"] img').forEach(img => {
+        const skillId = img.closest('button').dataset.index;
+        const skill = sectionData.skills.items.find(item => item.id === parseInt(skillId));
+        if (skill) {
+            img.src = `./images/${getThemeIcon(skill.icon)}`;
+        }
+    });
+}
+
 // Check for saved theme preference or default to dark
 if (!('theme' in localStorage)) {
     localStorage.theme = 'dark';
@@ -26,6 +50,9 @@ themeToggle.addEventListener('click', () => {
         document.documentElement.classList.add('dark');
         localStorage.theme = 'dark';
     }
+    
+    // Update skill icons when theme changes
+    updateSkillIcons();
 });
 
 // Data store for section content
@@ -160,7 +187,7 @@ function populateSidebarSections() {
                 button.setAttribute('tabindex', '0'); // Make focusable
                 
                 button.innerHTML = `
-                    <img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />
+                    <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />
                     <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
                 `;
                 
@@ -446,7 +473,7 @@ function updateMainContent(section, itemId) {
             content = `
                 <div>
                     <div class="flex items-center gap-2 mb-4">
-                        <img src="./images/${item.icon}" alt="${item.name}" class="w-6 h-6" />
+                        <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-6 h-6" />
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
                         <span class="text-cat-green-light dark:text-cat-green-dark">(${item.level})</span>
                     </div>
@@ -755,7 +782,7 @@ function updateDrawerContent(section) {
     items.forEach((item, index) => {
         content += `
             <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-index="${item.id}">
-                ${section === 'skills' ? `<img src="./images/${item.icon}" alt="${item.name}" class="w-5 h-5" />` : ''}
+                ${section === 'skills' ? `<img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />` : ''}
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
                 ${section === 'experience' ? `
                     <span class="text-cat-green-light dark:text-cat-green-dark">@</span>

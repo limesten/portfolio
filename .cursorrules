@@ -28,3 +28,5 @@ There is website used as reference for the design. The html and css for the refe
 - git commit -m "what changed"
 - git push
 
+# RULES
+- Do NOT change the text content of the website.
