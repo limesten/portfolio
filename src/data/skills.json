@@ -1,88 +1,94 @@
 {
-  "items": [
-    {
-      "id": 1,
-      "name": "React",
-      "icon": "react.svg",
-      "level": "Expert",
-      "description": "Extensive experience building complex web applications with React and its ecosystem.",
-      "highlights": [
-        "Redux for state management",
-        "React Router for navigation",
-        "Custom hooks and components",
-        "Performance optimization"
-      ],
-      "years": 4
-    },
-    {
-      "id": 2,
-      "name": "TypeScript",
-      "icon": "ts.svg",
-      "level": "Expert",
-      "description": "Strong advocate for TypeScript in all JavaScript projects for better maintainability and type safety.",
-      "highlights": [
-        "Advanced type system features",
-        "Generic types",
-        "Custom type definitions",
-        "Integration with build tools"
-      ],
-      "years": 3
-    },
-    {
-      "id": 3,
-      "name": "Node.js",
-      "icon": "node.svg",
-      "level": "Advanced",
-      "description": "Proficient in building scalable backend services and APIs with Node.js.",
-      "highlights": [
-        "Express.js framework",
-        "RESTful API design",
-        "Database integration",
-        "Authentication & Authorization"
-      ],
-      "years": 4
-    },
-    {
-      "id": 4,
-      "name": "AWS",
-      "icon": "aws.svg",
-      "level": "Intermediate",
-      "description": "Experience with various AWS services for building and deploying cloud applications.",
-      "highlights": [
-        "EC2 and ECS",
-        "S3 and CloudFront",
-        "Lambda functions",
-        "API Gateway"
-      ],
-      "years": 2
-    },
-    {
-      "id": 5,
-      "name": "PostgreSQL",
-      "icon": "psql.svg",
-      "level": "Advanced",
-      "description": "Extensive experience with PostgreSQL for complex data modeling and optimization.",
-      "highlights": [
-        "Performance tuning",
-        "Complex queries",
-        "Indexing strategies",
-        "Data modeling"
-      ],
-      "years": 3
-    },
-    {
-      "id": 6,
-      "name": "Git",
-      "icon": "git.svg",
-      "level": "Expert",
-      "description": "Advanced knowledge of Git version control and collaboration workflows.",
-      "highlights": [
-        "Branch management",
-        "Merge strategies",
-        "Git hooks",
-        "CI/CD integration"
-      ],
-      "years": 5
-    }
-  ]
-} 
+    "items": [
+        {
+            "id": 1,
+            "name": "React",
+            "icon": "react.svg",
+            "level": "",
+            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>It's definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor",
+            "highlights": [
+                "Server components with Next JS",
+                "React Router for navigation",
+                "useContext, useState for state management"
+            ],
+            "years": 4
+        },
+        {
+            "id": 2,
+            "name": "TypeScript",
+            "icon": "ts.svg",
+            "level": "",
+            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that full stack end-to-end type safety.",
+            "highlights": [
+                "Advanced type system features",
+                "Generic types",
+                "Custom type definitions",
+                "Integration with build tools"
+            ],
+            "years": 3
+        },
+        {
+            "id": 3,
+            "name": "Node.js",
+            "icon": "node.svg",
+            "level": "Advanced",
+            "description": "Node.js is probably where I feel the most comfortable and have the most coding experience. I really like how fast you can build something and the flexibility of it, as well as the enourmous amount of tooling available.",
+            "highlights": ["Puppeteer", "RESTful API design", "Database integration", "Authentication & Authorization"],
+            "years": 4
+        },
+        {
+            "id": 4,
+            "name": "Go",
+            "icon": "go.svg",
+            "level": "Intermediate",
+            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's really simple but yet powerful. And I love that basically everything you need is included in the standard library. I do think it can get a bit overly verbose sometimes tho. The concurrency model is awesome.",
+            "highlights": ["RESTful API design", "HTML templates"],
+            "years": 2
+        },
+        {
+            "id": 5,
+            "name": "Microsoft SQL Server",
+            "icon": "",
+            "level": "Advanced",
+            "description": "I used to be a Postgres and SQlite dude, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
+            "highlights": ["Stored procedures", "SQL server management studio", "Functions", "Triggers", "Views"],
+            "years": 3
+        },
+        {
+            "id": 6,
+            "name": "Postgres",
+            "icon": "psql.svg",
+            "level": "Expert",
+            "description": "Great open source database when you need a bit more features than SQlite. I used it for several of my hobby projects such as Top XYZ and Kombucha Brewery.",
+            "highlights": ["PSQL cli"],
+            "years": 5
+        },
+        {
+            "id": 7,
+            "name": "Git",
+            "icon": "git.svg",
+            "level": "Expert",
+            "description": "Git is such a core skill as a software developer, and I'm happy I started using it from the very beginning of my programming journey.",
+            "highlights": ["Git"],
+            "years": 5
+        },
+        {
+            "id": 8,
+            "name": "AI assisted programming",
+            "icon": "",
+            "level": "Expert",
+            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by the Claude 3.5 Sonnet model. I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
+            "highlights": ["Cursor", "AI prompting techniques", "Claude 3.5 Sonnet", "ChatGPT"],
+            "years": 5
+        },
+        {
+            "id": 8,
+            "name": "Linux",
+            "icon": "linux.svg",
+            "level": "Expert",
+            "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu.",
+            "highlights": ["Ubuntu", "Terminal based workflow"],
+            "years": 5
+        }
+    ]
+}

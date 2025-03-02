@@ -1,63 +1,82 @@
 {
-  "items": [
-    {
-      "id": 1,
-      "title": "Kombucha Brewery",
-      "description": "A modern, responsive portfolio website built with a terminal-like interface.",
-      "image": {
-        "src": "kombucha1.png",
-        "alt": "Portfolio Website Screenshot"
-      },
-      "highlights": [
-        "Implemented dark/light mode with Catppuccin theme",
-        "Built with HTML, Tailwind CSS, and vanilla JavaScript",
-        "Mobile-responsive design with hamburger menu"
-      ],
-      "technologies": ["HTML", "JavaScript", "Tailwind CSS"],
-      "github": "https://github.com/username/portfolio",
-      "live": "https://portfolio.example.com"
-    },
-    {
-      "id": 2,
-      "title": "E-commerce Platform",
-      "description": "A full-featured e-commerce platform with real-time inventory management.",
-      "image": null,
-      "highlights": [
-        "Implemented secure payment processing with Stripe",
-        "Real-time inventory updates using WebSocket",
-        "Admin dashboard for order management"
-      ],
-      "technologies": ["React", "Node.js", "PostgreSQL", "WebSocket"],
-      "github": "https://github.com/username/ecommerce",
-      "live": "https://shop.example.com"
-    },
-    {
-      "id": 3,
-      "title": "Task Management App",
-      "description": "A collaborative task management application with real-time updates.",
-      "image": null,
-      "highlights": [
-        "Real-time collaboration features",
-        "Drag-and-drop task organization",
-        "Email notification system"
-      ],
-      "technologies": ["React", "Firebase", "Material-UI"],
-      "github": "https://github.com/username/taskmanager",
-      "live": "https://tasks.example.com"
-    },
-    {
-      "id": 4,
-      "title": "Weather Dashboard",
-      "description": "A weather dashboard that displays current and forecasted weather data.",
-      "image": null,
-      "highlights": [
-        "Integration with OpenWeather API",
-        "Location-based weather updates",
-        "Interactive weather maps"
-      ],
-      "technologies": ["JavaScript", "OpenWeather API", "Chart.js"],
-      "github": "https://github.com/username/weather",
-      "live": "https://weather.example.com"
-    }
-  ]
-} 
+    "items": [
+        {
+            "id": 1,
+            "title": "Kombucha Brewery",
+            "description": "As I was brewing kombucha at home, I constantly kept loosing track of the dates I started a new batch. So I made this tracking application to track the progress and get email reminders when it's time to check on it.",
+            "image": {
+                "src": "kombucha1.png",
+                "alt": "Kombucha brewery screenshot"
+            },
+            "highlights": [
+                "Built with Next JS server components",
+                "Postgres database with Drizzle ORM",
+                "OAuth using Clerk with Google sign-in"
+            ],
+            "technologies": ["Next JS", "TypeScript", "Tailwind CSS", "drizzle ORM", "shadcn/ui"],
+            "github": "https://github.com/limesten/kombucha_brewery",
+            "live": "https://kombucha.emilmalmsten.xyz"
+        },
+        {
+            "id": 2,
+            "title": "Portfolio website",
+            "description": "The website you are viewing right now! I think terminal based GUIs look so cool so I wanted to go for something like that. This website is actually built completely by prompting AI. I wanted to test out how good modern AI is for coding and this was a perfect opportunity for it as I don't exactly love dabbling with HTML and CSS.",
+            "image": null,
+            "highlights": ["Built by AI", "Terminal style UI", "Mobile responsive with dark and light mode"],
+            "technologies": ["Cursor", "Claude Sonnet 3.5"],
+            "github": "https://github.com/limesten/two_player_snake",
+            "live": ""
+        },
+        {
+            "id": 3,
+            "title": "Top XYZ",
+            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.",
+            "image": null,
+            "highlights": [
+                "JWT authentication",
+                "React frontend with a Go backend and a Postgres database",
+                "CI/CD with Github actions"
+            ],
+            "technologies": ["React", "Golang", "PostgreSQL", "JWT"],
+            "github": "https://github.com/limesten/topxyz",
+            "live": ""
+        },
+        {
+            "id": 4,
+            "title": "Tomorrowland NFT Wizard",
+            "description": "This project definitely needs some explaining. First off, Tomorrowland is the worlds largest electronic dance music festival and is hosted each year in Belgium. Due to it's popularity, it's extremely hard to get tickets. Tomorrowland released NFTs which you can collect, and if you have collected all 3 you will have special access to festival tickets each year. Due to them being hosted on the Solana blockchain, and the prices are in SOL, it's quite hard to keep track of the value of them. Therefore, I designed this website to help with that. You can follow the value over time and select different currencies.",
+            "image": {
+                "src": "tmlwiz1.png",
+                "alt": "Tmlwiz screenshot"
+            },
+            "highlights": [
+                "Token price data from Magic Eden API",
+                "Currency rates from FX Rates API",
+                "Created with Golang and SQLite"
+            ],
+            "technologies": ["Golang", "SQlite", "HTML", "Tailwind CSS", "Javascript"],
+            "github": "https://github.com/limesten/tml_nft_wiz",
+            "live": "https://tmlwiz.emilmalmsten.xyz/"
+        },
+        {
+            "id": 5,
+            "title": "Lofi Chat",
+            "description": "A TCP/IP terminal based chat application",
+            "image": null,
+            "highlights": ["Multi user", "Auto IP ban against spamming", "No 3rd party tools used"],
+            "technologies": ["C#"],
+            "github": "https://github.com/limesten/lofichat",
+            "live": ""
+        },
+        {
+            "id": 6,
+            "title": "1v1 Snake",
+            "description": "A 1v1 snake game where each snake keeps growing. Be the last one alive as space keeps getting more and more limited. Idea comes from one of the first online games I played as a kid on a Swedish game site called Blip.se",
+            "image": null,
+            "highlights": ["2-player", "Object oriented programming"],
+            "technologies": ["Python", "Tkinter"],
+            "github": "https://github.com/limesten/two_player_snake",
+            "live": ""
+        }
+    ]
+}

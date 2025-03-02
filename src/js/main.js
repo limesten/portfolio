@@ -229,8 +229,8 @@ function displayHomeContent() {
                 <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
             </div>
             <div class="mb-4">
-                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">Emil Malmsten</span>, a passionate
-                <span class="text-cat-peach-light dark:text-cat-peach-dark">Software Developer</span> from Sweden.
+                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">Emil Malmsten</span>, a backend-focused
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">Software Developer</span> from Gothenburg, Sweden.
             </div>
             <div class="flex items-center gap-2 mb-4">
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
@@ -238,8 +238,17 @@ function displayHomeContent() {
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">about.txt</span>
             </div>
             <div>
-                I specialize in building modern web applications with a focus on clean code and user experience.
-                Currently working on exciting projects involving modern web technologies.
+                I got started learning how to code in 2017 by myself using various online tutorials. As many people do, I started with the classic web stack of HTML, CSS and JavaScript.
+                The reason that I wanted to learn how to code was basically that I thought it was something that could suit me well as someone who has always been into computers.
+                But I had never experienced the programming side of it.
+                <br> 
+                <br>     
+                Click on a section on the left to learn more about my work and past experiences.
+                <br>
+                You can also navigate through the sections using the arrow keys or Vim motions.
+                <br>
+                <br>
+                In case you can't read the ASCII art above, dont't worry. Neither can I. It does however look cool.
             </div>
         </div>
     `;

@@ -1,43 +1,53 @@
 {
-  "items": [
-    {
-      "id": 1,
-      "title": "Senior Developer",
-      "company": "TechCorp",
-      "period": "2021 - Present",
-      "description": "Led development of cloud-native applications using modern technologies. Mentored junior developers and established best practices.",
-      "highlights": [
-        "Architected and implemented microservices using Node.js and TypeScript",
-        "Reduced deployment time by 60% through CI/CD pipeline optimization",
-        "Led a team of 5 developers on a major platform migration project"
-      ],
-      "technologies": ["TypeScript", "Node.js", "AWS", "Docker", "React"]
-    },
-    {
-      "id": 2,
-      "title": "Full Stack Developer",
-      "company": "WebSolutions",
-      "period": "2019 - 2021",
-      "description": "Developed and maintained full-stack web applications for various clients in the e-commerce sector.",
-      "highlights": [
-        "Built responsive web applications using React and Node.js",
-        "Implemented secure payment processing systems",
-        "Optimized database queries resulting in 40% faster load times"
-      ],
-      "technologies": ["React", "Node.js", "PostgreSQL", "Redis", "AWS"]
-    },
-    {
-      "id": 3,
-      "title": "Frontend Developer",
-      "company": "DesignStudio",
-      "period": "2018 - 2019",
-      "description": "Created modern, responsive user interfaces for client websites and web applications.",
-      "highlights": [
-        "Developed pixel-perfect implementations of designer mockups",
-        "Improved site performance scores by 25%",
-        "Implemented automated testing reducing bug reports by 30%"
-      ],
-      "technologies": ["JavaScript", "React", "SASS", "Jest", "Webpack"]
-    }
-  ]
-} 
+    "items": [
+        {
+            "id": 1,
+            "title": "Software Engineer",
+            "company": "CodeIT",
+            "period": "2024 - Present",
+            "description": "At CodeIT I'm building industrial applications focused on automated product labeling and traceability within food, wood and traditional industry.",
+            "highlights": [
+                "Färsksallad - A client project for a factory in Torsvik that produces various delicacies. I build an XML integration service that imports orders and article files, as well as exports finished orders, order statuses and DESADV EDI files. I also built applications handling automated labeling of the products on a conveyor belt with a checkweigher and 4 different printers. These applications were talking to a SQL server database.",
+                "DIAB - A client project for a factory in Laholm, Sweden and Dallas, Texas which produces materials for other industries. I worked on an application which prints labels for each production order. It required different printing logic for different types of production lines. The printing application was built using client/server technology and was connected to a SQL server database."
+            ],
+            "technologies": ["Microsoft SQL Server", "Python", "CodeIT Enterprise Platform", "Ubuntu"]
+        },
+        {
+            "id": 2,
+            "title": "Programmer",
+            "company": "Contractor",
+            "period": "2022-2024",
+            "description": "This is were my developer career truly got started. A good friend of mine had successfully been running a horse racing prediction model for several years (!). He wanted to outsource some parts of that work and asked me to do it, which I accepted. It turned out to be an amazing learning experience.",
+            "highlights": [
+                "A dashboard using Node.JS that tracked progress in real time of the web-scrapers that we had running several times per day. It also provided metrics for the quality of the collected data, as well as functionality to run various scripts/tasks on the server.",
+                "A CLI app in Python which was the predecessor to the Node.JS dashboard. It had roughly the same functionality but it was run directly on the terminal instead. It could also generate email reports.",
+                "Web scraping using Puppeteer, as well as Python scripts for talking to APIs such as the betfair api."
+            ],
+            "technologies": ["Python", "Node.js", "React", "SQlite", "Ubuntu"]
+        },
+        {
+            "id": 4,
+            "title": "Contributor",
+            "company": "Open Source",
+            "period": "2023 - Present",
+            "description": "Open source software really is an amazing thing, and my goal is to make more contributions in the future.",
+            "highlights": [
+                "Go Blueprint - A Golang project scaffolding tool with over 6.9k starts on Github. I helped fix a choice selection bug, a broken version command, and issues with the issue templates on Github. This experience really helped me improve my git skills since I had get into creating issues on github, creating my own feature branches and merging in new changes, as well as coordinating with different people."
+            ],
+            "technologies": ["Github", "Git", "Golang"]
+        },
+        {
+            "id": 3,
+            "title": "Backend squire",
+            "company": "Student",
+            "period": "2023",
+            "description": "I completed the back-end career path on boot.dev, which is an online platform with a comprehensive, extremely well made program for learning backend programming. It included 20 courses as well as guided projects and solo projects.",
+            "highlights": [
+                "2-player snake game made in python. A re-creation of an old flash game I played as a kid",
+                "Maze-solving DFS-algo using Python and Tkinter",
+                "TopXYZ - A web app where you can create toplists for any topic you desire"
+            ],
+            "technologies": ["Python", "Javascript", "Golang", "SQL", "Data structures", "Algorithms"]
+        }
+    ]
+}
