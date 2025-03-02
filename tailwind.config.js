@@ -43,8 +43,14 @@ module.exports = {
                 '.dark .scrollbar-custom::-webkit-scrollbar-thumb': {
                     'background': 'rgb(205 214 244 / 0.2)',
                 },
+                '.hover-item': {
+                    'position': 'relative',
+                    'z-index': '20',
+                },
                 '.selected': {
                     'background-color': 'rgb(76 79 105 / 0.2)',
+                    'position': 'relative',
+                    'z-index': '20',
                 },
                 '.dark .selected': {
                     'background-color': 'rgb(205 214 244 / 0.2)',
@@ -57,7 +63,7 @@ module.exports = {
                 },
                 '.decorating-text p': {
                     'position': 'relative',
-                    'z-index': '2',
+                    'z-index': '30',
                     'background-color': 'rgb(239, 241, 245)',
                 },
                 '.dark .decorating-text p': {

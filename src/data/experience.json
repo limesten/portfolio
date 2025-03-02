@@ -26,7 +26,7 @@
             "technologies": ["Python", "Node.js", "React", "SQlite", "Ubuntu"]
         },
         {
-            "id": 4,
+            "id": 3,
             "title": "Contributor",
             "company": "Open Source",
             "period": "2023 - Present",
@@ -37,7 +37,7 @@
             "technologies": ["Github", "Git", "Golang"]
         },
         {
-            "id": 3,
+            "id": 4,
             "title": "Backend squire",
             "company": "Student",
             "period": "2023",

@@ -94,11 +94,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.experience.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
-                // Set the first item as selected by default
-                if (index === 0) {
-                    button.classList.add('selected');
-                }
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
                 
@@ -137,11 +133,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.projects.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
-                // Set the first item as selected by default
-                if (index === 0) {
-                    button.classList.add('selected');
-                }
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
                 
@@ -178,11 +170,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.skills.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
-                // Set the first item as selected by default
-                if (index === 0) {
-                    button.classList.add('selected');
-                }
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
                 
@@ -570,8 +558,26 @@ document.querySelector('.Home').addEventListener('click', () => {
     );
 });
 
+// Improved helper function to check if an element is visible in its scrollable container
+// with an optional buffer zone to start scrolling earlier
+function isElementInView(element, container, buffer = 0) {
+    const elementRect = element.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    
+    // Check if the element is fully visible in the container (with buffer)
+    return (
+        elementRect.top >= (containerRect.top - buffer) &&
+        elementRect.bottom <= (containerRect.bottom + buffer)
+    );
+}
+
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
+    // Prevent default arrow key behavior to avoid any browser-induced scrolling
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+    }
+    
     // First check if we're in the Home section
     const homeSection = document.activeElement.closest('.Home');
     if (homeSection) {
@@ -582,7 +588,6 @@ document.addEventListener('keydown', (e) => {
             if (firstItem) {
                 firstItem.click();
                 firstItem.focus();
-                firstItem.scrollIntoView({ block: 'nearest' });
             }
         }
         return;
@@ -599,30 +604,29 @@ document.addEventListener('keydown', (e) => {
     const currentIndex = parseInt(selectedItem.dataset.index);
     let nextIndex;
 
+    // Get the scrollable container for visibility checks
+    const scrollableContainer = activeSection.querySelector('.scrollbar-custom');
+    
+    // Define buffer for earlier scrolling (20px)
+    const scrollBuffer = 20;
+
     // Define the section order including Home
     const sections = ['Home', 'Experience', 'Projects', 'Skills'];
     const currentSectionIndex = sections.findIndex(section => activeSection.classList.contains(section));
 
+    // Handle key navigation in a more consistent way
+    let nextItem = null;
+    
     switch(e.key) {
         case 'ArrowUp':
         case 'k':
             nextIndex = Math.max(1, currentIndex - 1);
-            const nextUpItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
-            if (nextUpItem) {
-                nextUpItem.click();
-                nextUpItem.focus();
-                nextUpItem.scrollIntoView({ block: 'nearest' });
-            }
+            nextItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
             break;
         case 'ArrowDown':
         case 'j':
             nextIndex = Math.min(items.length, currentIndex + 1);
-            const nextDownItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
-            if (nextDownItem) {
-                nextDownItem.click();
-                nextDownItem.focus();
-                nextDownItem.scrollIntoView({ block: 'nearest' });
-            }
+            nextItem = activeSection.querySelector(`[data-index="${nextIndex}"]`);
             break;
         case 'ArrowLeft':
         case 'h':
@@ -632,7 +636,6 @@ document.addEventListener('keydown', (e) => {
                 if (firstItem) {
                     firstItem.click();
                     firstItem.focus();
-                    firstItem.scrollIntoView({ block: 'nearest' });
                 }
             } else if (currentSectionIndex === 1) { // We're in Experience section
                 const homeContainer = document.querySelector('.Home');
@@ -685,12 +688,42 @@ document.addEventListener('keydown', (e) => {
                 if (firstItem) {
                     firstItem.click();
                     firstItem.focus();
-                    firstItem.scrollIntoView({ block: 'nearest' });
                 }
             }
             break;
         default:
             return;
+    }
+    
+    // Handle scrolling for up/down navigation
+    if (nextItem && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'j' || e.key === 'k')) {
+        // First update selection and focus
+        nextItem.click();
+        nextItem.focus();
+        
+        // Then check if scrolling is needed using the enhanced visibility check with buffer
+        if (scrollableContainer && !isElementInView(nextItem, scrollableContainer, scrollBuffer)) {
+            // Calculate better scroll position to show context above/below the selected item
+            // Get all item heights to calculate precise position
+            const itemHeight = nextItem.offsetHeight;
+            const containerHeight = scrollableContainer.clientHeight;
+            
+            // For "up" navigation, align to top with room for context above
+            if (e.key === 'ArrowUp' || e.key === 'k') {
+                // More sophisticated approach to ensure good positioning for upward movement
+                scrollableContainer.scrollTop = nextItem.offsetTop - Math.floor(containerHeight / 4);
+            } 
+            // For "down" navigation, ensure item is fully visible with context below
+            else {
+                // More sophisticated approach to ensure good positioning for downward movement
+                const itemBottom = nextItem.offsetTop + itemHeight;
+                const scrollBottom = scrollableContainer.scrollTop + containerHeight;
+                
+                if (itemBottom > scrollBottom) {
+                    scrollableContainer.scrollTop = nextItem.offsetTop - containerHeight + itemHeight + Math.floor(containerHeight / 4);
+                }
+            }
+        }
     }
 });
 
