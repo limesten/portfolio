@@ -390,7 +390,7 @@ function updateMainContent(section, itemId) {
                     <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">${item.period}</div>
                     <p class="mb-4">${item.description}</p>
                     <div class="mb-4">
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Key Achievements:</div>
+                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
                         <ul class="list-disc list-inside space-y-1">
                             ${item.highlights.map(h => `<li>${h}</li>`).join('')}
                         </ul>
@@ -475,7 +475,6 @@ function updateMainContent(section, itemId) {
                     <div class="flex items-center gap-2 mb-4">
                         <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-6 h-6" />
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
-                        <span class="text-cat-green-light dark:text-cat-green-dark">(${item.level})</span>
                     </div>
                     <p class="mb-4">${item.description}</p>
                     <div class="mb-4">
@@ -483,9 +482,6 @@ function updateMainContent(section, itemId) {
                         <ul class="list-disc list-inside space-y-1">
                             ${item.highlights.map(h => `<li>${h}</li>`).join('')}
                         </ul>
-                    </div>
-                    <div class="text-cat-green-light dark:text-cat-green-dark">
-                        Years of Experience: ${item.years}
                     </div>
                 </div>
             `;
