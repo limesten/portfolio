@@ -94,7 +94,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.experience.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
                 // Set the first item as selected by default
                 if (index === 0) {
                     button.classList.add('selected');
@@ -103,7 +103,7 @@ function populateSidebarSections() {
                 button.setAttribute('tabindex', '0'); // Make focusable
                 
                 button.innerHTML = `
-                    <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
                     <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
                     <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
                 `;
@@ -137,7 +137,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.projects.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
                 // Set the first item as selected by default
                 if (index === 0) {
                     button.classList.add('selected');
@@ -178,7 +178,7 @@ function populateSidebarSections() {
             // Add items from JSON
             sectionData.skills.items.forEach((item, index) => {
                 const button = document.createElement('button');
-                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group';
+                button.className = 'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2';
                 // Set the first item as selected by default
                 if (index === 0) {
                     button.classList.add('selected');
@@ -777,7 +777,7 @@ function updateDrawerContent(section) {
     
     items.forEach((item, index) => {
         content += `
-            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item" data-index="${item.id}">
+            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item mr-2" data-index="${item.id}">
                 ${section === 'skills' ? `<img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />` : ''}
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
                 ${section === 'experience' ? `
