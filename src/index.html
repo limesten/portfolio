@@ -57,6 +57,13 @@
                     padding-bottom: 4px !important;
                 }
             }
+
+            /* Add mobile-specific adjustments */
+            @media (max-width: 768px) {
+                .main-container {
+                    height: calc(100vh - 80px) !important; /* Account for mobile nav bar */
+                }
+            }
         </style>
         <script>
             // Check for dark mode preference immediately to prevent flash
@@ -76,7 +83,7 @@
         class="bg-cat-base-light dark:bg-cat-base-dark text-cat-fg-light dark:text-cat-fg-dark h-screen p-3 pb-16 md:p-4"
     >
         <div class="flex flex-col h-full">
-            <div class="flex-1 flex flex-col h-[calc(100vh-40px)] md:pb-8 main-container">
+            <div class="flex-1 flex flex-col h-[calc(100vh-40px)] pb-16 md:pb-8 main-container">
                 <div class="flex w-full h-full gap-4">
                     <!-- Left column - hidden on mobile -->
                     <div class="hidden md:flex w-1/4 h-full flex-col gap-4">
