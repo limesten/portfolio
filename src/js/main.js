@@ -484,12 +484,6 @@ function updateMainContent(section, itemId) {
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
                     </div>
                     <p class="mb-4">${item.description}</p>
-                    <div class="mb-4">
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Key Skills:</div>
-                        <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
-                        </ul>
-                    </div>
                 </div>
             `;
             break;

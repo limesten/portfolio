@@ -7,12 +7,7 @@
                 "light": "react_light.svg",
                 "dark": "react_dark.svg"
             },
-            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>React is definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor existing code.",
-            "highlights": [
-                "Server components with Next JS",
-                "React Router for navigation",
-                "useContext, useState for state management"
-            ]
+            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>React is definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor existing code."
         },
         {
             "id": 2,
@@ -21,13 +16,7 @@
                 "light": "ts_light.svg",
                 "dark": "ts_dark.svg"
             },
-            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that fullstack end-to-end type safety.",
-            "highlights": [
-                "Advanced type system features",
-                "Generic types",
-                "Custom type definitions",
-                "Integration with build tools"
-            ]
+            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that fullstack end-to-end type safety."
         },
         {
             "id": 3,
@@ -36,8 +25,7 @@
                 "light": "node_light.svg",
                 "dark": "node_dark.svg"
             },
-            "description": "Node.js is probably where I feel the most comfortable and have the most coding experience. I really like how fast you can build something and the flexibility of it, as well as the enourmous amount of tooling available.",
-            "highlights": ["Puppeteer", "RESTful API design", "Database integration", "Authentication & Authorization"]
+            "description": "Node.js is probably where I feel the most comfortable and have the most coding experience. I really like how fast you can build something and the flexibility of it, as well as the enourmous amount of tooling available."
         },
         {
             "id": 4,
@@ -46,8 +34,7 @@
                 "light": "go_light.svg",
                 "dark": "go_dark.svg"
             },
-            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's quite simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model.",
-            "highlights": ["RESTful API design", "HTML templates", "Go channels"]
+            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's quite simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model."
         },
         {
             "id": 5,
@@ -56,8 +43,7 @@
                 "light": "db_light.svg",
                 "dark": "db_dark.svg"
             },
-            "description": "I used to be a Postgres and SQlite kinda guy, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
-            "highlights": ["Stored procedures", "SQL server management studio", "Functions", "Triggers", "Views"]
+            "description": "I used to be a Postgres and SQlite kinda guy, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers."
         },
         {
             "id": 6,
@@ -66,8 +52,7 @@
                 "light": "psql_light.svg",
                 "dark": "psql_dark.svg"
             },
-            "description": "Great open source database when you need a bit more features than SQlite. I used it for several of my hobby projects such as Top XYZ and Kombucha Brewery.",
-            "highlights": ["PSQL cli"]
+            "description": "Great open source database when you need a bit more features than SQlite. I used it for several of my hobby projects such as Top XYZ and Kombucha Brewery."
         },
         {
             "id": 7,
@@ -76,8 +61,7 @@
                 "light": "git_light.svg",
                 "dark": "git_dark.svg"
             },
-            "description": "Git is such a core skill as a software developer, and I'm happy I started using it from the very beginning of my programming journey.",
-            "highlights": ["Branches", "Merging", "Rebase"]
+            "description": "Git is such a core skill as a software developer, and I'm happy I started using it from the very beginning of my programming journey."
         },
         {
             "id": 8,
@@ -86,8 +70,7 @@
                 "light": "ai_light.svg",
                 "dark": "ai_dark.svg"
             },
-            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
-            "highlights": ["Cursor", "AI prompting techniques", "Claude 3.5 Sonnet", "ChatGPT"]
+            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve."
         },
         {
             "id": 9,
@@ -96,8 +79,7 @@
                 "light": "linux_light.svg",
                 "dark": "linux_dark.svg"
             },
-            "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu.",
-            "highlights": ["Ubuntu", "Terminal based workflow"]
+            "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu."
         },
         {
             "id": 10,
@@ -106,8 +88,7 @@
                 "light": "html_light.svg",
                 "dark": "html_dark.svg"
             },
-            "description": "HTML is the corner stone of the world wide web. It is used to organize and categorize the content of a website.<br><br>I have been using HTML since 2017 and I feel very comfortable using it.",
-            "highlights": ["Ubuntu", "Terminal based workflow"]
+            "description": "HTML is the corner stone of the world wide web. It is used to organize and categorize the content of a website.<br><br>I have been using HTML since 2017 and I feel very comfortable using it."
         },
         {
             "id": 11,
@@ -116,8 +97,7 @@
                 "light": "css_light.svg",
                 "dark": "css_dark.svg"
             },
-            "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker.",
-            "highlights": ["Ubuntu", "Terminal based workflow"]
+            "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker."
         }
     ]
 }
