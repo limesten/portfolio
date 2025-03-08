@@ -49,10 +49,16 @@ themeToggle.addEventListener('click', () => {
         document.documentElement.classList.remove('dark');
         document.documentElement.classList.add('light');
         localStorage.theme = 'light';
+        // Switch highlight.js theme
+        document.getElementById('theme-light').disabled = false;
+        document.getElementById('theme-dark').disabled = true;
     } else {
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add('dark');
         localStorage.theme = 'dark';
+        // Switch highlight.js theme
+        document.getElementById('theme-light').disabled = true;
+        document.getElementById('theme-dark').disabled = false;
     }
 
     // Update skill icons when theme changes
@@ -484,8 +490,42 @@ function updateMainContent(section, itemId) {
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
                     </div>
                     <p class="mb-4">${item.description}</p>
+                    ${item.code_file ? `
+                        <div class="mt-6 code-example">
+                            <pre><code class="rounded-md" id="codeExample">Loading...</code></pre>
+                        </div>
+                    ` : ''}
                 </div>
             `;
+
+            // After setting the content, fetch and display the code if there's a code file
+            if (item.code_file) {
+                fetch(`./data/${item.code_file}`)
+                    .then(response => response.text())
+                    .then(code => {
+                        const codeElement = document.getElementById('codeExample');
+                        if (codeElement) {
+                            codeElement.textContent = code;
+                            // Detect language from file extension
+                            const fileExtension = item.code_file.split('.').pop();
+                            const language = fileExtension === 'tsx' ? 'typescript' : fileExtension;
+                            codeElement.className = `language-${language}`;
+                            // Apply syntax highlighting
+                            hljs.highlightElement(codeElement);
+                            // Force theme update
+                            const isDark = document.documentElement.classList.contains('dark');
+                            document.getElementById('theme-light').disabled = isDark;
+                            document.getElementById('theme-dark').disabled = !isDark;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading code example:', error);
+                        const codeElement = document.getElementById('codeExample');
+                        if (codeElement) {
+                            codeElement.textContent = 'Error loading code example';
+                        }
+                    });
+            }
             break;
     }
 

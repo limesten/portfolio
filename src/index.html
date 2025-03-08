@@ -8,6 +8,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="./css/output.css" rel="stylesheet" />
+        <!-- Add highlight.js and catppuccin theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-latte.css" media="(prefers-color-scheme: light)" id="theme-light">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-mocha.css" media="(prefers-color-scheme: dark)" id="theme-dark">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <!-- Add languages we need -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/tsx.min.js"></script>
         <style>
             :root {
                 --cat-orange: rgb(239, 159, 118);
@@ -68,6 +76,48 @@
                 .ascii-art.Home {
                     margin-bottom: 1.5rem !important;
                 }
+            }
+
+            /* Code block styling */
+            .code-example pre {
+                margin: 0;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                background-color: rgb(239, 241, 245) !important;
+                overflow-x: auto;
+            }
+
+            .dark .code-example pre {
+                background-color: transparent !important;
+            }
+
+            .code-example pre code {
+                font-family: 'Fira Mono', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            /* Adjust scrollbar for code blocks */
+            .code-example pre::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .code-example pre::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .code-example pre::-webkit-scrollbar-thumb {
+                background-color: rgba(108, 112, 134, 0.3);
+                border-radius: 4px;
+            }
+
+            .dark .code-example pre::-webkit-scrollbar-thumb {
+                background-color: rgba(205, 214, 244, 0.3);
+            }
+
+            /* ASCII art specific styling */
+            .ascii-art pre {
+                background-color: transparent !important;
             }
         </style>
         <script>

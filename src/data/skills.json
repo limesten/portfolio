@@ -7,7 +7,8 @@
                 "light": "react_light.svg",
                 "dark": "react_dark.svg"
             },
-            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>React is definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor existing code."
+            "description": "React has changed a lot over the years since I started to learn it in 2017. From class components to function components, and now server components and even a compiler. It's been cool to see it continue to develop and keep up with the development. <br><br>React is definitely my go-to framwork if I'm going to build a front-end and I've used it for several of my hobby projects. I also used it while I was working on a contract basis for my friend since the main tracking website was built with React and I sometimes had to implement new features or re-factor existing code.",
+            "code_file": "code_examples/react.tsx"
         },
         {
             "id": 2,
@@ -16,7 +17,8 @@
                 "light": "ts_light.svg",
                 "dark": "ts_dark.svg"
             },
-            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that fullstack end-to-end type safety."
+            "description": "TypeScript was one of the things I stayed away from for the longest time because I didn't really feel like I needed it. But I guess after getting into typed languages such a Golang and C# I started to see the value in it. And after one too many 'cannot read property of undefined' errors I decided to pick up TypeScript and used it for my Kombucha Brewery project. I think it's especially good when you can get that fullstack end-to-end type safety.",
+            "code_file": "code_examples/typescript.ts"
         },
         {
             "id": 3,
@@ -25,7 +27,8 @@
                 "light": "node_light.svg",
                 "dark": "node_dark.svg"
             },
-            "description": "Node.js is probably where I feel the most comfortable and have the most coding experience. I really like how fast you can build something and the flexibility of it, as well as the enourmous amount of tooling available."
+            "description": "Node.js is probably where I feel the most comfortable and have the most coding experience. I really like how fast you can build something and the flexibility of it, as well as the enourmous amount of tooling available.",
+            "code_file": "code_examples/nodejs.js"
         },
         {
             "id": 4,
