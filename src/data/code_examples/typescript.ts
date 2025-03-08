@@ -1,4 +1,3 @@
-// Generic type for API response
 type ApiResponse<T> = {
   data: T;
   status: number;
@@ -6,7 +5,6 @@ type ApiResponse<T> = {
   timestamp: Date;
 };
 
-// Example domain types
 interface User {
   id: number;
   name: string;

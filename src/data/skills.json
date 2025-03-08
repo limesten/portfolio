@@ -37,7 +37,8 @@
                 "light": "go_light.svg",
                 "dark": "go_dark.svg"
             },
-            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's quite simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model."
+            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's quite simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model.",
+            "code_file": "code_examples/go.go"
         },
         {
             "id": 5,
@@ -46,7 +47,8 @@
                 "light": "db_light.svg",
                 "dark": "db_dark.svg"
             },
-            "description": "I used to be a Postgres and SQlite kinda guy, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers."
+            "description": "I used to be a Postgres and SQlite kinda guy, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
+            "code_file": "code_examples/mssql.sql"
         },
         {
             "id": 6,
@@ -55,7 +57,8 @@
                 "light": "psql_light.svg",
                 "dark": "psql_dark.svg"
             },
-            "description": "Great open source database when you need a bit more features than SQlite. I used it for several of my hobby projects such as Top XYZ and Kombucha Brewery."
+            "description": "Great open source database when you need a bit more features than SQlite. I used it for several of my hobby projects such as Top XYZ and Kombucha Brewery.",
+            "code_file": "code_examples/postgres.sql"
         },
         {
             "id": 7,
@@ -73,7 +76,8 @@
                 "light": "ai_light.svg",
                 "dark": "ai_dark.svg"
             },
-            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve."
+            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
+            "code_file": "code_examples/ai.txt"
         },
         {
             "id": 9,
@@ -82,7 +86,8 @@
                 "light": "linux_light.svg",
                 "dark": "linux_dark.svg"
             },
-            "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu."
+            "description": "Linux is an amazing development environment as it's free, open-source, stable, secure, customizable and extremely powerful with great developer tooling. Even though there are many different distibutions of Linux I've so far only used the debian based Ubuntu.",
+            "code_file": "code_examples/linux.txt"
         },
         {
             "id": 10,
@@ -91,7 +96,8 @@
                 "light": "html_light.svg",
                 "dark": "html_dark.svg"
             },
-            "description": "HTML is the corner stone of the world wide web. It is used to organize and categorize the content of a website.<br><br>I have been using HTML since 2017 and I feel very comfortable using it."
+            "description": "HTML is the corner stone of the world wide web. It is used to organize and categorize the content of a website.<br><br>I have been using HTML since 2017 and I feel very comfortable using it.",
+            "code_file": "code_examples/html.html"
         },
         {
             "id": 11,
@@ -100,7 +106,8 @@
                 "light": "css_light.svg",
                 "dark": "css_dark.svg"
             },
-            "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker."
+            "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker.",
+            "code_file": "code_examples/css.css"
         }
     ]
 }
