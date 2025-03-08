@@ -260,7 +260,7 @@ function displayHomeContent() {
                 You can also navigate through the sections using the <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-green-light dark:text-cat-green-dark">Vim motions</span>.
                 <br>
                 <br>
-                In case you can't read the ASCII art above, <span class="text-cat-peach-light dark:text-cat-peach-dark">dont't worry</span>. Neither can I. It does however look cool.
+                In case you can't read the ASCII art above, dont't worry. Neither can I. It does however look cool.
             </div>
         </div>
     `;

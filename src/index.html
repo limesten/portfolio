@@ -34,15 +34,27 @@
                 }
             }
 
-            @media (max-height: 820px) {
+            @media (max-height: 960px) {
                 footer {
                     display: none !important;
                 }
 
                 /* Adjust main container when footer is hidden */
                 .main-container {
-                    height: calc(100vh - 8px) !important; /* Leave a small amount of space for borders */
+                    height: calc(100vh - 20px) !important; /* Leave a small amount of space for borders */
                     padding-bottom: 4px !important; /* Reduce padding but don't remove it completely */
+                }
+            }
+
+            @media (max-width: 1240px) {
+                footer {
+                    display: none !important;
+                }
+
+                /* Adjust main container when footer is hidden */
+                .main-container {
+                    height: calc(100vh - 20px) !important;
+                    padding-bottom: 4px !important;
                 }
             }
         </style>
@@ -226,8 +238,11 @@
             <footer class="absolute bottom-0 left-0 right-0 md:flex justify-between items-center p-4 text-sm">
                 <div>
                     <p>
-                        Use <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-peach-light dark:text-cat-peach-dark">h/j/k/l</span> to navigate
-                        <span class="text-cat-green-light dark:text-cat-green-dark">(or just use the mouse)</span>
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">&lt;Right Arrow&gt;</span> for next section, 
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">&lt;Left Arrow&gt;</span> for previous section, 
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">&lt;Down Arrow&gt;</span> for next item, 
+                        <span class="text-cat-peach-light dark:text-cat-peach-dark">&lt;Up Arrow&gt;</span> for previous item 
+                        <span class="text-cat-green-light dark:text-cat-green-dark">(Or just use the mouse)</span>
                     </p>
                 </div>
                 <div class="flex gap-4">
