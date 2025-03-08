@@ -46,7 +46,7 @@
                 "light": "go_light.svg",
                 "dark": "go_dark.svg"
             },
-            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's really simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model.",
+            "description": "Go is the first typed and compiled language I learned. And I think it's a perfect first pick. It's quite simple but yet powerful. And I love that basically everything you need is included in the standard library. But I do think Go can get a bit overly verbose sometimes. Another great thing is the concurrency model.",
             "highlights": ["RESTful API design", "HTML templates", "Go channels"]
         },
         {
@@ -56,7 +56,7 @@
                 "light": "db_light.svg",
                 "dark": "db_dark.svg"
             },
-            "description": "I used to be a Postgres and SQlite dude, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
+            "description": "I used to be a Postgres and SQlite kinda guy, but after being forced to work so much in SQL server at my current job, I actually really started to like it. I dig all the functionality in SSMS and keep finding new stuff in there all the time. I utilize stored procedures a lot, but also functions and triggers.",
             "highlights": ["Stored procedures", "SQL server management studio", "Functions", "Triggers", "Views"]
         },
         {

@@ -5,10 +5,10 @@
             "title": "Software Engineer",
             "company": "CodeIT",
             "period": "2024 - Present",
-            "description": "At CodeIT I'm building industrial applications focused on automated product labeling and traceability within food, wood and traditional industry.<br><br>It's both hardware and software, and a big part of the job is making those two worlds connect.",
+            "description": "At CodeIT I'm building industrial applications focused on automated product labeling and traceability within food, wood and traditional industry.<br><br>It's a mix of hardware and software, and a big part of the job is making those two worlds connect.",
             "highlights": [
-                "Completed client project for a factory in Swedish Småland that produces various delicacies. I build an XML integration service that imports orders and article files, as well as exports finished orders, order statuses and DESADV EDI files. I also built applications handling automated labeling of the products on a conveyor belt with a checkweigher and 4 different printers. These applications were talking to a SQL server database.<br><br>",
-                "Completed client project for a factory in Laholm, Sweden and Dallas, Texas which produces materials for other industries. I worked on an application which prints labels for each production order. It required different printing logic for different types of production lines. The printing application was built using client/server technology and was connected to a SQL server database.<br><br>",
+                "Completed client project for a factory in Swedish Småland that produces various delicacies. I build an XML integration service that imports orders and article files, as well as exports finished orders, order statuses and DESADV EDI files. I also built applications handling automated labeling of the products on a conveyor belt with a checkweigher and 4 different printers. I also used Microsoft SQL server for the database.<br><br>",
+                "Completed client project for a factory in Laholm, Sweden which produces materials for other industries. I worked on an application which prints labels for each production order. It required different printing logic for different types of production lines. The printing application was built using client/server technology and was connected to a SQL server database.<br><br>",
                 "Built python apps for Evolabel printers"
             ],
             "technologies": ["Microsoft SQL Server", "Python", "CodeIT Enterprise Platform", "Ubuntu"]
@@ -18,7 +18,7 @@
             "title": "Programmer",
             "company": "Contractor",
             "period": "2022-2024",
-            "description": "This is were my developer career truly got started. A good friend of mine had successfully been running a horse racing prediction model for several years (!). He wanted to outsource some parts of that work and asked me to do it, which I accepted. It turned out to be an amazing learning experience.",
+            "description": "This is were my developer career truly got started. A good friend of mine had successfully been running a horse racing prediction model for several years. He wanted to outsource some parts of that work and asked me to do it, which I accepted. It turned out to be an amazing learning experience.",
             "highlights": [
                 "A dashboard using Node.JS that tracked progress in real time of the web-scrapers that we had running several times per day. It also provided metrics for the quality of the collected data, as well as functionality to run various scripts/tasks on the server.<br><br>",
                 "A CLI app in Python which was the predecessor to the Node.JS dashboard. It had roughly the same functionality but it was run directly on the terminal instead. It could also generate email reports.<br><br>",
@@ -31,7 +31,7 @@
             "title": "Contributor",
             "company": "Open source community",
             "period": "2023 - Present",
-            "description": "Open source software really is an amazing thing. It does however seem rather hard and intimidating to get into. I decided to force myself out of my comfort zone and make some contributions to a project. Which I am very happy that I did, and I hope to make many more contributions in the future.",
+            "description": "Open source software really is an amazing thing. But I also felt like it was quite intimidating to get into as junior developer. I decided to force myself out of my comfort zone and make some contributions to a project. Which I am very happy that I did, and I hope to make many more contributions in the future.",
             "highlights": [
                 "Go Blueprint - A Golang project scaffolding tool with over 6.9k starts on Github. I helped fix a choice selection bug, a broken version command, and issues with the issue templates on Github. This experience really helped me improve my git skills since I had to get into creating issues on github, creating my own feature branches and merging in new changes, as well as coordinating with different people."
             ],
