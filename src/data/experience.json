@@ -16,7 +16,7 @@
         {
             "id": 2,
             "title": "Programmer",
-            "company": "Contractor",
+            "company": "Self-employed",
             "period": "2022-2024",
             "description": "This is were my developer career truly got started. A good friend of mine had successfully been running a horse racing prediction model for several years. He wanted to outsource some parts of that work and asked me to do it, which I accepted. It turned out to be an amazing learning experience.",
             "highlights": [
@@ -39,8 +39,8 @@
         },
         {
             "id": 4,
-            "title": "Backend squire",
-            "company": "Student",
+            "title": "Student",
+            "company": "Boot.dev",
             "period": "2023",
             "description": "I completed the back-end career path on boot.dev, which is an online platform with a comprehensive, extremely well made program for learning backend programming. It included 20 courses as well as guided projects and solo projects. If someone asked me where they can learn backend development, boot.dev is the place I would recommend.",
             "highlights": [
