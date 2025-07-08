@@ -2,6 +2,23 @@
     "items": [
         {
             "id": 1,
+            "title": "Lineup Scout",
+            "description": "As someone being very excited about going to Tomorrowland, I was browsing around the enourmous lineup of artists trying to find some hidden gems. Eventually it got annoying copy pasting the artist name and finding them in Spotify and I wish I could just click the name and play a little preview to get a sense of their music.",
+            "image": {
+                "src": "lineup-scout.png",
+                "alt": "Lineup Scout screenshot"
+            },
+            "highlights": [
+                "NextJS, sliiightly overkill but so convient to spin up quickly with shadcn ui and host on vercel",
+                "Shadcn ui components",
+                "Spotify API"
+            ],
+            "technologies": ["Next JS", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+            "github": "https://github.com/limesten/lineup_scout",
+            "live": "https://lineup-scout.vercel.app/"
+        },
+        {
+            "id": 2,
             "title": "Kombucha Brewery",
             "description": "As I was brewing kombucha at home, I constantly kept loosing track of the dates I started a new batch. So I made this tracking application to track the progress and get email reminders when it's time to check on it.",
             "image": {
@@ -18,7 +35,7 @@
             "live": "https://kombucha.emilmalmsten.xyz"
         },
         {
-            "id": 2,
+            "id": 3,
             "title": "Portfolio website",
             "description": "This is the website you are browsing right now! I think terminal based GUIs look so cool so I wanted to go for something like that. This website is actually built completely by prompting AI. I wanted to test out how good modern AI is for coding and this was a perfect opportunity for it as I don't exactly love dabbling with HTML and CSS.",
             "image": null,
@@ -32,7 +49,7 @@
             "live": ""
         },
         {
-            "id": 3,
+            "id": 4,
             "title": "Top XYZ",
             "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It has account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
             "image": {
@@ -49,7 +66,7 @@
             "live": "https://topxyz.emilmalmsten.xyz/"
         },
         {
-            "id": 4,
+            "id": 5,
             "title": "Tomorrowland NFT Wizard",
             "description": "This project definitely needs some explaining. First off, Tomorrowland is the worlds largest electronic dance music festival and is hosted each year in Belgium. Due to it's popularity, it's extremely hard to get tickets.<br><br>Tomorrowland released NFTs which you can collect, and if you have collected all 3 you will have special access to festival tickets each year. Due to them being hosted on the Solana blockchain, and the prices are in SOL, it's quite hard to keep track of the value of them. Therefore, I designed this website to help with that. You can follow the value over time and select different currencies.",
             "image": {
@@ -66,7 +83,7 @@
             "live": "https://tmlwiz.emilmalmsten.xyz/"
         },
         {
-            "id": 5,
+            "id": 6,
             "title": "Lofi Chat",
             "description": "A TCP/IP terminal based chat application. This was a good opportunity to get more hands on experience with TCP/IP as well as object oriented programming with C# and multi-threaded applications.",
             "image": null,
@@ -80,7 +97,7 @@
             "live": ""
         },
         {
-            "id": 6,
+            "id": 7,
             "title": "1v1 Snake",
             "description": "A 1v1 snake game where each snake keeps growing. Be the last one alive as space keeps getting more and more limited. Idea comes from one of the first online games I played as a kid on a Swedish game site called Blip.se",
             "image": null,

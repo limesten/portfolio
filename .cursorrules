@@ -9,9 +9,7 @@ The sections are:
 - Projects
 - Contact
 
-The design for the website is to have a TUI style.
-The website is also mobile responsive, and has a light and dark mode.
-There is website used as reference for the design. The html and css for the reference website is in the `reference` folder.
+The website has a TUI style design. It is mobile responsive, and has a light and dark mode.
 
 # TECH STACK
 
@@ -20,7 +18,7 @@ There is website used as reference for the design. The html and css for the refe
 - Tailwind CSS
 - Live Server
 - VSCode
-- catppuccin color palette (latte for light mode and mocha for dark mode)
+- Catppuccin color palette (latte for light mode and mocha for dark mode)
 
 # GITHUB PUSH PROCESS
 
@@ -29,4 +27,4 @@ There is website used as reference for the design. The html and css for the refe
 - git push
 
 # RULES
-- Do NOT change the text content of the website.
+- DO NOT change the text content of the website.
