@@ -7,7 +7,9 @@ let activeItemId = null;
 
 // Function to get the current theme
 function getCurrentTheme() {
-    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    return document.documentElement.classList.contains('dark')
+        ? 'dark'
+        : 'light';
 }
 
 // Function to get the correct icon based on current theme
@@ -22,7 +24,9 @@ function updateSkillIcons() {
 
     document.querySelectorAll('[class*="Skills"] img').forEach((img) => {
         const skillId = img.closest('button').dataset.index;
-        const skill = sectionData.skills.items.find((item) => item.id === parseInt(skillId));
+        const skill = sectionData.skills.items.find(
+            (item) => item.id === parseInt(skillId),
+        );
         if (skill) {
             img.src = `./images/${getThemeIcon(skill.icon)}`;
         }
@@ -96,7 +100,9 @@ async function loadSectionData() {
 function populateSidebarSections() {
     // Populate Experience section
     if (sectionData.experience && sectionData.experience.items) {
-        const experienceContainer = document.querySelector('.Experience .scrollbar-custom .space-y-1');
+        const experienceContainer = document.querySelector(
+            '.Experience .scrollbar-custom .space-y-1',
+        );
         if (experienceContainer) {
             // Clear existing content
             experienceContainer.innerHTML = '';
@@ -116,14 +122,20 @@ function populateSidebarSections() {
                 `;
 
                 button.addEventListener('click', () => {
-                    handleItemSelection(document.querySelectorAll('.Experience [data-index]'), button, 'experience');
+                    handleItemSelection(
+                        document.querySelectorAll('.Experience [data-index]'),
+                        button,
+                        'experience',
+                    );
                 });
 
                 experienceContainer.appendChild(button);
             });
 
             // Update counter
-            const counter = document.querySelector('.Experience .list-index p span:last-child');
+            const counter = document.querySelector(
+                '.Experience .list-index p span:last-child',
+            );
             if (counter) {
                 counter.textContent = sectionData.experience.items.length;
             }
@@ -132,7 +144,9 @@ function populateSidebarSections() {
 
     // Populate Projects section
     if (sectionData.projects && sectionData.projects.items) {
-        const projectsContainer = document.querySelector('.Projects .scrollbar-custom .space-y-1');
+        const projectsContainer = document.querySelector(
+            '.Projects .scrollbar-custom .space-y-1',
+        );
         if (projectsContainer) {
             // Clear existing content
             projectsContainer.innerHTML = '';
@@ -150,14 +164,20 @@ function populateSidebarSections() {
                 `;
 
                 button.addEventListener('click', () => {
-                    handleItemSelection(document.querySelectorAll('.Projects [data-index]'), button, 'projects');
+                    handleItemSelection(
+                        document.querySelectorAll('.Projects [data-index]'),
+                        button,
+                        'projects',
+                    );
                 });
 
                 projectsContainer.appendChild(button);
             });
 
             // Update counter
-            const counter = document.querySelector('.Projects .list-index p span:last-child');
+            const counter = document.querySelector(
+                '.Projects .list-index p span:last-child',
+            );
             if (counter) {
                 counter.textContent = sectionData.projects.items.length;
             }
@@ -166,7 +186,9 @@ function populateSidebarSections() {
 
     // Populate Skills section
     if (sectionData.skills && sectionData.skills.items) {
-        const skillsContainer = document.querySelector('.Skills .scrollbar-custom .space-y-1');
+        const skillsContainer = document.querySelector(
+            '.Skills .scrollbar-custom .space-y-1',
+        );
         if (skillsContainer) {
             // Clear existing content
             skillsContainer.innerHTML = '';
@@ -185,14 +207,22 @@ function populateSidebarSections() {
                 `;
 
                 button.addEventListener('click', () => {
-                    handleItemSelection(document.querySelectorAll('[class*="Skills"] [data-index]'), button, 'skills');
+                    handleItemSelection(
+                        document.querySelectorAll(
+                            '[class*="Skills"] [data-index]',
+                        ),
+                        button,
+                        'skills',
+                    );
                 });
 
                 skillsContainer.appendChild(button);
             });
 
             // Update counter
-            const counter = document.querySelector('.Skills .list-index p span:last-child');
+            const counter = document.querySelector(
+                '.Skills .list-index p span:last-child',
+            );
             if (counter) {
                 counter.textContent = sectionData.skills.items.length;
             }
@@ -204,7 +234,9 @@ function populateSidebarSections() {
     // This ensures that when a user clicks a section header, content appears
     if (sectionData.experience && sectionData.experience.items.length > 0) {
         // Update the counter for the Experience section
-        const experienceCounter = document.querySelector('.Experience .list-index p span:first-child');
+        const experienceCounter = document.querySelector(
+            '.Experience .list-index p span:first-child',
+        );
         if (experienceCounter) {
             experienceCounter.textContent = '1';
         }
@@ -212,7 +244,9 @@ function populateSidebarSections() {
 
     if (sectionData.projects && sectionData.projects.items.length > 0) {
         // Update the counter for the Projects section
-        const projectsCounter = document.querySelector('.Projects .list-index p span:first-child');
+        const projectsCounter = document.querySelector(
+            '.Projects .list-index p span:first-child',
+        );
         if (projectsCounter) {
             projectsCounter.textContent = '1';
         }
@@ -220,7 +254,9 @@ function populateSidebarSections() {
 
     if (sectionData.skills && sectionData.skills.items.length > 0) {
         // Update the counter for the Skills section
-        const skillsCounter = document.querySelector('.Skills .list-index p span:first-child');
+        const skillsCounter = document.querySelector(
+            '.Skills .list-index p span:first-child',
+        );
         if (skillsCounter) {
             skillsCounter.textContent = '1';
         }
@@ -232,7 +268,9 @@ loadSectionData();
 
 // Function to display home content
 function displayHomeContent() {
-    const mainSection = document.querySelector('[data-content-container="main"]');
+    const mainSection = document.querySelector(
+        '[data-content-container="main"]',
+    );
     mainSection.innerHTML = `
         <!-- ASCII art section -->
         <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-2 md:py-4">
@@ -266,7 +304,7 @@ function displayHomeContent() {
                 You can also navigate through the sections using the <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-green-light dark:text-cat-green-dark">Vim motions</span>.
                 <br>
                 <br>
-                In case you can't read the ASCII art above, dont't worry. Neither can I. It does however look cool.
+                In case you can't read the ASCII art above, I also cant but it looked pretty cool.
             </div>
         </div>
     `;
@@ -279,7 +317,8 @@ function displayHomeContent() {
             if (asciiLogo) {
                 asciiLogo.textContent = text;
                 // Show the ASCII art container and ensure it has the correct scaling classes
-                const asciiContainer = document.querySelector('.ascii-art.Home');
+                const asciiContainer =
+                    document.querySelector('.ascii-art.Home');
                 if (asciiContainer) {
                     asciiContainer.classList.remove('hidden');
                     // Add the scaling classes
@@ -331,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set initial active section to home
     activeSectionName = 'home';
     activeItemId = null;
-    
+
     // Add selected state to home section container
     const homeContainer = document.querySelector('.Home');
     if (homeContainer) {
@@ -342,7 +381,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Set initial peach color for Home title
             const homeTitle = homeBorder.querySelector('.absolute');
             if (homeTitle) {
-                homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                homeTitle.classList.add(
+                    'text-cat-peach-light',
+                    'dark:text-cat-peach-dark',
+                );
             }
         }
         // Focus the home section by default
@@ -352,7 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // The event listeners for the dynamically created elements are now added in populateSidebarSections()
     // We'll still make focusable any elements that might exist at this point
     document
-        .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+        .querySelectorAll(
+            '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
+        )
         .forEach((item) => {
             item.setAttribute('tabindex', '0');
         });
@@ -360,7 +404,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Main section update
 function updateMainContent(section, itemId) {
-    const mainSection = document.querySelector('[data-content-container="main"]');
+    const mainSection = document.querySelector(
+        '[data-content-container="main"]',
+    );
     if (!mainSection) return;
 
     if (section === 'home') {
@@ -398,7 +444,7 @@ function updateMainContent(section, itemId) {
                             ${item.technologies
                                 .map(
                                     (tech) =>
-                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
+                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`,
                                 )
                                 .join('')}
                         </div>
@@ -468,7 +514,7 @@ function updateMainContent(section, itemId) {
                             ${item.technologies
                                 .map(
                                     (tech) =>
-                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`
+                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`,
                                 )
                                 .join('')}
                         </div>
@@ -490,39 +536,56 @@ function updateMainContent(section, itemId) {
                         <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
                     </div>
                     <p class="mb-4">${item.description}</p>
-                    ${item.code_file ? `
+                    ${
+                        item.code_file
+                            ? `
                         <div class="mt-6 code-example">
                             <pre><code class="rounded-md" id="codeExample">Loading...</code></pre>
                         </div>
-                    ` : ''}
+                    `
+                            : ''
+                    }
                 </div>
             `;
 
             // After setting the content, fetch and display the code if there's a code file
             if (item.code_file) {
                 fetch(`./data/${item.code_file}`)
-                    .then(response => response.text())
-                    .then(code => {
-                        const codeElement = document.getElementById('codeExample');
+                    .then((response) => response.text())
+                    .then((code) => {
+                        const codeElement =
+                            document.getElementById('codeExample');
                         if (codeElement) {
                             codeElement.textContent = code;
                             // Detect language from file extension
-                            const fileExtension = item.code_file.split('.').pop();
-                            const language = fileExtension === 'tsx' ? 'typescript' : fileExtension;
+                            const fileExtension = item.code_file
+                                .split('.')
+                                .pop();
+                            const language =
+                                fileExtension === 'tsx'
+                                    ? 'typescript'
+                                    : fileExtension;
                             codeElement.className = `language-${language}`;
                             // Apply syntax highlighting
                             hljs.highlightElement(codeElement);
                             // Force theme update
-                            const isDark = document.documentElement.classList.contains('dark');
-                            document.getElementById('theme-light').disabled = isDark;
-                            document.getElementById('theme-dark').disabled = !isDark;
+                            const isDark =
+                                document.documentElement.classList.contains(
+                                    'dark',
+                                );
+                            document.getElementById('theme-light').disabled =
+                                isDark;
+                            document.getElementById('theme-dark').disabled =
+                                !isDark;
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error('Error loading code example:', error);
-                        const codeElement = document.getElementById('codeExample');
+                        const codeElement =
+                            document.getElementById('codeExample');
                         if (codeElement) {
-                            codeElement.textContent = 'Error loading code example';
+                            codeElement.textContent =
+                                'Error loading code example';
                         }
                     });
             }
@@ -537,19 +600,27 @@ function handleItemSelection(items, item, section) {
     // Update our global tracking variables
     activeSectionName = section;
     activeItemId = item && item.dataset ? parseInt(item.dataset.index) : null;
-    
+
     // Remove selected class and border color from ALL sections and items
     document.querySelectorAll('.border').forEach((i) => {
         i.style.borderColor = '';
         // Reset all section titles to default color
         const title = i.querySelector('.absolute');
         if (title) {
-            title.classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+            title.classList.remove(
+                'text-cat-peach-light',
+                'dark:text-cat-peach-dark',
+            );
         }
         // Reset all counter colors to default foreground color
         const counter = i.querySelector('.list-index');
         if (counter) {
-            counter.querySelector('p').classList.remove('text-cat-peach-light', 'dark:text-cat-peach-dark');
+            counter
+                .querySelector('p')
+                .classList.remove(
+                    'text-cat-peach-light',
+                    'dark:text-cat-peach-dark',
+                );
             const currentCounter = counter.querySelector('span:first-child');
             if (currentCounter) {
                 currentCounter.textContent = '1';
@@ -557,7 +628,9 @@ function handleItemSelection(items, item, section) {
         }
     });
     document
-        .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+        .querySelectorAll(
+            '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
+        )
         .forEach((i) => {
             if (i.classList.contains('selected')) {
                 i.classList.remove('selected');
@@ -572,7 +645,10 @@ function handleItemSelection(items, item, section) {
             // Change the Home title color to peach
             const homeTitle = homeContainer.querySelector('.absolute');
             if (homeTitle) {
-                homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                homeTitle.classList.add(
+                    'text-cat-peach-light',
+                    'dark:text-cat-peach-dark',
+                );
             }
         }
         // Update main section for home
@@ -590,13 +666,22 @@ function handleItemSelection(items, item, section) {
             // Change section title to peach
             const sectionTitle = sectionContainer.querySelector('.absolute');
             if (sectionTitle) {
-                sectionTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                sectionTitle.classList.add(
+                    'text-cat-peach-light',
+                    'dark:text-cat-peach-dark',
+                );
             }
             // Change counter color to peach ONLY for selected section
             const counter = sectionContainer.querySelector('.list-index');
             if (counter) {
-                counter.querySelector('p').classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
-                const currentCounter = counter.querySelector('span:first-child');
+                counter
+                    .querySelector('p')
+                    .classList.add(
+                        'text-cat-peach-light',
+                        'dark:text-cat-peach-dark',
+                    );
+                const currentCounter =
+                    counter.querySelector('span:first-child');
                 if (currentCounter) {
                     currentCounter.textContent = item.dataset.index;
                 }
@@ -613,7 +698,7 @@ document.querySelector('.Home').addEventListener('click', () => {
     // Update the active section variables
     activeSectionName = 'home';
     activeItemId = null;
-    
+
     handleItemSelection(null, document.querySelector('.Home'), 'home');
 });
 
@@ -624,7 +709,10 @@ function isElementInView(element, container, buffer = 0) {
     const containerRect = container.getBoundingClientRect();
 
     // Check if the element is fully visible in the container (with buffer)
-    return elementRect.top >= containerRect.top - buffer && elementRect.bottom <= containerRect.bottom + buffer;
+    return (
+        elementRect.top >= containerRect.top - buffer &&
+        elementRect.bottom <= containerRect.bottom + buffer
+    );
 }
 
 // Completely replace the keyboard navigation event handler
@@ -636,51 +724,58 @@ document.addEventListener('keydown', (e) => {
 
     // Define the section order including Home
     const sections = ['Home', 'Experience', 'Projects', 'Skills'];
-    
+
     // Get current active section based on our tracking variable, not focus
     let activeSection, currentSectionIndex;
-    
+
     if (activeSectionName === 'home') {
         activeSection = document.querySelector('.Home');
         currentSectionIndex = 0;
     } else {
         // Convert activeSectionName to proper case for querySelector
-        const sectionClass = activeSectionName.charAt(0).toUpperCase() + activeSectionName.slice(1);
+        const sectionClass =
+            activeSectionName.charAt(0).toUpperCase() +
+            activeSectionName.slice(1);
         activeSection = document.querySelector(`.${sectionClass}`);
-        currentSectionIndex = sections.findIndex(section => section === sectionClass);
+        currentSectionIndex = sections.findIndex(
+            (section) => section === sectionClass,
+        );
     }
-    
+
     if (!activeSection) return;
-    
+
     // For non-home sections, we need to handle item navigation
     if (activeSectionName !== 'home') {
         const items = activeSection.querySelectorAll('[data-index]');
         if (items.length === 0) return;
-        
+
         // Find the currently selected item or default to the first one
         let selectedItem;
         if (activeItemId) {
-            selectedItem = activeSection.querySelector(`[data-index="${activeItemId}"]`);
+            selectedItem = activeSection.querySelector(
+                `[data-index="${activeItemId}"]`,
+            );
         }
-        
+
         // If no selected item found, default to the first one
         if (!selectedItem && items.length > 0) {
             selectedItem = items[0];
             activeItemId = parseInt(selectedItem.dataset.index);
         }
-        
+
         if (!selectedItem) return;
-        
+
         const currentIndex = parseInt(selectedItem.dataset.index);
         let nextIndex;
         let nextItem = null;
-        
+
         // Get the scrollable container for visibility checks
-        const scrollableContainer = activeSection.querySelector('.scrollbar-custom');
-        
+        const scrollableContainer =
+            activeSection.querySelector('.scrollbar-custom');
+
         // Define buffer for earlier scrolling (20px)
         const scrollBuffer = 20;
-        
+
         switch (e.key) {
             case 'ArrowUp':
             case 'k':
@@ -704,18 +799,22 @@ document.addEventListener('keydown', (e) => {
             case 'h':
                 if (currentSectionIndex > 0) {
                     // Move to previous section
-                    const prevSection = document.querySelector(`.${sections[currentSectionIndex - 1]}`);
+                    const prevSection = document.querySelector(
+                        `.${sections[currentSectionIndex - 1]}`,
+                    );
                     if (prevSection) {
                         if (currentSectionIndex === 1) {
                             // Moving from Experience to Home
-                            const homeContainer = document.querySelector('.Home');
+                            const homeContainer =
+                                document.querySelector('.Home');
                             if (homeContainer) {
                                 homeContainer.click();
                                 homeContainer.focus();
                             }
                         } else {
                             // Moving between other sections
-                            const firstItem = prevSection.querySelector('[data-index="1"]');
+                            const firstItem =
+                                prevSection.querySelector('[data-index="1"]');
                             if (firstItem) {
                                 firstItem.click();
                                 firstItem.focus();
@@ -728,9 +827,12 @@ document.addEventListener('keydown', (e) => {
             case 'l':
                 if (currentSectionIndex < sections.length - 1) {
                     // Move to next section
-                    const nextSection = document.querySelector(`.${sections[currentSectionIndex + 1]}`);
+                    const nextSection = document.querySelector(
+                        `.${sections[currentSectionIndex + 1]}`,
+                    );
                     if (nextSection) {
-                        const firstItem = nextSection.querySelector('[data-index="1"]');
+                        const firstItem =
+                            nextSection.querySelector('[data-index="1"]');
                         if (firstItem) {
                             firstItem.click();
                             firstItem.focus();
@@ -739,27 +841,41 @@ document.addEventListener('keydown', (e) => {
                 }
                 break;
         }
-        
+
         // Handle scrolling for the next item
-        if (nextItem && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'j' || e.key === 'k')) {
+        if (
+            nextItem &&
+            (e.key === 'ArrowUp' ||
+                e.key === 'ArrowDown' ||
+                e.key === 'j' ||
+                e.key === 'k')
+        ) {
             // Check if scrolling is needed using the enhanced visibility check with buffer
-            if (scrollableContainer && !isElementInView(nextItem, scrollableContainer, scrollBuffer)) {
+            if (
+                scrollableContainer &&
+                !isElementInView(nextItem, scrollableContainer, scrollBuffer)
+            ) {
                 // Calculate better scroll position
                 const itemHeight = nextItem.offsetHeight;
                 const containerHeight = scrollableContainer.clientHeight;
-                
+
                 // For "up" navigation, align to top with room for context above
                 if (e.key === 'ArrowUp' || e.key === 'k') {
-                    scrollableContainer.scrollTop = nextItem.offsetTop - Math.floor(containerHeight / 4);
+                    scrollableContainer.scrollTop =
+                        nextItem.offsetTop - Math.floor(containerHeight / 4);
                 }
                 // For "down" navigation, ensure item is fully visible with context below
                 else {
                     const itemBottom = nextItem.offsetTop + itemHeight;
-                    const scrollBottom = scrollableContainer.scrollTop + containerHeight;
-                    
+                    const scrollBottom =
+                        scrollableContainer.scrollTop + containerHeight;
+
                     if (itemBottom > scrollBottom) {
                         scrollableContainer.scrollTop =
-                            nextItem.offsetTop - containerHeight + itemHeight + Math.floor(containerHeight / 4);
+                            nextItem.offsetTop -
+                            containerHeight +
+                            itemHeight +
+                            Math.floor(containerHeight / 4);
                     }
                 }
             }
@@ -768,7 +884,8 @@ document.addEventListener('keydown', (e) => {
         // Home section only handles right/l navigation
         if (e.key === 'ArrowRight' || e.key === 'l') {
             const experienceSection = document.querySelector('.Experience');
-            const firstItem = experienceSection.querySelector('[data-index="1"]');
+            const firstItem =
+                experienceSection.querySelector('[data-index="1"]');
             if (firstItem) {
                 firstItem.click();
                 firstItem.focus();
@@ -781,7 +898,7 @@ document.addEventListener('keydown', (e) => {
 function findPrevItem(items, currentIndex) {
     let prevItem = null;
     let prevIndex = -1;
-    
+
     for (let i = 0; i < items.length; i++) {
         const index = parseInt(items[i].dataset.index);
         if (index < currentIndex && (prevIndex === -1 || index > prevIndex)) {
@@ -789,7 +906,7 @@ function findPrevItem(items, currentIndex) {
             prevItem = items[i];
         }
     }
-    
+
     return prevItem;
 }
 
@@ -797,7 +914,7 @@ function findPrevItem(items, currentIndex) {
 function findNextItem(items, currentIndex) {
     let nextItem = null;
     let nextIndex = Number.MAX_SAFE_INTEGER;
-    
+
     for (let i = 0; i < items.length; i++) {
         const index = parseInt(items[i].dataset.index);
         if (index > currentIndex && index < nextIndex) {
@@ -805,7 +922,7 @@ function findNextItem(items, currentIndex) {
             nextItem = items[i];
         }
     }
-    
+
     return nextItem;
 }
 
@@ -835,12 +952,17 @@ document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
         if (section === 'home') {
             displayHomeContent();
             // Add border color and title color to home section container
-            const homeContainer = document.querySelector('.Home').closest('.border');
+            const homeContainer = document
+                .querySelector('.Home')
+                .closest('.border');
             if (homeContainer) {
                 homeContainer.style.borderColor = 'var(--cat-peach-active)';
                 const homeTitle = homeContainer.querySelector('.absolute');
                 if (homeTitle) {
-                    homeTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                    homeTitle.classList.add(
+                        'text-cat-peach-light',
+                        'dark:text-cat-peach-dark',
+                    );
                 }
             }
             // Close drawer if it's open
@@ -854,20 +976,28 @@ document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
             updateDrawerContent(section);
             // Add peach highlighting to the selected section
             const sectionContainer = document
-                .querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`)
+                .querySelector(
+                    `.${section.charAt(0).toUpperCase() + section.slice(1)}`,
+                )
                 .closest('.border');
             if (sectionContainer) {
                 sectionContainer.style.borderColor = 'var(--cat-peach-active)';
-                const sectionTitle = sectionContainer.querySelector('.absolute');
+                const sectionTitle =
+                    sectionContainer.querySelector('.absolute');
                 if (sectionTitle) {
-                    sectionTitle.classList.add('text-cat-peach-light', 'dark:text-cat-peach-dark');
+                    sectionTitle.classList.add(
+                        'text-cat-peach-light',
+                        'dark:text-cat-peach-dark',
+                    );
                 }
             }
         }
 
         // Remove selected state from all items
         document
-            .querySelectorAll('.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]')
+            .querySelectorAll(
+                '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
+            )
             .forEach((i) => {
                 if (i.classList.contains('selected')) {
                     i.classList.remove('selected');
@@ -925,13 +1055,19 @@ function updateDrawerContent(section) {
         item.addEventListener('click', () => {
             const itemIndex = item.dataset.index;
             // Update selected state in the main section
-            const sectionElement = document.querySelector(`.${section.charAt(0).toUpperCase() + section.slice(1)}`);
-            const targetItem = sectionElement.querySelector(`[data-index="${itemIndex}"]`);
+            const sectionElement = document.querySelector(
+                `.${section.charAt(0).toUpperCase() + section.slice(1)}`,
+            );
+            const targetItem = sectionElement.querySelector(
+                `[data-index="${itemIndex}"]`,
+            );
             if (targetItem) {
                 handleItemSelection(
-                    document.querySelectorAll(`.${section.charAt(0).toUpperCase() + section.slice(1)} [data-index]`),
+                    document.querySelectorAll(
+                        `.${section.charAt(0).toUpperCase() + section.slice(1)} [data-index]`,
+                    ),
                     targetItem,
-                    section
+                    section,
                 );
             }
             // Close drawer after selection
@@ -939,8 +1075,13 @@ function updateDrawerContent(section) {
             // Remove active states from mobile nav buttons
             document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
                 btn.classList.remove('active');
-                btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
-                btn.querySelector('span:last-child').classList.remove('underline');
+                btn.classList.remove(
+                    'bg-cat-fg-light/10',
+                    'dark:bg-cat-fg-dark/10',
+                );
+                btn.querySelector('span:last-child').classList.remove(
+                    'underline',
+                );
             });
         });
     });
@@ -949,9 +1090,11 @@ function updateDrawerContent(section) {
 // Show/hide content based on section selection
 function showSection(sectionName) {
     // Hide all sections first
-    document.querySelectorAll('[class*=" Home"], [class^="Home"]').forEach((el) => {
-        el.classList.add('hidden');
-    });
+    document
+        .querySelectorAll('[class*=" Home"], [class^="Home"]')
+        .forEach((el) => {
+            el.classList.add('hidden');
+        });
 
     // Show selected section
     document.querySelectorAll('.' + sectionName).forEach((el) => {
