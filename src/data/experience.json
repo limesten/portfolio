@@ -7,11 +7,14 @@
             "period": "2024 - Present",
             "description": "At CodeIT I'm building industrial applications focused on automated product labeling and traceability within food, wood and traditional industry.<br><br>It's a mix of hardware and software, and a big part of the job is making those two worlds connect.",
             "highlights": [
-                "Completed client project for a factory in Swedish Småland that produces various delicacies. I build an XML integration service that imports orders and article files, as well as exports finished orders, order statuses and DESADV EDI files. I also built applications handling automated labeling of the products on a conveyor belt with a checkweigher and 4 different printers. I also used Microsoft SQL server for the database.<br><br>",
-                "Completed client project for a factory in Laholm, Sweden which produces materials for other industries. I worked on an application which prints labels for each production order. It required different printing logic for different types of production lines. The printing application was built using client/server technology and was connected to a SQL server database.<br><br>",
-                "Built python apps for Evolabel printers"
+                "Completed several customer projects for different types of production facilities. It includes things as database architecture, ERP integrations, PIM system, EDI file handling, PLC and IO handling, automated and manual labeling applications, OEE system and more."
             ],
-            "technologies": ["Microsoft SQL Server", "Python", "CodeIT Enterprise Platform", "Ubuntu"]
+            "technologies": [
+                "Microsoft SQL Server",
+                "Python",
+                "CodeIT Enterprise Platform",
+                "MQTT"
+            ]
         },
         {
             "id": 2,
@@ -48,7 +51,14 @@
                 "Maze-solving DFS-algo using Python and Tkinter",
                 "Top XYZ - A web app where you can create toplists for any topic you desire"
             ],
-            "technologies": ["Python", "Javascript", "Golang", "SQL", "Data structures", "Algorithms"]
+            "technologies": [
+                "Python",
+                "Javascript",
+                "Golang",
+                "SQL",
+                "Data structures",
+                "Algorithms"
+            ]
         },
         {
             "id": 5,

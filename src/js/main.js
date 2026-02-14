@@ -295,16 +295,13 @@ function displayHomeContent() {
                 I got started learning how to <span class="text-cat-green-light dark:text-cat-green-dark">code</span> in 2017 by myself using various online tutorials. As many people do, I started with the classic <span class="text-cat-peach-light dark:text-cat-peach-dark">web stack</span> of HTML, CSS and JavaScript.
                 <br>
                 <br>
-                The reason that I wanted to learn how to code was basically that I thought it was something that could suit me well as someone who has always been into computers.
-                But I had never experienced the <span class="text-cat-green-light dark:text-cat-green-dark">programming</span> side of it.
+                The reason that I wanted to learn how to code was basically that I thought it was something that could suit me well as someone who has always been into computers and doing stuff like hosting <span class="text-cat-peach-light dark:text-cat-peach-dark">Minecraft</span> servers in highschool.
+                But I had never really experienced the <span class="text-cat-green-light dark:text-cat-green-dark">programming</span> side of it.
                 <br> 
                 <br>     
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">Click</span> on a section on the left to learn more about my <span class="text-cat-green-light dark:text-cat-green-dark">work</span> and past <span class="text-cat-peach-light dark:text-cat-peach-dark">experiences</span>.
                 <br>
                 You can also navigate through the sections using the <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-green-light dark:text-cat-green-dark">Vim motions</span>.
-                <br>
-                <br>
-                In case you can't read the ASCII art above, I also cant but it looked pretty cool.
             </div>
         </div>
     `;

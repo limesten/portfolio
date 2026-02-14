@@ -76,7 +76,7 @@
                 "light": "ai_light.svg",
                 "dark": "ai_dark.svg"
             },
-            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. Recently I started to use Cursor as my main editor, and I'm very impressed by Claude 3.5 Sonnet.<br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
+            "description": "I'm consistently trying to stay at the forefront of new technology. Keeping up with new AI developments is no easy task as new models and tools keep popping up. <br><br>I don't think AI will replace programmers, but I do think hand writing code professionally will eventually become a thing of the past, unless it's done as a hobby. Just as blacksmithing or other professions of the past has changed, programmers will need to evolve.",
             "code_file": "code_examples/ai.txt"
         },
         {
@@ -108,6 +108,16 @@
             },
             "description": "CSS is the paint brush for the web.<br><br>I rarely use vanilla CSS these days as I prefer tailwind where I can use pre defined classes to get stuff done quicker.",
             "code_file": "code_examples/css.css"
+        },
+        {
+            "id": 12,
+            "name": "Python",
+            "icon": {
+                "light": "python_light.svg",
+                "dark": "python_dark.svg"
+            },
+            "description": "People often complain that Python is slow. But honestly, for many use cases you don't need the execution speed you can get with many other languages. What you get instead is very high productivity. I love it for making simple tools for myself.",
+            "code_file": "code_examples/python.py"
         }
     ]
 }

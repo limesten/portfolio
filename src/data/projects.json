@@ -3,7 +3,7 @@
         {
             "id": 1,
             "title": "Lineup Scout",
-            "description": "As someone being very excited about going to Tomorrowland, I was browsing around the enourmous lineup of artists trying to find some hidden gems. Eventually it got annoying copy pasting the artist name and finding them in Spotify and I wish I could just click the name and play a little preview to get a sense of their music.",
+            "description": "As someone being very excited about going to Tomorrowland, I was browsing around the enourmous lineup of artists trying to find some hidden gems. Eventually it got annoying copy pasting the artist name and finding them in Spotify and I wish I could just click the name and play a little preview to get a sense of their music. Probably my most successful hobby project to date based on the feedback I got on <a href=\"https://www.reddit.com/r/Tomorrowland/comments/1r23rxg/made_an_app_where_you_can_click_the_artist_name/\" target=\"_blank\" class=\"text-cat-peach-light dark:text-cat-peach-dark\">Reddit</a>",
             "image": {
                 "src": "lineup-scout.png",
                 "alt": "Lineup Scout screenshot"
@@ -11,11 +11,19 @@
             "highlights": [
                 "NextJS, sliiightly overkill but so convient to spin up quickly with shadcn ui and host on vercel",
                 "Shadcn ui components",
-                "Spotify API"
+                "Spotify API",
+                "YouTube API",
+                "Puppeteer web scraper for lineup data"
             ],
-            "technologies": ["Next JS", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+            "technologies": [
+                "Next JS",
+                "TypeScript",
+                "Tailwind CSS",
+                "shadcn/ui",
+                "PostgreSQL"
+            ],
             "github": "https://github.com/limesten/lineup_scout",
-            "live": "https://lineup-scout.vercel.app/"
+            "live": "https://lineup-scout.emilmalmsten.xyz"
         },
         {
             "id": 2,
@@ -30,9 +38,14 @@
                 "Postgres database with Drizzle ORM",
                 "OAuth using Clerk with Google sign-in"
             ],
-            "technologies": ["Next JS", "TypeScript", "Tailwind CSS", "drizzle ORM", "shadcn/ui"],
-            "github": "https://github.com/limesten/kombucha_brewery",
-            "live": "https://kombucha.emilmalmsten.xyz"
+            "technologies": [
+                "Next JS",
+                "TypeScript",
+                "Tailwind CSS",
+                "drizzle ORM",
+                "shadcn/ui"
+            ],
+            "github": "https://github.com/limesten/kombucha_brewery"
         },
         {
             "id": 3,
@@ -78,7 +91,13 @@
                 "Currency rates from FX Rates API",
                 "Created with Golang and SQLite"
             ],
-            "technologies": ["Golang", "SQlite", "HTML", "Tailwind CSS", "Javascript"],
+            "technologies": [
+                "Golang",
+                "SQlite",
+                "HTML",
+                "Tailwind CSS",
+                "Javascript"
+            ],
             "github": "https://github.com/limesten/tml_nft_wiz",
             "live": "https://tmlwiz.emilmalmsten.xyz/"
         },
