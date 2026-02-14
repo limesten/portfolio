@@ -901,6 +901,12 @@ video {
   overflow-y: auto;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-pre {
   white-space: pre;
 }
@@ -1006,6 +1012,10 @@ video {
 
 .pb-16 {
   padding-bottom: 4rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 
 .pr-2 {

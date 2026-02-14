@@ -111,7 +111,7 @@ function populateSidebarSections() {
             sectionData.experience.items.forEach((item, index) => {
                 const button = document.createElement('button');
                 button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
 
@@ -155,7 +155,7 @@ function populateSidebarSections() {
             sectionData.projects.items.forEach((item, index) => {
                 const button = document.createElement('button');
                 button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
 
@@ -197,7 +197,7 @@ function populateSidebarSections() {
             sectionData.skills.items.forEach((item, index) => {
                 const button = document.createElement('button');
                 button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item';
+                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
                 button.setAttribute('data-index', item.id);
                 button.setAttribute('tabindex', '0'); // Make focusable
 
