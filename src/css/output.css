@@ -1231,12 +1231,8 @@ video {
     display: none;
   }
 
-  .md\:h-15p {
-    height: 15%;
-  }
-
-  .md\:h-28p {
-    height: 28.33%;
+  .md\:min-h-0 {
+    min-height: 0px;
   }
 
   .md\:w-10\/12 {
@@ -1245,6 +1241,14 @@ video {
 
   .md\:w-3\/4 {
     width: 75%;
+  }
+
+  .md\:flex-\[15\] {
+    flex: 15;
+  }
+
+  .md\:flex-\[28\] {
+    flex: 28;
   }
 
   .md\:p-4 {
