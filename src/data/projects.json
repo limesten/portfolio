@@ -2,14 +2,14 @@
     "items": [
         {
             "id": 1,
-            "title": "Lineup Scout",
-            "description": "As someone being very excited about going to Tomorrowland, I was browsing around the enourmous lineup of artists trying to find some hidden gems. Eventually it got annoying copy pasting the artist name and finding them in Spotify and I wish I could just click the name and play a little preview to get a sense of their music. Probably my most successful hobby project to date based on the feedback I got on <a href=\"https://www.reddit.com/r/Tomorrowland/comments/1r23rxg/made_an_app_where_you_can_click_the_artist_name/\" target=\"_blank\" class=\"text-cat-peach-light dark:text-cat-peach-dark\">Reddit</a>",
+            "title": "Tomorrowland Wizard",
+            "description": "As someone who loves the Tomorrowland music festival, I felt like the official website was lacking in some ways. This app enables the user to view the lineup in a few different ways. You can press the artist name to play some of their music. There is also a price chart for the Tomorrowland NFT. Probably my most successful hobby project to date based on the feedback I got on <a href=\"https://www.reddit.com/r/Tomorrowland/comments/1r23rxg/made_an_app_where_you_can_click_the_artist_name/\" target=\"_blank\" class=\"text-cat-peach-light dark:text-cat-peach-dark\">Reddit</a>",
             "image": {
-                "src": "lineup-scout.png",
-                "alt": "Lineup Scout screenshot"
+                "src": "tomorrowland-wizard.png",
+                "alt": "Tomorrowland Wizard screenshot"
             },
             "highlights": [
-                "NextJS, sliiightly overkill but so convient to spin up quickly with shadcn ui and host on vercel",
+                "NextJS",
                 "Shadcn ui components",
                 "Spotify API",
                 "YouTube API",
@@ -80,29 +80,6 @@
         },
         {
             "id": 5,
-            "title": "Tomorrowland NFT Wizard",
-            "description": "This project definitely needs some explaining. First off, Tomorrowland is the worlds largest electronic dance music festival and is hosted each year in Belgium. Due to it's popularity, it's extremely hard to get tickets.<br><br>Tomorrowland released NFTs which you can collect, and if you have collected all 3 you will have special access to festival tickets each year. Due to them being hosted on the Solana blockchain, and the prices are in SOL, it's quite hard to keep track of the value of them. Therefore, I designed this website to help with that. You can follow the value over time and select different currencies.",
-            "image": {
-                "src": "tmlwiz.png",
-                "alt": "Tmlwiz screenshot"
-            },
-            "highlights": [
-                "Token price data from Magic Eden API",
-                "Currency rates from FX Rates API",
-                "Created with Golang and SQLite"
-            ],
-            "technologies": [
-                "Golang",
-                "SQlite",
-                "HTML",
-                "Tailwind CSS",
-                "Javascript"
-            ],
-            "github": "https://github.com/limesten/tml_nft_wiz",
-            "live": "https://tmlwiz.emilmalmsten.xyz/"
-        },
-        {
-            "id": 6,
             "title": "Lofi Chat",
             "description": "A TCP/IP terminal based chat application. This was a good opportunity to get more hands on experience with TCP/IP as well as object oriented programming with C# and multi-threaded applications.",
             "image": null,
@@ -116,7 +93,7 @@
             "live": ""
         },
         {
-            "id": 7,
+            "id": 6,
             "title": "1v1 Snake",
             "description": "A 1v1 snake game where each snake keeps growing. Be the last one alive as space keeps getting more and more limited. Idea comes from one of the first online games I played as a kid on a Swedish game site called Blip.se",
             "image": null,
