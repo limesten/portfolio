@@ -64,7 +64,7 @@
         {
             "id": 4,
             "title": "Top XYZ",
-            "description": "Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It has account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
+            "description": "(Pre AI, Organically hand-coded) Create a toplist for anything! Top XYZ is a SPA that helps you keep track of your personal favorites within any topic. You can rank them and share your toplists with others.<br><br>This website took me a long time to build as my goal was to build as much as possible from scratch for the purpose of learning.<br><br> It has a lot of features such as counting the toplist views and likes, it has its own username/pw based auth built with the bcrypt and jwt library. It has account management and functionality for resetting your password with your email. There is a file server for serving images from the server. There is also rate limiting to prevent ddos and many more features.",
             "image": {
                 "src": "topxyz.png",
                 "alt": "Top XYZ screenshot"
@@ -81,7 +81,7 @@
         {
             "id": 5,
             "title": "Lofi Chat",
-            "description": "A TCP/IP terminal based chat application. This was a good opportunity to get more hands on experience with TCP/IP as well as object oriented programming with C# and multi-threaded applications.",
+            "description": "(Pre AI, Organically hand-coded) A TCP/IP terminal based chat application. This was a good opportunity to get more hands on experience with TCP/IP as well as object oriented programming with C# and multi-threaded applications.",
             "image": null,
             "highlights": [
                 "Multi user",
@@ -95,7 +95,7 @@
         {
             "id": 6,
             "title": "1v1 Snake",
-            "description": "A 1v1 snake game where each snake keeps growing. Be the last one alive as space keeps getting more and more limited. Idea comes from one of the first online games I played as a kid on a Swedish game site called Blip.se",
+            "description": "(Pre AI, Organically hand-coded) A 1v1 snake game where each snake keeps growing. Be the last one alive as space keeps getting more and more limited. Idea comes from one of the first online games I played as a kid on a Swedish game site called Blip.se",
             "image": null,
             "highlights": ["2-player", "Object oriented programming"],
             "technologies": ["Python", "Tkinter"],
