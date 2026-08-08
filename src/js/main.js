@@ -266,26 +266,58 @@ function populateSidebarSections() {
 // Load data when the page loads
 loadSectionData();
 
+const BIRTH_DATE = '1995-04-08';
+
+// Age in whole years, so it never goes stale
+function getAge() {
+    const birth = new Date(BIRTH_DATE);
+    const now = new Date();
+    let age = now.getFullYear() - birth.getFullYear();
+    const monthDiff = now.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 // Function to display home content
 function displayHomeContent() {
     const mainSection = document.querySelector(
         '[data-content-container="main"]',
     );
+    const infoRows = [
+        ['Name', 'Emil Malmsten'],
+        ['Location', 'Gothenburg, Sweden'],
+        ['Age', `${getAge()}`],
+        ['Role', 'Software Engineer @ CodeIT'],
+        ['Focus', 'Backend'],
+        ['Coding since', '2017'],
+    ]
+        .map(
+            ([label, value]) => `
+                <div class="flex gap-2">
+                    <span class="text-cat-peach-light dark:text-cat-peach-dark">${label}:</span>
+                    <span>${value}</span>
+                </div>`,
+        )
+        .join('');
+
     mainSection.innerHTML = `
-        <!-- ASCII art section -->
-        <div class="ascii-art Home whitespace-pre text-center overflow-x-auto scrollbar-custom py-2 md:py-4">
-            <pre id="ascii-logo" class="inline-block text-cat-fg-light dark:text-cat-fg-dark"></pre>
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
+            <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
+        </div>
+        <!-- ASCII art + info, side by side from md up, stacked on mobile -->
+        <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-10 mb-6">
+            <div class="ascii-art shrink-0 flex justify-center md:justify-start">
+                <pre id="ascii-logo" class="text-cat-green-light dark:text-cat-green-dark text-[0.6rem] sm:text-[0.8rem] lg:text-[0.95rem] leading-[1.108]"></pre>
+            </div>
+            <div class="flex-1 min-w-0 space-y-1">
+                ${infoRows}
+            </div>
         </div>
         <!-- Content section -->
         <div class="mt-2 md:mt-4">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
-                <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
-            </div>
-            <div class="mb-4">
-                Hello! I'm <span class="text-cat-green-light dark:text-cat-green-dark">Emil Malmsten</span>, a backend-focused
-                <span class="text-cat-peach-light dark:text-cat-peach-dark">Software Developer</span> from Gothenburg, Sweden.
-            </div>
             <div class="flex items-center gap-2 mb-4">
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
                 <span class="text-cat-green-light dark:text-cat-green-dark">cat</span>
@@ -312,50 +344,8 @@ function displayHomeContent() {
         .then((text) => {
             const asciiLogo = document.getElementById('ascii-logo');
             if (asciiLogo) {
-                asciiLogo.textContent = text;
-                // Show the ASCII art container and ensure it has the correct scaling classes
-                const asciiContainer =
-                    document.querySelector('.ascii-art.Home');
-                if (asciiContainer) {
-                    asciiContainer.classList.remove('hidden');
-                    // Add the scaling classes
-                    asciiContainer.style.fontFamily = "'Fira Mono', monospace";
-                    asciiContainer.style.lineHeight = '1.2';
-                    asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
-                    asciiContainer.style.transformOrigin = 'center';
-                    asciiContainer.style.width = '100%';
-                    asciiContainer.style.display = 'flex';
-                    asciiContainer.style.justifyContent = 'center';
-                    asciiContainer.style.alignItems = 'center';
-                    asciiContainer.style.overflow = 'hidden';
-
-                    // Add responsive padding based on screen size
-                    if (window.innerWidth <= 640) {
-                        asciiContainer.style.fontSize = 'min(1.2vw, 0.4rem)';
-                        asciiContainer.style.padding = '0 0.75rem';
-                    } else if (window.innerWidth <= 768) {
-                        asciiContainer.style.fontSize = 'min(1.1vw, 0.45rem)';
-                        asciiContainer.style.padding = '0 1.5rem';
-                    } else if (window.innerWidth <= 1024) {
-                        asciiContainer.style.fontSize = 'min(1.2vw, 0.5rem)';
-                        asciiContainer.style.padding = '0 1.5rem';
-                    } else if (window.innerWidth <= 1749) {
-                        asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
-                        asciiContainer.style.padding = '0 0.5rem';
-                    } else {
-                        asciiContainer.style.fontSize = 'min(1.6vw, 1rem)';
-                        asciiContainer.style.padding = '0 1rem';
-                    }
-
-                    // Also style the ascii-logo element
-                    asciiLogo.style.display = 'block';
-                    asciiLogo.style.whiteSpace = 'pre';
-                    asciiLogo.style.maxWidth = '100%';
-                    asciiLogo.style.transformOrigin = 'center';
-                    asciiLogo.style.fontSize = 'inherit';
-                    asciiLogo.style.textAlign = 'center';
-                    asciiLogo.style.padding = '0 2px';
-                }
+                // trailing newline would render as an extra blank row
+                asciiLogo.textContent = text.trimEnd();
             }
         })
         .catch((error) => console.error('Error loading ASCII art:', error));
@@ -1109,26 +1099,3 @@ document.querySelectorAll('.section-button').forEach((button) => {
 
 // Show Home section by default
 showSection('Home');
-
-// Add window resize listener to update ASCII art scaling
-window.addEventListener('resize', () => {
-    const asciiContainer = document.querySelector('.ascii-art.Home');
-    if (asciiContainer) {
-        if (window.innerWidth <= 640) {
-            asciiContainer.style.fontSize = 'min(1.2vw, 0.4rem)';
-            asciiContainer.style.padding = '0 0.75rem';
-        } else if (window.innerWidth <= 768) {
-            asciiContainer.style.fontSize = 'min(1.1vw, 0.45rem)';
-            asciiContainer.style.padding = '0 1.5rem';
-        } else if (window.innerWidth <= 1024) {
-            asciiContainer.style.fontSize = 'min(1.2vw, 0.5rem)';
-            asciiContainer.style.padding = '0 1.5rem';
-        } else if (window.innerWidth <= 1749) {
-            asciiContainer.style.fontSize = 'min(1.4vw, 0.7rem)';
-            asciiContainer.style.padding = '0 0.5rem';
-        } else {
-            asciiContainer.style.fontSize = 'min(1.6vw, 1rem)';
-            asciiContainer.style.padding = '0 1rem';
-        }
-    }
-});
