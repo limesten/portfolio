@@ -20,15 +20,16 @@ function currentTheme() {
         : 'light';
 }
 
-// Skill icons are separate light/dark image files rather than CSS, so they have
-// to be swapped by hand whenever the theme changes.
+// Skill icons are separate light/dark image files rather than CSS, so every one
+// on the page - sidebar, drawer and Main panel - has to be swapped by hand
+// whenever the theme changes.
 function updateSkillIcons() {
-    sectionBox('skills')
-        .querySelectorAll('[data-id]')
-        .forEach((button) => {
-            const item = findItem('skills', Number(button.dataset.id));
-            button.querySelector('img').src = iconUrl(item);
-        });
+    const theme = currentTheme();
+    document.querySelectorAll('img[data-icon-light]').forEach((img) => {
+        img.src = `./images/${
+            theme === 'dark' ? img.dataset.iconDark : img.dataset.iconLight
+        }`;
+    });
 }
 
 // The single place the theme is applied. Note that the two highlight.js
@@ -84,7 +85,7 @@ const SECTIONS = {
         selector: '.Skills',
         dataUrl: './data/skills.json',
         label: (item) => `
-            <img src="${iconUrl(item)}" alt="${item.name}" class="w-5 h-5" />
+            ${skillIcon(item, 'w-5 h-5')}
             <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
         `,
         render: renderSkill,
@@ -101,8 +102,14 @@ function findItem(name, itemId) {
     return SECTIONS[name].items.find((item) => item.id === itemId);
 }
 
-function iconUrl(item) {
-    return `./images/${item.icon[currentTheme()]}`;
+function skillIcon(item, sizeClass) {
+    return `<img
+        src="./images/${item.icon[currentTheme()]}"
+        alt="${item.name}"
+        class="${sizeClass}"
+        data-icon-light="${item.icon.light}"
+        data-icon-dark="${item.icon.dark}"
+    />`;
 }
 
 async function loadSections() {
@@ -413,7 +420,7 @@ function renderSkill(item) {
     return `
         <div>
             <div class="flex items-center gap-2 mb-4">
-                <img src="${iconUrl(item)}" alt="${item.name}" class="w-6 h-6" />
+                ${skillIcon(item, 'w-6 h-6')}
                 <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
             </div>
             <p class="mb-4">${item.description}</p>
