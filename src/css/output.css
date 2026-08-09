@@ -1,7 +1,9 @@
+/* Subset to Latin-1 plus common punctuation - see README for how it is built. */
+
 @font-face {
   font-family: 'Fira Mono';
 
-  src: url('../fonts/FiraMono-Regular.ttf') format('truetype');
+  src: url('../fonts/FiraMono-Regular.woff2') format('woff2');
 
   font-weight: normal;
 
@@ -118,9 +120,7 @@
   --tw-contain-style:  ;
 }
 
-/*
-! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com
-*/
+/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)

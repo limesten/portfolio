@@ -4,19 +4,13 @@
         <title>Emil Malmsten | Portfolio</title>
         <link rel="icon" href="./images/favicon.svg" type="image/svg+xml" />
         <link rel="alternate icon" href="./images/favicon.ico" type="image/x-icon" />
-        <link rel="preload" href="fonts/FiraMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
+        <link rel="preload" href="fonts/FiraMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="./css/output.css" rel="stylesheet" />
-        <!-- Catppuccin themes for highlight.js. Exactly one is enabled at a
-             time; applyTheme() in main.js owns the `disabled` flags. -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-latte.css" id="theme-light">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-mocha.css" id="theme-dark">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <!-- Add languages we need -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/tsx.min.js"></script>
+        <!-- highlight.js and its Catppuccin themes are not loaded here: they are
+             only needed once a code example is opened, so loadHighlighter() in
+             main.js pulls them from the CDN on first use. -->
         <script>
             // Set the theme class before first paint to avoid a flash. main.js
             // applies the same default (dark unless 'light' was stored).

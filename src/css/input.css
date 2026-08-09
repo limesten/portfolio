@@ -1,6 +1,7 @@
+/* Subset to Latin-1 plus common punctuation - see README for how it is built. */
 @font-face {
     font-family: 'Fira Mono';
-    src: url('../fonts/FiraMono-Regular.ttf') format('truetype');
+    src: url('../fonts/FiraMono-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

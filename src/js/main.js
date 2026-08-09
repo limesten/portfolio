@@ -32,17 +32,26 @@ function updateSkillIcons() {
     });
 }
 
-// The single place the theme is applied. Note that the two highlight.js
-// stylesheets are switched with `disabled` alone - index.html deliberately does
-// not give them `media` attributes, or a light system theme would suppress the
-// dark code colours even when the site is in dark mode.
+// The two highlight.js stylesheets are switched with `disabled` alone - they
+// deliberately get no `media` attribute, or a light system theme would suppress
+// the dark code colours even when the site is in dark mode. They only exist
+// once loadHighlighter() has run, so this is a no-op before the first code
+// example is opened.
+function applyCodeTheme() {
+    const light = document.getElementById('theme-light');
+    if (!light) return;
+    const dark = currentTheme() === 'dark';
+    light.disabled = dark;
+    document.getElementById('theme-dark').disabled = !dark;
+}
+
+// The single place the theme is applied.
 function applyTheme(theme) {
     const dark = theme === 'dark';
     document.documentElement.classList.toggle('dark', dark);
     document.documentElement.classList.toggle('light', !dark);
     localStorage.theme = theme;
-    document.getElementById('theme-light').disabled = dark;
-    document.getElementById('theme-dark').disabled = !dark;
+    applyCodeTheme();
     updateSkillIcons();
 }
 
@@ -429,6 +438,57 @@ function renderSkill(item) {
     `;
 }
 
+const HLJS_VERSION = '11.9.0';
+const HLJS_BASE = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${HLJS_VERSION}`;
+// No tsx grammar here on purpose: highlight.js does not ship one, and .tsx is
+// mapped onto typescript below.
+const HLJS_LANGUAGES = ['typescript', 'javascript'];
+const HLJS_THEMES = {
+    light: 'https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-latte.css',
+    dark: 'https://cdn.jsdelivr.net/npm/@catppuccin/highlightjs/css/catppuccin-mocha.css',
+};
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// Fetches highlight.js and its themes the first time a code example is opened,
+// and hands back the same promise on every call after that. Keeping this off the
+// initial page load spares every visitor ~40kB and two third-party origins.
+let highlighter = null;
+
+function loadHighlighter() {
+    if (highlighter) return highlighter;
+
+    Object.entries(HLJS_THEMES).forEach(([name, href]) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.id = `theme-${name}`;
+        document.head.appendChild(link);
+    });
+    applyCodeTheme();
+
+    // The language grammars register themselves against the core, so it has to
+    // be in place before they load. allSettled rather than all: a grammar that
+    // fails to load should cost that one language its colours, not disable
+    // highlighting everywhere.
+    highlighter = loadScript(`${HLJS_BASE}/highlight.min.js`).then(() =>
+        Promise.allSettled(
+            HLJS_LANGUAGES.map((language) =>
+                loadScript(`${HLJS_BASE}/languages/${language}.min.js`),
+            ),
+        ),
+    );
+    return highlighter;
+}
+
 // highlight.js picks the grammar off a `language-*` class. The file extension is
 // the language name, except .tsx which hljs registers under typescript.
 function loadCodeExample(path) {
@@ -440,7 +500,11 @@ function loadCodeExample(path) {
         .then((text) => {
             code.className = `language-${extension === 'tsx' ? 'typescript' : extension}`;
             code.textContent = text;
-            hljs.highlightElement(code);
+            // The code is readable as soon as it arrives; colour follows once
+            // hljs has loaded, and is skipped if the CDN cannot be reached.
+            return loadHighlighter()
+                .then(() => hljs.highlightElement(code))
+                .catch(() => {});
         })
         .catch(() => {
             code.textContent = 'Error loading code example';
