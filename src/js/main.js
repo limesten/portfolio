@@ -354,7 +354,6 @@ function displayHomeContent() {
                 <br>     
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">Click</span> on a section on the left to learn more about my <span class="text-cat-green-light dark:text-cat-green-dark">work</span> and past <span class="text-cat-peach-light dark:text-cat-peach-dark">experiences</span>.
                 <br>
-                You can also navigate through the sections using the <span class="text-cat-peach-light dark:text-cat-peach-dark">arrow keys</span> or <span class="text-cat-green-light dark:text-cat-green-dark">Vim motions</span>.
             </div>
         </div>
     `;
@@ -607,7 +606,7 @@ function updateMainContent(section, itemId) {
 function handleItemSelection(items, item, section) {
     // Update our global tracking variables
     activeSectionName = section;
-    activeItemId = item && item.dataset ? parseInt(item.dataset.index) : null;
+    activeItemId = section === 'home' ? null : parseInt(item.dataset.index);
 
     // Remove selected class and border color from ALL sections and items
     document.querySelectorAll('.border').forEach((i) => {
@@ -723,216 +722,89 @@ function isElementInView(element, container, buffer = 0) {
     );
 }
 
-// Completely replace the keyboard navigation event handler
-document.addEventListener('keydown', (e) => {
-    // Prevent default arrow key behavior to avoid any browser-induced scrolling
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-        e.preventDefault();
-    }
+// Every keyboard-navigable entry, flattened into one list in visual order:
+// Home first, then each item of Experience, Projects and Skills. Navigating
+// past the last item of a section therefore continues into the next section.
+function getNavEntries() {
+    const entries = [
+        { section: 'home', itemId: null, el: document.querySelector('.Home') },
+    ];
 
-    // Define the section order including Home
-    const sections = ['Home', 'Experience', 'Projects', 'Skills'];
-
-    // Get current active section based on our tracking variable, not focus
-    let activeSection, currentSectionIndex;
-
-    if (activeSectionName === 'home') {
-        activeSection = document.querySelector('.Home');
-        currentSectionIndex = 0;
-    } else {
-        // Convert activeSectionName to proper case for querySelector
+    ['experience', 'projects', 'skills'].forEach((section) => {
         const sectionClass =
-            activeSectionName.charAt(0).toUpperCase() +
-            activeSectionName.slice(1);
-        activeSection = document.querySelector(`.${sectionClass}`);
-        currentSectionIndex = sections.findIndex(
-            (section) => section === sectionClass,
-        );
+            section.charAt(0).toUpperCase() + section.slice(1);
+        const container = document.querySelector(`.${sectionClass}`);
+        if (!container) return;
+
+        container.querySelectorAll('[data-index]').forEach((el) => {
+            entries.push({
+                section,
+                itemId: parseInt(el.dataset.index),
+                el,
+            });
+        });
+    });
+
+    return entries;
+}
+
+// Scroll an item into view inside its own scrollable section, starting a little
+// before it reaches the edge (20px buffer)
+function scrollItemIntoView(item, movingDown) {
+    const container = item.closest('.scrollbar-custom');
+    if (!container || isElementInView(item, container, 20)) return;
+
+    const itemHeight = item.offsetHeight;
+    const containerHeight = container.clientHeight;
+
+    // For "up" navigation, align to top with room for context above
+    if (!movingDown) {
+        container.scrollTop = item.offsetTop - Math.floor(containerHeight / 4);
+        return;
     }
 
-    if (!activeSection) return;
+    // For "down" navigation, ensure item is fully visible with context below
+    const itemBottom = item.offsetTop + itemHeight;
+    if (itemBottom > container.scrollTop + containerHeight) {
+        container.scrollTop =
+            item.offsetTop -
+            containerHeight +
+            itemHeight +
+            Math.floor(containerHeight / 4);
+    }
+}
 
-    // For non-home sections, we need to handle item navigation
-    if (activeSectionName !== 'home') {
-        const items = activeSection.querySelectorAll('[data-index]');
-        if (items.length === 0) return;
+// Keyboard navigation - up/down arrows or k/j walk the flat entry list
+document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-        // Find the currently selected item or default to the first one
-        let selectedItem;
-        if (activeItemId) {
-            selectedItem = activeSection.querySelector(
-                `[data-index="${activeItemId}"]`,
-            );
-        }
+    const movingUp = e.key === 'ArrowUp' || e.key === 'k';
+    const movingDown = e.key === 'ArrowDown' || e.key === 'j';
+    if (!movingUp && !movingDown) return;
 
-        // If no selected item found, default to the first one
-        if (!selectedItem && items.length > 0) {
-            selectedItem = items[0];
-            activeItemId = parseInt(selectedItem.dataset.index);
-        }
+    // Prevent default arrow key behavior to avoid any browser-induced scrolling
+    e.preventDefault();
 
-        if (!selectedItem) return;
+    const entries = getNavEntries();
 
-        const currentIndex = parseInt(selectedItem.dataset.index);
-        let nextIndex;
-        let nextItem = null;
+    // Find where we are now, falling back to Home
+    let currentIndex = entries.findIndex(
+        (entry) =>
+            entry.section === activeSectionName && entry.itemId === activeItemId,
+    );
+    if (currentIndex === -1) currentIndex = 0;
 
-        // Get the scrollable container for visibility checks
-        const scrollableContainer =
-            activeSection.querySelector('.scrollbar-custom');
+    // Stop at the ends of the list
+    const next = entries[currentIndex + (movingDown ? 1 : -1)];
+    if (!next || !next.el) return;
 
-        // Define buffer for earlier scrolling (20px)
-        const scrollBuffer = 20;
+    next.el.click();
+    next.el.focus();
 
-        switch (e.key) {
-            case 'ArrowUp':
-            case 'k':
-                // Find the next lowest item id
-                nextItem = findPrevItem(items, currentIndex);
-                if (nextItem) {
-                    nextItem.click();
-                    nextItem.focus();
-                }
-                break;
-            case 'ArrowDown':
-            case 'j':
-                // Find the next highest item id
-                nextItem = findNextItem(items, currentIndex);
-                if (nextItem) {
-                    nextItem.click();
-                    nextItem.focus();
-                }
-                break;
-            case 'ArrowLeft':
-            case 'h':
-                if (currentSectionIndex > 0) {
-                    // Move to previous section
-                    const prevSection = document.querySelector(
-                        `.${sections[currentSectionIndex - 1]}`,
-                    );
-                    if (prevSection) {
-                        if (currentSectionIndex === 1) {
-                            // Moving from Experience to Home
-                            const homeContainer =
-                                document.querySelector('.Home');
-                            if (homeContainer) {
-                                homeContainer.click();
-                                homeContainer.focus();
-                            }
-                        } else {
-                            // Moving between other sections
-                            const firstItem =
-                                prevSection.querySelector('[data-index="1"]');
-                            if (firstItem) {
-                                firstItem.click();
-                                firstItem.focus();
-                            }
-                        }
-                    }
-                }
-                break;
-            case 'ArrowRight':
-            case 'l':
-                if (currentSectionIndex < sections.length - 1) {
-                    // Move to next section
-                    const nextSection = document.querySelector(
-                        `.${sections[currentSectionIndex + 1]}`,
-                    );
-                    if (nextSection) {
-                        const firstItem =
-                            nextSection.querySelector('[data-index="1"]');
-                        if (firstItem) {
-                            firstItem.click();
-                            firstItem.focus();
-                        }
-                    }
-                }
-                break;
-        }
-
-        // Handle scrolling for the next item
-        if (
-            nextItem &&
-            (e.key === 'ArrowUp' ||
-                e.key === 'ArrowDown' ||
-                e.key === 'j' ||
-                e.key === 'k')
-        ) {
-            // Check if scrolling is needed using the enhanced visibility check with buffer
-            if (
-                scrollableContainer &&
-                !isElementInView(nextItem, scrollableContainer, scrollBuffer)
-            ) {
-                // Calculate better scroll position
-                const itemHeight = nextItem.offsetHeight;
-                const containerHeight = scrollableContainer.clientHeight;
-
-                // For "up" navigation, align to top with room for context above
-                if (e.key === 'ArrowUp' || e.key === 'k') {
-                    scrollableContainer.scrollTop =
-                        nextItem.offsetTop - Math.floor(containerHeight / 4);
-                }
-                // For "down" navigation, ensure item is fully visible with context below
-                else {
-                    const itemBottom = nextItem.offsetTop + itemHeight;
-                    const scrollBottom =
-                        scrollableContainer.scrollTop + containerHeight;
-
-                    if (itemBottom > scrollBottom) {
-                        scrollableContainer.scrollTop =
-                            nextItem.offsetTop -
-                            containerHeight +
-                            itemHeight +
-                            Math.floor(containerHeight / 4);
-                    }
-                }
-            }
-        }
-    } else {
-        // Home section only handles right/l navigation
-        if (e.key === 'ArrowRight' || e.key === 'l') {
-            const experienceSection = document.querySelector('.Experience');
-            const firstItem =
-                experienceSection.querySelector('[data-index="1"]');
-            if (firstItem) {
-                firstItem.click();
-                firstItem.focus();
-            }
-        }
+    if (next.section !== 'home') {
+        scrollItemIntoView(next.el, movingDown);
     }
 });
-
-// Helper function to find the previous item by index
-function findPrevItem(items, currentIndex) {
-    let prevItem = null;
-    let prevIndex = -1;
-
-    for (let i = 0; i < items.length; i++) {
-        const index = parseInt(items[i].dataset.index);
-        if (index < currentIndex && (prevIndex === -1 || index > prevIndex)) {
-            prevIndex = index;
-            prevItem = items[i];
-        }
-    }
-
-    return prevItem;
-}
-
-// Helper function to find the next item by index
-function findNextItem(items, currentIndex) {
-    let nextItem = null;
-    let nextIndex = Number.MAX_SAFE_INTEGER;
-
-    for (let i = 0; i < items.length; i++) {
-        const index = parseInt(items[i].dataset.index);
-        if (index > currentIndex && index < nextIndex) {
-            nextIndex = index;
-            nextItem = items[i];
-        }
-    }
-
-    return nextItem;
-}
 
 // Mobile navigation functionality
 const mobileDrawer = document.getElementById('mobileDrawer');
