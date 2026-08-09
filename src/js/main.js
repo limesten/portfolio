@@ -310,7 +310,7 @@ function displayHomeContent() {
         <!-- ASCII art + info, side by side from md up, stacked on mobile -->
         <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-10 mb-6">
             <div class="ascii-art shrink-0 flex justify-center md:justify-start">
-                <pre id="ascii-logo" class="text-cat-green-light dark:text-cat-green-dark text-[0.6rem] sm:text-[0.8rem] lg:text-[0.95rem] leading-[1.108]"></pre>
+                <pre id="ascii-logo" class="text-cat-green-light dark:text-cat-green-dark text-[0.75rem] sm:text-[1rem] lg:text-[1.19rem] leading-[1.108]"></pre>
             </div>
             <div class="flex-1 min-w-0 space-y-1">
                 ${infoRows}
