@@ -17,7 +17,7 @@ module.exports = {
 
                 // Latte theme (light)
                 'cat-base-light': 'rgb(239, 241, 245)',
-                'cat-fg-light': 'rgb(76, 79, 105)',
+                'cat-fg-light': 'rgb(30, 30, 46)',
                 'cat-green-light': 'rgb(64, 160, 43)',
                 'cat-peach-light': 'rgb(254, 100, 11)',
                 'cat-accent': 'rgb(76, 79, 105)',
@@ -37,7 +37,7 @@ module.exports = {
                     'background': 'transparent',
                 },
                 '.scrollbar-custom::-webkit-scrollbar-thumb': {
-                    'background': 'rgb(76 79 105 / 0.2)',
+                    'background': 'rgb(30 30 46 / 0.2)',
                     'border-radius': '4px',
                 },
                 '.dark .scrollbar-custom::-webkit-scrollbar-thumb': {
@@ -48,7 +48,7 @@ module.exports = {
                     'z-index': '20',
                 },
                 '.selected': {
-                    'background-color': 'rgb(76 79 105 / 0.2)',
+                    'background-color': 'rgb(30 30 46 / 0.2)',
                     'position': 'relative',
                     'z-index': '20',
                 },

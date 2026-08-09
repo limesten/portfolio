@@ -609,7 +609,7 @@ video {
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: rgb(76 79 105 / 0.2);
+  background: rgb(30 30 46 / 0.2);
   border-radius: 4px;
 }
 
@@ -623,7 +623,7 @@ video {
 }
 
 .selected {
-  background-color: rgb(76 79 105 / 0.2);
+  background-color: rgb(30 30 46 / 0.2);
   position: relative;
   z-index: 20;
 }
@@ -947,7 +947,7 @@ video {
 
 .border-cat-fg-light {
   --tw-border-opacity: 1;
-  border-color: rgb(76 79 105 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 30 46 / var(--tw-border-opacity, 1));
 }
 
 .border-cat-peach-light {
@@ -1001,7 +1001,7 @@ video {
 }
 
 .bg-cat-fg-light\/10 {
-  background-color: rgb(76 79 105 / 0.1);
+  background-color: rgb(30 30 46 / 0.1);
 }
 
 .p-1 {
@@ -1116,7 +1116,7 @@ video {
 
 .text-cat-fg-light {
   --tw-text-opacity: 1;
-  color: rgb(76 79 105 / var(--tw-text-opacity, 1));
+  color: rgb(30 30 46 / var(--tw-text-opacity, 1));
 }
 
 .text-cat-green-light {
@@ -1182,11 +1182,11 @@ video {
 
 .hover\:border-cat-fg-light:hover {
   --tw-border-opacity: 1;
-  border-color: rgb(76 79 105 / var(--tw-border-opacity, 1));
+  border-color: rgb(30 30 46 / var(--tw-border-opacity, 1));
 }
 
 .hover\:bg-cat-fg-light\/10:hover {
-  background-color: rgb(76 79 105 / 0.1);
+  background-color: rgb(30 30 46 / 0.1);
 }
 
 .hover\:bg-cat-peach-light\/10:hover {
