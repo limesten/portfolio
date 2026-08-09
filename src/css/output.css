@@ -613,6 +613,10 @@ video {
   border-radius: 4px;
 }
 
+.\!dark .scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgb(205 214 244 / 0.2) !important;
+}
+
 .dark .scrollbar-custom::-webkit-scrollbar-thumb {
   background: rgb(205 214 244 / 0.2);
 }
@@ -626,6 +630,10 @@ video {
   background-color: rgb(30 30 46 / 0.2);
   position: relative;
   z-index: 20;
+}
+
+.\!dark .selected {
+  background-color: rgb(205 214 244 / 0.2) !important;
 }
 
 .dark .selected {
@@ -646,6 +654,10 @@ video {
   background-color: rgb(239, 241, 245);
 }
 
+.\!dark .decorating-text p {
+  background-color: rgb(30, 30, 46) !important;
+}
+
 .dark .decorating-text p {
   background-color: rgb(30, 30, 46);
 }
@@ -660,6 +672,10 @@ video {
   width: 104%;
 }
 
+.\!dark .decorating-text div {
+  background-color: rgb(30, 30, 46) !important;
+}
+
 .dark .decorating-text div {
   background-color: rgb(30, 30, 46);
 }
@@ -672,16 +688,16 @@ video {
   background-color: rgb(239, 241, 245);
 }
 
+.\!dark .list-index {
+  background-color: rgb(30, 30, 46) !important;
+}
+
 .dark .list-index {
   background-color: rgb(30, 30, 46);
 }
 
 .pointer-events-none {
   pointer-events: none;
-}
-
-.visible {
-  visibility: visible;
 }
 
 .fixed {
@@ -1178,6 +1194,90 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+/* Declared after the Tailwind layers so these overrides win over utilities. */
+
+:root {
+  --cat-peach-light: rgb(254, 100, 11);
+  --cat-peach-dark: rgb(250, 179, 135);
+}
+
+/* The peach used for the border and title of the active section box. */
+
+html.light {
+  --cat-peach-active: var(--cat-peach-light);
+}
+
+html.dark {
+  --cat-peach-active: var(--cat-peach-dark);
+}
+
+*:focus {
+  outline: none !important;
+}
+
+/* Below either threshold the footer no longer fits, so it is dropped and the
+   main container grows into the freed space. */
+
+@media (max-height: 960px), (max-width: 1240px) {
+  footer {
+    display: none !important;
+  }
+
+  .main-container {
+    height: calc(100vh - 20px) !important;
+    padding-bottom: 4px !important;
+  }
+}
+
+/* Mobile keeps its own height: the bottom nav bar sits below the container. */
+
+@media (max-width: 768px) {
+  .main-container {
+    height: calc(100vh - 80px) !important;
+  }
+}
+
+.code-example pre {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(239, 241, 245) !important;
+  overflow-x: auto;
+}
+
+/* In dark mode the highlight.js theme supplies its own background. */
+
+.dark .code-example pre {
+  background-color: transparent !important;
+}
+
+.code-example pre code {
+  font-family: 'Fira Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-example pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-example pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-example pre::-webkit-scrollbar-thumb {
+  background-color: rgba(108, 112, 134, 0.3);
+  border-radius: 4px;
+}
+
+.dark .code-example pre::-webkit-scrollbar-thumb {
+  background-color: rgba(205, 214, 244, 0.3);
+}
+
+.ascii-art pre {
+  background-color: transparent !important;
 }
 
 .hover\:border-cat-fg-light:hover {

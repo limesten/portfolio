@@ -4,10 +4,6 @@ module.exports = {
     content: ['./src/**/*.{html,js}'],
     theme: {
         extend: {
-            height: {
-                '15p': '15%',
-                '28p': '28.33%',
-            },
             colors: {
                 // Mocha theme (dark)
                 'cat-base-dark': 'rgb(30, 30, 46)',
@@ -20,7 +16,6 @@ module.exports = {
                 'cat-fg-light': 'rgb(30, 30, 46)',
                 'cat-green-light': 'rgb(64, 160, 43)',
                 'cat-peach-light': 'rgb(254, 100, 11)',
-                'cat-accent': 'rgb(76, 79, 105)',
             },
             fontFamily: {
                 mono: ['Fira Mono', 'monospace'],

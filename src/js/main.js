@@ -1,270 +1,218 @@
-// Theme functionality
+// Portfolio site: a sidebar of sections, one Main panel showing the selected
+// item. Navigation happens by mouse, by arrow keys / j / k, or - on mobile -
+// through a bottom drawer. All three funnel into selectItem().
+
+const main = document.querySelector('[data-content-container="main"]');
 const themeToggle = document.getElementById('themeToggle');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerTitle = document.getElementById('drawerTitle');
+const drawerContent = document.getElementById('drawerContent');
 
-// Add global variables to track active section and selected item
-let activeSectionName = 'home'; // Default to home
-let activeItemId = null;
+const PEACH = ['text-cat-peach-light', 'dark:text-cat-peach-dark'];
 
-// Function to get the current theme
-function getCurrentTheme() {
+// ---------------------------------------------------------------------------
+// Theme
+// ---------------------------------------------------------------------------
+
+function currentTheme() {
     return document.documentElement.classList.contains('dark')
         ? 'dark'
         : 'light';
 }
 
-// Function to get the correct icon based on current theme
-function getThemeIcon(iconObj) {
-    const theme = getCurrentTheme();
-    return iconObj[theme];
-}
-
-// Function to update all skill icons based on current theme
+// Skill icons are separate light/dark image files rather than CSS, so they have
+// to be swapped by hand whenever the theme changes.
 function updateSkillIcons() {
-    if (!sectionData.skills) return;
-
-    document.querySelectorAll('[class*="Skills"] img').forEach((img) => {
-        const skillId = img.closest('button').dataset.index;
-        const skill = sectionData.skills.items.find(
-            (item) => item.id === parseInt(skillId),
-        );
-        if (skill) {
-            img.src = `./images/${getThemeIcon(skill.icon)}`;
-        }
-    });
+    sectionBox('skills')
+        .querySelectorAll('[data-id]')
+        .forEach((button) => {
+            const item = findItem('skills', Number(button.dataset.id));
+            button.querySelector('img').src = iconUrl(item);
+        });
 }
 
-// Check for saved theme preference or default to dark
-if (!('theme' in localStorage)) {
-    localStorage.theme = 'dark';
-}
-
-if (localStorage.theme === 'dark') {
-    document.documentElement.classList.add('dark');
-    document.documentElement.classList.remove('light');
-} else {
-    document.documentElement.classList.add('light');
-    document.documentElement.classList.remove('dark');
-}
-
-themeToggle.addEventListener('click', () => {
-    // Toggle theme
-    const isDark = document.documentElement.classList.contains('dark');
-    if (isDark) {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-        localStorage.theme = 'light';
-        // Switch highlight.js theme
-        document.getElementById('theme-light').disabled = false;
-        document.getElementById('theme-dark').disabled = true;
-    } else {
-        document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
-        // Switch highlight.js theme
-        document.getElementById('theme-light').disabled = true;
-        document.getElementById('theme-dark').disabled = false;
-    }
-
-    // Update skill icons when theme changes
+// The single place the theme is applied. Note that the two highlight.js
+// stylesheets are switched with `disabled` alone - index.html deliberately does
+// not give them `media` attributes, or a light system theme would suppress the
+// dark code colours even when the site is in dark mode.
+function applyTheme(theme) {
+    const dark = theme === 'dark';
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.classList.toggle('light', !dark);
+    localStorage.theme = theme;
+    document.getElementById('theme-light').disabled = dark;
+    document.getElementById('theme-dark').disabled = !dark;
     updateSkillIcons();
-});
+}
 
-// Data store for section content
-let sectionData = {
-    experience: null,
-    projects: null,
-    skills: null,
+// ---------------------------------------------------------------------------
+// Sections
+// ---------------------------------------------------------------------------
+
+// Everything that differs between sections lives here: where its box is in the
+// DOM, where its data comes from, how one entry is labelled in a list, and how
+// a selected entry fills the Main panel. Key order is visual order, which is
+// what keyboard navigation walks.
+const SECTIONS = {
+    home: {
+        selector: '.Home',
+    },
+    experience: {
+        selector: '.Experience',
+        dataUrl: './data/experience.json',
+        label: (item) => `
+            <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
+            <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+            <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
+        `,
+        render: renderExperience,
+    },
+    projects: {
+        selector: '.Projects',
+        dataUrl: './data/projects.json',
+        label: (item) => `
+            <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
+        `,
+        // The only section whose title is not peach in the sidebar, but is in
+        // the mobile drawer.
+        drawerLabel: (item) => `
+            <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
+        `,
+        render: renderProject,
+    },
+    skills: {
+        selector: '.Skills',
+        dataUrl: './data/skills.json',
+        label: (item) => `
+            <img src="${iconUrl(item)}" alt="${item.name}" class="w-5 h-5" />
+            <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
+        `,
+        render: renderSkill,
+    },
 };
 
-// Load JSON data
-async function loadSectionData() {
-    try {
-        const [experienceData, projectsData, skillsData] = await Promise.all([
-            fetch('./data/experience.json').then((res) => res.json()),
-            fetch('./data/projects.json').then((res) => res.json()),
-            fetch('./data/skills.json').then((res) => res.json()),
-        ]);
+const LIST_SECTIONS = ['experience', 'projects', 'skills'];
 
-        sectionData.experience = experienceData;
-        sectionData.projects = projectsData;
-        sectionData.skills = skillsData;
-
-        // Now populate the sidebar sections with the loaded data
-        populateSidebarSections();
-    } catch (error) {
-        console.error('Error loading section data:', error);
-    }
+function sectionBox(name) {
+    return document.querySelector(SECTIONS[name].selector).closest('.border');
 }
 
-// Function to populate sidebar sections with data from JSON
-function populateSidebarSections() {
-    // Populate Experience section
-    if (sectionData.experience && sectionData.experience.items) {
-        const experienceContainer = document.querySelector(
-            '.Experience .scrollbar-custom .space-y-1',
-        );
-        if (experienceContainer) {
-            // Clear existing content
-            experienceContainer.innerHTML = '';
-
-            // Add items from JSON
-            sectionData.experience.items.forEach((item, index) => {
-                const button = document.createElement('button');
-                button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
-                button.setAttribute('data-index', item.id);
-                button.setAttribute('tabindex', '0'); // Make focusable
-
-                button.innerHTML = `
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
-                `;
-
-                button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll('.Experience [data-index]'),
-                        button,
-                        'experience',
-                    );
-                });
-
-                experienceContainer.appendChild(button);
-            });
-
-            // Update counter
-            const counter = document.querySelector(
-                '.Experience .list-index p span:last-child',
-            );
-            if (counter) {
-                counter.textContent = sectionData.experience.items.length;
-            }
-        }
-    }
-
-    // Populate Projects section
-    if (sectionData.projects && sectionData.projects.items) {
-        const projectsContainer = document.querySelector(
-            '.Projects .scrollbar-custom .space-y-1',
-        );
-        if (projectsContainer) {
-            // Clear existing content
-            projectsContainer.innerHTML = '';
-
-            // Add items from JSON
-            sectionData.projects.items.forEach((item, index) => {
-                const button = document.createElement('button');
-                button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
-                button.setAttribute('data-index', item.id);
-                button.setAttribute('tabindex', '0'); // Make focusable
-
-                button.innerHTML = `
-                    <span class="text-cat-fg-light dark:text-cat-fg-dark">${item.title}</span>
-                `;
-
-                button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll('.Projects [data-index]'),
-                        button,
-                        'projects',
-                    );
-                });
-
-                projectsContainer.appendChild(button);
-            });
-
-            // Update counter
-            const counter = document.querySelector(
-                '.Projects .list-index p span:last-child',
-            );
-            if (counter) {
-                counter.textContent = sectionData.projects.items.length;
-            }
-        }
-    }
-
-    // Populate Skills section
-    if (sectionData.skills && sectionData.skills.items) {
-        const skillsContainer = document.querySelector(
-            '.Skills .scrollbar-custom .space-y-1',
-        );
-        if (skillsContainer) {
-            // Clear existing content
-            skillsContainer.innerHTML = '';
-
-            // Add items from JSON
-            sectionData.skills.items.forEach((item, index) => {
-                const button = document.createElement('button');
-                button.className =
-                    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
-                button.setAttribute('data-index', item.id);
-                button.setAttribute('tabindex', '0'); // Make focusable
-
-                button.innerHTML = `
-                    <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />
-                    <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.name}</span>
-                `;
-
-                button.addEventListener('click', () => {
-                    handleItemSelection(
-                        document.querySelectorAll(
-                            '[class*="Skills"] [data-index]',
-                        ),
-                        button,
-                        'skills',
-                    );
-                });
-
-                skillsContainer.appendChild(button);
-            });
-
-            // Update counter
-            const counter = document.querySelector(
-                '.Skills .list-index p span:last-child',
-            );
-            if (counter) {
-                counter.textContent = sectionData.skills.items.length;
-            }
-        }
-    }
-
-    // By default, start with Home selected, but make sure
-    // the first item in each section is loaded into the data model
-    // This ensures that when a user clicks a section header, content appears
-    if (sectionData.experience && sectionData.experience.items.length > 0) {
-        // Update the counter for the Experience section
-        const experienceCounter = document.querySelector(
-            '.Experience .list-index p span:first-child',
-        );
-        if (experienceCounter) {
-            experienceCounter.textContent = '1';
-        }
-    }
-
-    if (sectionData.projects && sectionData.projects.items.length > 0) {
-        // Update the counter for the Projects section
-        const projectsCounter = document.querySelector(
-            '.Projects .list-index p span:first-child',
-        );
-        if (projectsCounter) {
-            projectsCounter.textContent = '1';
-        }
-    }
-
-    if (sectionData.skills && sectionData.skills.items.length > 0) {
-        // Update the counter for the Skills section
-        const skillsCounter = document.querySelector(
-            '.Skills .list-index p span:first-child',
-        );
-        if (skillsCounter) {
-            skillsCounter.textContent = '1';
-        }
-    }
+function findItem(name, itemId) {
+    return SECTIONS[name].items.find((item) => item.id === itemId);
 }
 
-// Load data when the page loads
-loadSectionData();
+function iconUrl(item) {
+    return `./images/${item.icon[currentTheme()]}`;
+}
+
+async function loadSections() {
+    await Promise.all(
+        LIST_SECTIONS.map(async (name) => {
+            const response = await fetch(SECTIONS[name].dataUrl);
+            SECTIONS[name].items = (await response.json()).items;
+        }),
+    );
+    LIST_SECTIONS.forEach(renderSidebar);
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar
+// ---------------------------------------------------------------------------
+
+const ITEM_BUTTON_CLASS =
+    'w-full text-left p-1 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2 hover-item truncate';
+
+function renderSidebar(name) {
+    const section = SECTIONS[name];
+    const box = sectionBox(name);
+
+    const list = box.querySelector('.space-y-1');
+    list.innerHTML = '';
+    section.items.forEach((item) => {
+        const button = document.createElement('button');
+        button.className = ITEM_BUTTON_CLASS;
+        button.dataset.id = item.id;
+        button.innerHTML = section.label(item);
+        button.addEventListener('click', () => selectItem(name, item.id));
+        list.appendChild(button);
+    });
+
+    // The "1 of 5" readout along the bottom border of the box.
+    box.querySelector('.list-index p span:last-child').textContent =
+        section.items.length;
+}
+
+// ---------------------------------------------------------------------------
+// Selection
+// ---------------------------------------------------------------------------
+
+let active = { section: 'home', itemId: null };
+
+// The one entry point for navigation, whichever control triggered it.
+function selectItem(name, itemId) {
+    active = { section: name, itemId };
+    highlightSection(name, itemId);
+    updateMainContent(name, itemId);
+}
+
+// Exactly one section box is active at a time: peach border, peach title, and
+// - for the list sections - a peach counter showing the item's position.
+function highlightSection(name, itemId) {
+    Object.keys(SECTIONS).forEach((other) => {
+        const box = sectionBox(other);
+        box.style.borderColor = '';
+        box.querySelector('.absolute').classList.remove(...PEACH);
+        box.querySelectorAll('[data-id]').forEach((el) =>
+            el.classList.remove('selected'),
+        );
+
+        const counter = box.querySelector('.list-index p');
+        if (counter) {
+            counter.classList.remove(...PEACH);
+            counter.querySelector('span').textContent = '1';
+        }
+    });
+
+    const box = sectionBox(name);
+    box.style.borderColor = 'var(--cat-peach-active)';
+    box.querySelector('.absolute').classList.add(...PEACH);
+
+    if (itemId === null) return;
+
+    itemButton(name, itemId).classList.add('selected');
+    const counter = box.querySelector('.list-index p');
+    counter.classList.add(...PEACH);
+    counter.querySelector('span').textContent =
+        SECTIONS[name].items.findIndex((item) => item.id === itemId) + 1;
+}
+
+function itemButton(name, itemId) {
+    return sectionBox(name).querySelector(`[data-id="${itemId}"]`);
+}
+
+// ---------------------------------------------------------------------------
+// Main panel
+// ---------------------------------------------------------------------------
+
+function updateMainContent(name, itemId) {
+    if (name === 'home') {
+        main.innerHTML = renderHome();
+        // The <pre> only exists once the markup above is in the document.
+        fetch('./images/ascii.txt')
+            .then((response) => response.text())
+            .then((text) => {
+                // A trailing newline would render as an extra blank row.
+                document.getElementById('ascii-logo').textContent =
+                    text.trimEnd();
+            })
+            .catch(console.error);
+        return;
+    }
+
+    const item = findItem(name, itemId);
+    main.innerHTML = SECTIONS[name].render(item);
+    if (item.code_file) loadCodeExample(item.code_file);
+}
 
 const BIRTH_DATE = '1995-04-08';
 
@@ -280,11 +228,7 @@ function getAge() {
     return age;
 }
 
-// Function to display home content
-function displayHomeContent() {
-    const mainSection = document.querySelector(
-        '[data-content-container="main"]',
-    );
+function renderHome() {
     const infoRows = [
         ['Name', 'Emil Malmsten'],
         ['Location', 'Gothenburg, Sweden'],
@@ -318,7 +262,7 @@ function displayHomeContent() {
         .map((c) => `<div class="w-7 h-5 ${c}"></div>`)
         .join('');
 
-    mainSection.innerHTML = `
+    return `
         <div class="flex items-center gap-2 mb-4">
             <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
             <span class="text-cat-green-light dark:text-cat-green-dark">whoami</span>
@@ -350,649 +294,273 @@ function displayHomeContent() {
                 <br>
                 The reason that I wanted to learn how to code was basically that I thought it was something that could suit me well as someone who has always been into computers and doing stuff like hosting <span class="text-cat-peach-light dark:text-cat-peach-dark">Minecraft</span> servers in highschool.
                 But I had never really experienced the <span class="text-cat-green-light dark:text-cat-green-dark">programming</span> side of it.
-                <br> 
-                <br>     
+                <br>
+                <br>
                 <span class="text-cat-peach-light dark:text-cat-peach-dark">Click</span> on a section on the left to learn more about my <span class="text-cat-green-light dark:text-cat-green-dark">work</span> and past <span class="text-cat-peach-light dark:text-cat-peach-dark">experiences</span>.
                 <br>
             </div>
         </div>
     `;
+}
 
-    // Load ASCII art
-    fetch('./images/ascii.txt')
+function renderTagList(heading, values) {
+    return `
+        <div class="mb-4">
+            <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">${heading}</div>
+            <div class="flex flex-wrap gap-2">
+                ${values
+                    .map(
+                        (value) =>
+                            `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${value}</span>`,
+                    )
+                    .join('')}
+            </div>
+        </div>
+    `;
+}
+
+function renderHighlights(values) {
+    return `
+        <div class="mb-4">
+            <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
+            <ul class="list-disc list-inside space-y-1">
+                ${values.map((value) => `<li>${value}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+}
+
+function renderExperience(item) {
+    return `
+        <div>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
+                <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
+                <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
+            </div>
+            <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">${item.period}</div>
+            <p class="mb-4">${item.description}</p>
+            ${renderHighlights(item.highlights)}
+            ${renderTagList('Technologies:', item.technologies)}
+        </div>
+    `;
+}
+
+function renderProject(item) {
+    const image = item.image
+        ? `
+        <div class="mb-6 flex justify-center">
+            <img
+                src="./images/${item.image.src}"
+                alt="${item.image.alt}"
+                class="max-w-full h-auto rounded-md shadow-md hover:shadow-lg transition-shadow
+                      w-full sm:w-11/12 md:w-10/12 lg:w-9/12
+                      px-2 sm:px-0"
+                loading="lazy"
+                width="800"
+                height="auto"
+            />
+        </div>
+    `
+        : '';
+
+    const demo = item.live
+        ? `
+        <div class="flex justify-center mb-6">
+            <a href="${item.live}" target="_blank" class="
+                px-6 py-3
+                border-2 border-cat-peach-light dark:border-cat-peach-dark
+                text-cat-peach-light dark:text-cat-peach-dark
+                font-mono font-bold text-lg
+                hover:bg-cat-peach-light/10 dark:hover:bg-cat-peach-dark/10
+                transition-all duration-200
+                flex items-center gap-2
+                focus:outline-none focus:ring-2 focus:ring-cat-peach-light dark:focus:ring-cat-peach-dark
+                rounded
+            ">
+                <span class="text-cat-fg-light dark:text-cat-fg-dark">$</span>
+                <span class="text-cat-green-light dark:text-cat-green-dark">view</span>
+                <span>DEMO</span>
+            </a>
+        </div>
+    `
+        : '';
+
+    return `
+        <div>
+            <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
+            <p class="mb-8">${item.description}</p>
+            ${image}
+            ${demo}
+            ${renderHighlights(item.highlights)}
+            ${renderTagList('Technologies:', item.technologies)}
+            <div class="flex gap-4">
+                <a href="${item.github}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderSkill(item) {
+    const codeExample = item.code_file
+        ? `
+        <div class="mt-6 code-example">
+            <pre><code class="rounded-md" id="codeExample">Loading...</code></pre>
+        </div>
+    `
+        : '';
+
+    return `
+        <div>
+            <div class="flex items-center gap-2 mb-4">
+                <img src="${iconUrl(item)}" alt="${item.name}" class="w-6 h-6" />
+                <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
+            </div>
+            <p class="mb-4">${item.description}</p>
+            ${codeExample}
+        </div>
+    `;
+}
+
+// highlight.js picks the grammar off a `language-*` class. The file extension is
+// the language name, except .tsx which hljs registers under typescript.
+function loadCodeExample(path) {
+    const code = document.getElementById('codeExample');
+    const extension = path.split('.').pop();
+
+    fetch(`./data/${path}`)
         .then((response) => response.text())
         .then((text) => {
-            const asciiLogo = document.getElementById('ascii-logo');
-            if (asciiLogo) {
-                // trailing newline would render as an extra blank row
-                asciiLogo.textContent = text.trimEnd();
-            }
+            code.className = `language-${extension === 'tsx' ? 'typescript' : extension}`;
+            code.textContent = text;
+            hljs.highlightElement(code);
         })
-        .catch((error) => console.error('Error loading ASCII art:', error));
-}
-
-// Show home content by default when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    displayHomeContent();
-    // Set initial active section to home
-    activeSectionName = 'home';
-    activeItemId = null;
-
-    // Add selected state to home section container
-    const homeContainer = document.querySelector('.Home');
-    if (homeContainer) {
-        homeContainer.setAttribute('tabindex', '0'); // Make home section focusable
-        const homeBorder = homeContainer.closest('.border');
-        if (homeBorder) {
-            homeBorder.style.borderColor = 'var(--cat-peach-active)';
-            // Set initial peach color for Home title
-            const homeTitle = homeBorder.querySelector('.absolute');
-            if (homeTitle) {
-                homeTitle.classList.add(
-                    'text-cat-peach-light',
-                    'dark:text-cat-peach-dark',
-                );
-            }
-        }
-        // Focus the home section by default
-        homeContainer.focus();
-    }
-
-    // The event listeners for the dynamically created elements are now added in populateSidebarSections()
-    // We'll still make focusable any elements that might exist at this point
-    document
-        .querySelectorAll(
-            '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
-        )
-        .forEach((item) => {
-            item.setAttribute('tabindex', '0');
+        .catch(() => {
+            code.textContent = 'Error loading code example';
         });
-});
-
-// Main section update
-function updateMainContent(section, itemId) {
-    const mainSection = document.querySelector(
-        '[data-content-container="main"]',
-    );
-    if (!mainSection) return;
-
-    if (section === 'home') {
-        displayHomeContent();
-        return;
-    }
-
-    if (!sectionData[section]) return;
-
-    const item = sectionData[section].items.find((i) => i.id === itemId);
-    if (!item) return;
-
-    let content = '';
-
-    switch (section) {
-        case 'experience':
-            content = `
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title}</span>
-                        <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                        <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
-                    </div>
-                    <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">${item.period}</div>
-                    <p class="mb-4">${item.description}</p>
-                    <div class="mb-4">
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
-                        <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div>
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Technologies:</div>
-                        <div class="flex flex-wrap gap-2">
-                            ${item.technologies
-                                .map(
-                                    (tech) =>
-                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`,
-                                )
-                                .join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-            break;
-
-        case 'projects':
-            content = `
-                <div>
-                    <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
-                    <p class="mb-8">${item.description}</p>
-                    ${
-                        item.image
-                            ? `
-                    <div class="mb-6 flex justify-center">
-                        <img 
-                            src="./images/${item.image.src}" 
-                            alt="${item.image.alt}" 
-                            class="max-w-full h-auto rounded-md shadow-md hover:shadow-lg transition-shadow 
-                                  w-full sm:w-11/12 md:w-10/12 lg:w-9/12 
-                                  px-2 sm:px-0"
-                            loading="lazy"
-                            width="800"
-                            height="auto"
-                        />
-                    </div>
-                    `
-                            : ''
-                    }
-                    
-                    <!-- Demo Button -->
-                    ${
-                        item.live
-                            ? `
-                    <div class="flex justify-center mb-6">
-                        <a href="${item.live}" target="_blank" class="
-                            px-6 py-3 
-                            border-2 border-cat-peach-light dark:border-cat-peach-dark 
-                            text-cat-peach-light dark:text-cat-peach-dark 
-                            font-mono font-bold text-lg
-                            hover:bg-cat-peach-light/10 dark:hover:bg-cat-peach-dark/10
-                            transition-all duration-200
-                            flex items-center gap-2
-                            focus:outline-none focus:ring-2 focus:ring-cat-peach-light dark:focus:ring-cat-peach-dark
-                            rounded
-                        ">
-                            <span class="text-cat-fg-light dark:text-cat-fg-dark">$</span>
-                            <span class="text-cat-green-light dark:text-cat-green-dark">view</span>
-                            <span>DEMO</span>
-                        </a>
-                    </div>
-                    `
-                            : ''
-                    }
-                    
-                    <div class="mb-4">
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Highlights:</div>
-                        <ul class="list-disc list-inside space-y-1">
-                            ${item.highlights.map((h) => `<li>${h}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div class="mb-4">
-                        <div class="text-cat-peach-light dark:text-cat-peach-dark mb-2">Technologies:</div>
-                        <div class="flex flex-wrap gap-2">
-                            ${item.technologies
-                                .map(
-                                    (tech) =>
-                                        `<span class="px-2 py-1 bg-cat-fg-light/10 dark:bg-cat-fg-dark/10 rounded">${tech}</span>`,
-                                )
-                                .join('')}
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="${
-                            item.github
-                        }" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
-                    </div>
-                </div>
-            `;
-            break;
-
-        case 'skills':
-            content = `
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-6 h-6" />
-                        <span class="text-cat-peach-light dark:text-cat-peach-dark text-xl">${item.name}</span>
-                    </div>
-                    <p class="mb-4">${item.description}</p>
-                    ${
-                        item.code_file
-                            ? `
-                        <div class="mt-6 code-example">
-                            <pre><code class="rounded-md" id="codeExample">Loading...</code></pre>
-                        </div>
-                    `
-                            : ''
-                    }
-                </div>
-            `;
-
-            // After setting the content, fetch and display the code if there's a code file
-            if (item.code_file) {
-                fetch(`./data/${item.code_file}`)
-                    .then((response) => response.text())
-                    .then((code) => {
-                        const codeElement =
-                            document.getElementById('codeExample');
-                        if (codeElement) {
-                            codeElement.textContent = code;
-                            // Detect language from file extension
-                            const fileExtension = item.code_file
-                                .split('.')
-                                .pop();
-                            const language =
-                                fileExtension === 'tsx'
-                                    ? 'typescript'
-                                    : fileExtension;
-                            codeElement.className = `language-${language}`;
-                            // Apply syntax highlighting
-                            hljs.highlightElement(codeElement);
-                            // Force theme update
-                            const isDark =
-                                document.documentElement.classList.contains(
-                                    'dark',
-                                );
-                            document.getElementById('theme-light').disabled =
-                                isDark;
-                            document.getElementById('theme-dark').disabled =
-                                !isDark;
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error loading code example:', error);
-                        const codeElement =
-                            document.getElementById('codeExample');
-                        if (codeElement) {
-                            codeElement.textContent =
-                                'Error loading code example';
-                        }
-                    });
-            }
-            break;
-    }
-
-    mainSection.innerHTML = content;
 }
 
-// List item selection functionality
-function handleItemSelection(items, item, section) {
-    // Update our global tracking variables
-    activeSectionName = section;
-    activeItemId = section === 'home' ? null : parseInt(item.dataset.index);
+// ---------------------------------------------------------------------------
+// Keyboard navigation
+// ---------------------------------------------------------------------------
 
-    // Remove selected class and border color from ALL sections and items
-    document.querySelectorAll('.border').forEach((i) => {
-        i.style.borderColor = '';
-        // Reset all section titles to default color
-        const title = i.querySelector('.absolute');
-        if (title) {
-            title.classList.remove(
-                'text-cat-peach-light',
-                'dark:text-cat-peach-dark',
-            );
-        }
-        // Reset all counter colors to default foreground color
-        const counter = i.querySelector('.list-index');
-        if (counter) {
-            counter
-                .querySelector('p')
-                .classList.remove(
-                    'text-cat-peach-light',
-                    'dark:text-cat-peach-dark',
-                );
-            const currentCounter = counter.querySelector('span:first-child');
-            if (currentCounter) {
-                currentCounter.textContent = '1';
-            }
-        }
-    });
-    document
-        .querySelectorAll(
-            '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
-        )
-        .forEach((i) => {
-            if (i.classList.contains('selected')) {
-                i.classList.remove('selected');
-            }
-        });
-
-    if (section === 'home') {
-        // Add border color to home section container
-        const homeContainer = item.closest('.border');
-        if (homeContainer) {
-            homeContainer.style.borderColor = 'var(--cat-peach-active)';
-            // Change the Home title color to peach
-            const homeTitle = homeContainer.querySelector('.absolute');
-            if (homeTitle) {
-                homeTitle.classList.add(
-                    'text-cat-peach-light',
-                    'dark:text-cat-peach-dark',
-                );
-            }
-        }
-        // Update main section for home
-        updateMainContent('home');
-    } else {
-        // Add selected class to clicked item
-        item.classList.add('selected');
-
-        // Update counter for current section
-        const currentSection = item.closest('.font-mono');
-        const sectionContainer = currentSection.closest('.border');
-        if (sectionContainer) {
-            // Add peach border to section container
-            sectionContainer.style.borderColor = 'var(--cat-peach-active)';
-            // Change section title to peach
-            const sectionTitle = sectionContainer.querySelector('.absolute');
-            if (sectionTitle) {
-                sectionTitle.classList.add(
-                    'text-cat-peach-light',
-                    'dark:text-cat-peach-dark',
-                );
-            }
-            // Change counter color to peach ONLY for selected section
-            const counter = sectionContainer.querySelector('.list-index');
-            if (counter) {
-                counter
-                    .querySelector('p')
-                    .classList.add(
-                        'text-cat-peach-light',
-                        'dark:text-cat-peach-dark',
-                    );
-                const currentCounter =
-                    counter.querySelector('span:first-child');
-                if (currentCounter) {
-                    currentCounter.textContent = item.dataset.index;
-                }
-            }
-        }
-
-        // Update main section
-        updateMainContent(section, parseInt(item.dataset.index));
-    }
-}
-
-// Add click event listeners
-document.querySelector('.Home').addEventListener('click', () => {
-    // Update the active section variables
-    activeSectionName = 'home';
-    activeItemId = null;
-
-    handleItemSelection(null, document.querySelector('.Home'), 'home');
-});
-
-// Improved helper function to check if an element is visible in its scrollable container
-// with an optional buffer zone to start scrolling earlier
-function isElementInView(element, container, buffer = 0) {
-    const elementRect = element.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-
-    // Check if the element is fully visible in the container (with buffer)
-    return (
-        elementRect.top >= containerRect.top - buffer &&
-        elementRect.bottom <= containerRect.bottom + buffer
+// Every navigable entry flattened into one list in visual order, so that moving
+// past the last item of a section continues into the next one.
+function navEntries() {
+    return Object.keys(SECTIONS).flatMap((name) =>
+        name === 'home'
+            ? [{ section: 'home', itemId: null }]
+            : (SECTIONS[name].items ?? []).map((item) => ({
+                  section: name,
+                  itemId: item.id,
+              })),
     );
 }
 
-// Every keyboard-navigable entry, flattened into one list in visual order:
-// Home first, then each item of Experience, Projects and Skills. Navigating
-// past the last item of a section therefore continues into the next section.
-function getNavEntries() {
-    const entries = [
-        { section: 'home', itemId: null, el: document.querySelector('.Home') },
-    ];
-
-    ['experience', 'projects', 'skills'].forEach((section) => {
-        const sectionClass =
-            section.charAt(0).toUpperCase() + section.slice(1);
-        const container = document.querySelector(`.${sectionClass}`);
-        if (!container) return;
-
-        container.querySelectorAll('[data-index]').forEach((el) => {
-            entries.push({
-                section,
-                itemId: parseInt(el.dataset.index),
-                el,
-            });
-        });
-    });
-
-    return entries;
-}
-
-// Scroll an item into view inside its own scrollable section, starting a little
-// before it reaches the edge (20px buffer)
-function scrollItemIntoView(item, movingDown) {
-    const container = item.closest('.scrollbar-custom');
-    if (!container || isElementInView(item, container, 20)) return;
-
-    const itemHeight = item.offsetHeight;
-    const containerHeight = container.clientHeight;
-
-    // For "up" navigation, align to top with room for context above
-    if (!movingDown) {
-        container.scrollTop = item.offsetTop - Math.floor(containerHeight / 4);
-        return;
-    }
-
-    // For "down" navigation, ensure item is fully visible with context below
-    const itemBottom = item.offsetTop + itemHeight;
-    if (itemBottom > container.scrollTop + containerHeight) {
-        container.scrollTop =
-            item.offsetTop -
-            containerHeight +
-            itemHeight +
-            Math.floor(containerHeight / 4);
-    }
-}
-
-// Keyboard navigation - up/down arrows or k/j walk the flat entry list
 document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-    const movingUp = e.key === 'ArrowUp' || e.key === 'k';
-    const movingDown = e.key === 'ArrowDown' || e.key === 'j';
-    if (!movingUp && !movingDown) return;
+    const step = { ArrowDown: 1, j: 1, ArrowUp: -1, k: -1 }[e.key];
+    if (!step) return;
 
-    // Prevent default arrow key behavior to avoid any browser-induced scrolling
+    // Stop the browser scrolling the page out from under the selection.
     e.preventDefault();
 
-    const entries = getNavEntries();
-
-    // Find where we are now, falling back to Home
-    let currentIndex = entries.findIndex(
+    const entries = navEntries();
+    const current = entries.findIndex(
         (entry) =>
-            entry.section === activeSectionName && entry.itemId === activeItemId,
+            entry.section === active.section && entry.itemId === active.itemId,
     );
-    if (currentIndex === -1) currentIndex = 0;
 
-    // Stop at the ends of the list
-    const next = entries[currentIndex + (movingDown ? 1 : -1)];
-    if (!next || !next.el) return;
+    // Stop at the ends of the list.
+    const next = entries[Math.max(current, 0) + step];
+    if (!next) return;
 
-    next.el.click();
-    next.el.focus();
-
+    selectItem(next.section, next.itemId);
     if (next.section !== 'home') {
-        scrollItemIntoView(next.el, movingDown);
+        itemButton(next.section, next.itemId).scrollIntoView({
+            block: 'nearest',
+        });
     }
 });
 
-// Mobile navigation functionality
-const mobileDrawer = document.getElementById('mobileDrawer');
-const drawerClose = document.getElementById('drawerClose');
-const drawerTitle = document.getElementById('drawerTitle');
-const drawerContent = document.getElementById('drawerContent');
-let activeSection = null;
+// ---------------------------------------------------------------------------
+// Mobile navigation
+// ---------------------------------------------------------------------------
 
-// Handle mobile navigation button clicks
-document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-        const section = btn.dataset.section;
-        activeSection = section;
+function setMobileNavActive(activeButton) {
+    document.querySelectorAll('.mobile-nav-btn').forEach((button) => {
+        const on = button === activeButton;
+        button.classList.toggle('bg-cat-fg-light/10', on);
+        button.classList.toggle('dark:bg-cat-fg-dark/10', on);
+        button.querySelector('span:last-child').classList.toggle('underline', on);
+    });
+}
 
-        // Add active state to button
-        document.querySelectorAll('.mobile-nav-btn').forEach((b) => {
-            b.classList.remove('active');
-            b.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
-            b.querySelector('span:last-child').classList.remove('underline');
-        });
-        btn.classList.add('active');
-        btn.classList.add('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
-        btn.querySelector('span:last-child').classList.add('underline');
+function closeDrawer() {
+    mobileDrawer.classList.add('translate-y-full');
+    setMobileNavActive(null);
+}
 
-        if (section === 'home') {
-            displayHomeContent();
-            // Add border color and title color to home section container
-            const homeContainer = document
-                .querySelector('.Home')
-                .closest('.border');
-            if (homeContainer) {
-                homeContainer.style.borderColor = 'var(--cat-peach-active)';
-                const homeTitle = homeContainer.querySelector('.absolute');
-                if (homeTitle) {
-                    homeTitle.classList.add(
-                        'text-cat-peach-light',
-                        'dark:text-cat-peach-dark',
-                    );
-                }
-            }
-            // Close drawer if it's open
-            mobileDrawer.classList.add('translate-y-full');
-        } else {
-            // For other sections, show drawer and update content
-            drawerTitle.textContent = section;
-            // Remove the translate-y-full class to show the drawer
-            mobileDrawer.classList.remove('translate-y-full');
-            // Update drawer content
-            updateDrawerContent(section);
-            // Add peach highlighting to the selected section
-            const sectionContainer = document
-                .querySelector(
-                    `.${section.charAt(0).toUpperCase() + section.slice(1)}`,
+function renderDrawer(name) {
+    const section = SECTIONS[name];
+    const label = section.drawerLabel ?? section.label;
+
+    drawerContent.innerHTML = `
+        <div class="space-y-2 font-mono">
+            ${section.items
+                .map(
+                    (item) => `
+                <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mr-2" data-id="${item.id}">
+                    ${label(item)}
+                </button>`,
                 )
-                .closest('.border');
-            if (sectionContainer) {
-                sectionContainer.style.borderColor = 'var(--cat-peach-active)';
-                const sectionTitle =
-                    sectionContainer.querySelector('.absolute');
-                if (sectionTitle) {
-                    sectionTitle.classList.add(
-                        'text-cat-peach-light',
-                        'dark:text-cat-peach-dark',
-                    );
-                }
-            }
+                .join('')}
+        </div>
+    `;
+
+    drawerContent.querySelectorAll('[data-id]').forEach((button) => {
+        button.addEventListener('click', () => {
+            selectItem(name, Number(button.dataset.id));
+            closeDrawer();
+        });
+    });
+}
+
+document.querySelectorAll('.mobile-nav-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+        const name = button.dataset.section;
+        setMobileNavActive(button);
+
+        if (name === 'home') {
+            selectItem('home', null);
+            mobileDrawer.classList.add('translate-y-full');
+            return;
         }
 
-        // Remove selected state from all items
-        document
-            .querySelectorAll(
-                '.Experience [data-index], .Projects [data-index], [class*="Skills"] [data-index]',
-            )
-            .forEach((i) => {
-                if (i.classList.contains('selected')) {
-                    i.classList.remove('selected');
-                }
-            });
+        drawerTitle.textContent = name;
+        renderDrawer(name);
+        mobileDrawer.classList.remove('translate-y-full');
     });
 });
 
-// Close drawer
-drawerClose.addEventListener('click', () => {
-    mobileDrawer.classList.add('translate-y-full');
-    // Remove active states
-    document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
-        btn.classList.remove('active');
-        btn.classList.remove('bg-cat-fg-light/10', 'dark:bg-cat-fg-dark/10');
-        btn.querySelector('span:last-child').classList.remove('underline');
-    });
-});
+document.getElementById('drawerClose').addEventListener('click', closeDrawer);
 
-// Update drawer content
-function updateDrawerContent(section) {
-    if (!sectionData[section]) return;
+// ---------------------------------------------------------------------------
+// Start
+// ---------------------------------------------------------------------------
 
-    const items = sectionData[section].items;
-    let content = '<div class="space-y-2 font-mono">';
+applyTheme(localStorage.theme === 'light' ? 'light' : 'dark');
+themeToggle.addEventListener('click', () =>
+    applyTheme(currentTheme() === 'dark' ? 'light' : 'dark'),
+);
 
-    items.forEach((item, index) => {
-        content += `
-            <button class="w-full text-left p-2 rounded hover:bg-cat-fg-light/10 dark:hover:bg-cat-fg-dark/10 transition-colors flex items-center gap-2 group mobile-item mr-2" data-index="${
-                item.id
-            }">
-                ${
-                    section === 'skills'
-                        ? `<img src="./images/${getThemeIcon(item.icon)}" alt="${item.name}" class="w-5 h-5" />`
-                        : ''
-                }
-                <span class="text-cat-peach-light dark:text-cat-peach-dark">${item.title || item.name}</span>
-                ${
-                    section === 'experience'
-                        ? `
-                    <span class="text-cat-green-light dark:text-cat-green-dark">@</span>
-                    <span class="text-cat-green-light dark:text-cat-green-dark">${item.company}</span>
-                `
-                        : ''
-                }
-            </button>
-        `;
-    });
+document
+    .querySelector(SECTIONS.home.selector)
+    .addEventListener('click', () => selectItem('home', null));
 
-    content += '</div>';
-    drawerContent.innerHTML = content;
-
-    // Add click handlers for items
-    drawerContent.querySelectorAll('.mobile-item').forEach((item) => {
-        item.addEventListener('click', () => {
-            const itemIndex = item.dataset.index;
-            // Update selected state in the main section
-            const sectionElement = document.querySelector(
-                `.${section.charAt(0).toUpperCase() + section.slice(1)}`,
-            );
-            const targetItem = sectionElement.querySelector(
-                `[data-index="${itemIndex}"]`,
-            );
-            if (targetItem) {
-                handleItemSelection(
-                    document.querySelectorAll(
-                        `.${section.charAt(0).toUpperCase() + section.slice(1)} [data-index]`,
-                    ),
-                    targetItem,
-                    section,
-                );
-            }
-            // Close drawer after selection
-            mobileDrawer.classList.add('translate-y-full');
-            // Remove active states from mobile nav buttons
-            document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
-                btn.classList.remove('active');
-                btn.classList.remove(
-                    'bg-cat-fg-light/10',
-                    'dark:bg-cat-fg-dark/10',
-                );
-                btn.querySelector('span:last-child').classList.remove(
-                    'underline',
-                );
-            });
-        });
-    });
-}
-
-// Show/hide content based on section selection
-function showSection(sectionName) {
-    // Hide all sections first
-    document
-        .querySelectorAll('[class*=" Home"], [class^="Home"]')
-        .forEach((el) => {
-            el.classList.add('hidden');
-        });
-
-    // Show selected section
-    document.querySelectorAll('.' + sectionName).forEach((el) => {
-        el.classList.remove('hidden');
-    });
-}
-
-// Add click event listeners to section buttons
-document.querySelectorAll('.section-button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-        const sectionName = e.target.closest('button').dataset.section;
-        showSection(sectionName);
-    });
-});
-
-// Show Home section by default
-showSection('Home');
-
+selectItem('home', null);
+loadSections();
 
 // Idle pixel art pug in the bottom right corner of the Main panel.
 //
@@ -1129,7 +697,6 @@ const PUG_SETTLE = [
     '.........obo..oboooooobo.obo....',
     '..........o....o......o...o.....',
 ];
-
 
 const PUG_SCALE = 5;
 
