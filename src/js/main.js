@@ -302,6 +302,22 @@ function displayHomeContent() {
         )
         .join('');
 
+    // Catppuccin palette swatches (Latte / Mocha), like neofetch's colour row.
+    // Class names are written out in full because Tailwind scans source files
+    // as plain text - an interpolated `bg-[${x}]` would never be generated.
+    const swatches = [
+        'bg-[#d20f39] dark:bg-[#f38ba8]', // red
+        'bg-[#fe640b] dark:bg-[#fab387]', // peach
+        'bg-[#df8e1d] dark:bg-[#f9e2af]', // yellow
+        'bg-[#40a02b] dark:bg-[#a6e3a1]', // green
+        'bg-[#179299] dark:bg-[#94e2d5]', // teal
+        'bg-[#1e66f5] dark:bg-[#89b4fa]', // blue
+        'bg-[#8839ef] dark:bg-[#cba6f7]', // mauve
+        'bg-[#4c4f69] dark:bg-[#cdd6f4]', // text
+    ]
+        .map((c) => `<div class="w-7 h-5 ${c}"></div>`)
+        .join('');
+
     mainSection.innerHTML = `
         <div class="flex items-center gap-2 mb-4">
             <span class="text-cat-peach-light dark:text-cat-peach-dark">$</span>
@@ -312,8 +328,13 @@ function displayHomeContent() {
             <div class="ascii-art shrink-0 flex justify-center md:justify-start">
                 <pre id="ascii-logo" class="text-cat-green-light dark:text-cat-green-dark text-[0.75rem] sm:text-[1rem] lg:text-[1.19rem] leading-[1.108]"></pre>
             </div>
-            <div class="flex-1 min-w-0 space-y-1">
-                ${infoRows}
+            <div class="flex-1 min-w-0">
+                <div class="space-y-1">
+                    ${infoRows}
+                </div>
+                <div class="flex mt-4">
+                    ${swatches}
+                </div>
             </div>
         </div>
         <!-- Content section -->
