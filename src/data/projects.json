@@ -76,7 +76,7 @@
             ],
             "technologies": ["React", "Golang", "PostgreSQL", "JWT"],
             "github": "https://github.com/limesten/topxyz",
-            "live": "https://topxyz.emilmalmsten.xyz/"
+            "live": ""
         },
         {
             "id": 5,
