@@ -1099,3 +1099,198 @@ document.querySelectorAll('.section-button').forEach((button) => {
 
 // Show Home section by default
 showSection('Home');
+
+
+// Idle pixel art pug in the bottom right corner of the Main panel.
+//
+// PUG_REST is transcribed pixel for pixel from the source art, padded with one
+// blank row on top. The other frames are that same sprite with two effects
+// layered on, so no pixel is ever hand redrawn:
+//
+//   body lift  - one row low in the belly is duplicated, so the head, ear, eye,
+//                torso and tail all rise a pixel together while the legs stay put
+//   chest rise - the back outline over the shoulders lifts one more pixel
+//
+// The two run on offset timing: the chest leads going in and relaxes first
+// coming out, so the body reads as one thing moving rather than an edge sliding.
+const PUG_PALETTE = {
+    o: '#4f1f0b', // outline and pupil
+    b: '#fedbb3', // body
+    d: '#754b32', // ear and muzzle
+    w: '#ffffff', // eye white
+    t: '#e85050', // tongue
+};
+
+// At rest, fully exhaled
+const PUG_REST = [
+    '................................',
+    '.......ooooooo..................',
+    '.....oobbbbbbboo................',
+    '....obbbbbbbbbbboo.........ooo..',
+    '..oobbbbbbbbbooobboooo....obbbo.',
+    '.odobbbbbbbbodddobbobboooobbobbo',
+    'odobbbbbbbbboddddobbobbbbbobbobo',
+    'odoobbbboobboddddobbbbbbbbboobbo',
+    'odobbbbbbbbbodddddobbbbbbbbbobo.',
+    '.owbbbbwwwwbboddddobbbbbbbbbbo..',
+    '.oowbbwwoowwbbodddobbbbbbbbbbo..',
+    '.oowbbwoooowbbbooobbbbbbbbbbbbo.',
+    '.oowbbwoooowbbbbbbbbbbbbbbbbbbo.',
+    '.owooowwoowwbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddwwwwbbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddddobbbbbbbobbbbbbbbbbbbo.',
+    '.odotoddddobbbbbbbbbbbbbbbbbbbo.',
+    '..ootoddddobbbbobbbbbbbobbbbbbo.',
+    '...oddoddobbbbobbbbbbbbobbbbbo..',
+    '....oooooooobbbbbbbbbbbobbbbbo..',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '.........oobbbobbbbbbbbbbobbo...',
+    '.........oboooobobbbbboooobo....',
+    '.........obo..oboooooobo.obo....',
+    '..........o....o......o...o.....',
+];
+
+// Chest starting to fill, body has not lifted yet
+const PUG_CHEST = [
+    '................................',
+    '.......ooooooo..................',
+    '.....oobbbbbbboo................',
+    '....obbbbbbbbbbboooooo.....ooo..',
+    '..oobbbbbbbbbooobbbbbbooooobbbo.',
+    '.odobbbbbbbbodddobbobbbbbbbbobbo',
+    'odobbbbbbbbboddddobbobbbbbobbobo',
+    'odoobbbboobboddddobbbbbbbbboobbo',
+    'odobbbbbbbbbodddddobbbbbbbbbobo.',
+    '.owbbbbwwwwbboddddobbbbbbbbbbo..',
+    '.oowbbwwoowwbbodddobbbbbbbbbbo..',
+    '.oowbbwoooowbbbooobbbbbbbbbbbbo.',
+    '.oowbbwoooowbbbbbbbbbbbbbbbbbbo.',
+    '.owooowwoowwbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddwwwwbbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddddobbbbbbbobbbbbbbbbbbbo.',
+    '.odotoddddobbbbbbbbbbbbbbbbbbbo.',
+    '..ootoddddobbbbobbbbbbbobbbbbbo.',
+    '...oddoddobbbbobbbbbbbbobbbbbo..',
+    '....oooooooobbbbbbbbbbbobbbbbo..',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '.........oobbbobbbbbbbbbbobbo...',
+    '.........oboooobobbbbboooobo....',
+    '.........obo..oboooooobo.obo....',
+    '..........o....o......o...o.....',
+];
+
+// Full inhale, body lifted and chest up
+const PUG_FULL = [
+    '.......ooooooo..................',
+    '.....oobbbbbbboo................',
+    '....obbbbbbbbbbboooooo.....ooo..',
+    '..oobbbbbbbbbooobbbbbbooooobbbo.',
+    '.odobbbbbbbbodddobbobbbbbbbbobbo',
+    'odobbbbbbbbboddddobbobbbbbobbobo',
+    'odoobbbboobboddddobbbbbbbbboobbo',
+    'odobbbbbbbbbodddddobbbbbbbbbobo.',
+    '.owbbbbwwwwbboddddobbbbbbbbbbo..',
+    '.oowbbwwoowwbbodddobbbbbbbbbbo..',
+    '.oowbbwoooowbbbooobbbbbbbbbbbbo.',
+    '.oowbbwoooowbbbbbbbbbbbbbbbbbbo.',
+    '.owooowwoowwbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddwwwwbbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddddobbbbbbbobbbbbbbbbbbbo.',
+    '.odotoddddobbbbbbbbbbbbbbbbbbbo.',
+    '..ootoddddobbbbobbbbbbbobbbbbbo.',
+    '...oddoddobbbbobbbbbbbbobbbbbo..',
+    '....oooooooobbbbbbbbbbbobbbbbo..',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '.........oobbbobbbbbbbbbbobbo...',
+    '.........oboooobobbbbboooobo....',
+    '.........obo..oboooooobo.obo....',
+    '..........o....o......o...o.....',
+];
+
+// Chest relaxed but the body has not dropped back yet
+const PUG_SETTLE = [
+    '.......ooooooo..................',
+    '.....oobbbbbbboo................',
+    '....obbbbbbbbbbboo.........ooo..',
+    '..oobbbbbbbbbooobboooo....obbbo.',
+    '.odobbbbbbbbodddobbobboooobbobbo',
+    'odobbbbbbbbboddddobbobbbbbobbobo',
+    'odoobbbboobboddddobbbbbbbbboobbo',
+    'odobbbbbbbbbodddddobbbbbbbbbobo.',
+    '.owbbbbwwwwbboddddobbbbbbbbbbo..',
+    '.oowbbwwoowwbbodddobbbbbbbbbbo..',
+    '.oowbbwoooowbbbooobbbbbbbbbbbbo.',
+    '.oowbbwoooowbbbbbbbbbbbbbbbbbbo.',
+    '.owooowwoowwbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddwwwwbbbbbbbbbbbbbbbbbbbo.',
+    '.oddoddddobbbbbbbobbbbbbbbbbbbo.',
+    '.odotoddddobbbbbbbbbbbbbbbbbbbo.',
+    '..ootoddddobbbbobbbbbbbobbbbbbo.',
+    '...oddoddobbbbobbbbbbbbobbbbbo..',
+    '....oooooooobbbbbbbbbbbobbbbbo..',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '........obbbbbbbbbbbbbbbobbbo...',
+    '.........oobbbobbbbbbbbbbobbo...',
+    '.........oboooobobbbbboooobo....',
+    '.........obo..oboooooobo.obo....',
+    '..........o....o......o...o.....',
+];
+
+
+const PUG_SCALE = 5;
+
+// [frame, milliseconds]. Breathing is not evenly paced - the inhale is quicker
+// than the exhale, and there is a long pause before the next breath.
+const PUG_BREATH = [
+    [PUG_CHEST, 200],
+    [PUG_FULL, 260],
+    [PUG_FULL, 420],
+    [PUG_SETTLE, 300],
+    [PUG_REST, 260],
+    [PUG_REST, 900],
+];
+
+function drawPug(ctx, frame) {
+    ctx.clearRect(0, 0, frame[0].length * PUG_SCALE, frame.length * PUG_SCALE);
+    frame.forEach((row, y) => {
+        [...row].forEach((cell, x) => {
+            const color = PUG_PALETTE[cell];
+            if (!color) return;
+            ctx.fillStyle = color;
+            ctx.fillRect(x * PUG_SCALE, y * PUG_SCALE, PUG_SCALE, PUG_SCALE);
+        });
+    });
+}
+
+function startPixelPug() {
+    const canvas = document.getElementById('pixel-pug');
+    if (!canvas) return;
+
+    const cols = PUG_REST[0].length;
+    const rows = PUG_REST.length;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = cols * PUG_SCALE * dpr;
+    canvas.height = rows * PUG_SCALE * dpr;
+    canvas.style.width = `${cols * PUG_SCALE}px`;
+    canvas.style.height = `${rows * PUG_SCALE}px`;
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        drawPug(ctx, PUG_REST);
+        return;
+    }
+
+    let step = 0;
+    const tick = () => {
+        const [frame, ms] = PUG_BREATH[step];
+        drawPug(ctx, frame);
+        step = (step + 1) % PUG_BREATH.length;
+        setTimeout(tick, ms);
+    };
+    tick();
+}
+
+startPixelPug();

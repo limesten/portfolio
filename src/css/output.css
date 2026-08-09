@@ -676,6 +676,10 @@ video {
   background-color: rgb(30, 30, 46);
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .visible {
   visibility: visible;
 }
@@ -700,6 +704,10 @@ video {
   bottom: 0px;
 }
 
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -714,6 +722,10 @@ video {
 
 .right-2 {
   right: 0.5rem;
+}
+
+.right-4 {
+  right: 1rem;
 }
 
 .top-2 {
@@ -835,6 +847,12 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .list-inside {
@@ -1231,6 +1249,10 @@ video {
 @media (min-width: 768px) {
   .md\:mt-4 {
     margin-top: 1rem;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:flex {
