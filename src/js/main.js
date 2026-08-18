@@ -402,6 +402,14 @@ function renderProject(item) {
     `
         : '';
 
+    const repo = item.github
+        ? `
+        <div class="flex gap-4">
+            <a href="${item.github}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
+        </div>
+    `
+        : '';
+
     return `
         <div>
             <div class="text-cat-peach-light dark:text-cat-peach-dark text-xl mb-4">${item.title}</div>
@@ -410,9 +418,7 @@ function renderProject(item) {
             ${demo}
             ${renderHighlights(item.highlights)}
             ${renderTagList('Technologies:', item.technologies)}
-            <div class="flex gap-4">
-                <a href="${item.github}" target="_blank" class="text-cat-green-light dark:text-cat-green-dark hover:underline">GitHub</a>
-            </div>
+            ${repo}
         </div>
     `;
 }

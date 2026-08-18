@@ -26,6 +26,29 @@
             "live": "https://lineupscout.emilmalmsten.xyz"
         },
         {
+            "id": 7,
+            "title": "Plant Monitor",
+            "description": "I kept forgetting when I last watered my plants, so I put a soil moisture sensor in one of them. An ESP8266 in the pot takes a reading every 5 minutes and publishes it over MQTT to my VPS, where a Go service stores it in SQLite and serves a small dashboard. The steep spikes in the graph are me watering it, and the slope after tells me how fast the soil dries out.",
+            "image": {
+                "src": "plant-monitor.jpg",
+                "alt": "Plant with moisture sensor next to the dashboard graph"
+            },
+            "highlights": [
+                "ESP8266 reading an analog soil moisture sensor, publishing over MQTT",
+                "Mosquitto broker over TLS with per-device credentials",
+                "Go subscriber storing readings in SQLite, running as a systemd service",
+                "Topic based per plant and location, so more sensors can just be added"
+            ],
+            "technologies": [
+                "Go",
+                "MQTT",
+                "SQLite",
+                "Arduino",
+                "ESP8266"
+            ],
+            "live": ""
+        },
+        {
             "id": 2,
             "title": "Kombucha Brewery",
             "description": "As I was brewing kombucha at home, I constantly kept loosing track of the dates I started a new batch. So I made this tracking application to track the progress and get email reminders when it's time to check on it.",
